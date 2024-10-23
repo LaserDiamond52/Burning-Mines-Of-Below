@@ -1,7 +1,9 @@
 package net.laserdiamond.burningminesofbelow;
 
 import com.mojang.logging.LogUtils;
+import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -94,5 +96,12 @@ public class BurningMinesOfBelow {
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
+    }
+
+    private void registerEvents(IEventBus eventBus)
+    {
+        BMOBItems.registerItems(eventBus);
+        BMOBBlocks.registerBlocks(eventBus);
+        BMOBRecipes.registerSerializers(eventBus);
     }
 }
