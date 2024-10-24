@@ -1,11 +1,17 @@
 package net.laserdiamond.burningminesofbelow.item;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorItem;
+import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
+import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.laserdiamond.burningminesofbelow.util.NameRegistry;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -171,6 +177,9 @@ public class BMOBItems {
                 }
             });
 
+
+    public static final RegistryObject<Item> BLAZIUM_HELMET = registerItem("Blazium Helmet", "blazium_helmet",
+            () -> new BMOBArmorItem(BMOBArmorMaterials.BLAZIUM, ArmorItem.Type.HELMET, new Item.Properties(), List.of(BMOBTags.Items.getArmorPieceTag(ArmorItem.Type.HELMET), ItemTags.TRIMMABLE_ARMOR)));
 
 
     /**

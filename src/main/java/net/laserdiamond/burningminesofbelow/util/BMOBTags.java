@@ -7,9 +7,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 
 public class BMOBTags {
 
@@ -28,6 +30,17 @@ public class BMOBTags {
         private static TagKey<Item> tag(String name)
         {
             return ItemTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
+        }
+
+        public static TagKey<Item> getArmorPieceTag(ArmorItem.Type type)
+        {
+            return switch (type)
+            {
+                case HELMET -> Tags.Items.ARMORS_HELMETS;
+                case CHESTPLATE -> Tags.Items.ARMORS_CHESTPLATES;
+                case LEGGINGS -> Tags.Items.ARMORS_LEGGINGS;
+                case BOOTS -> Tags.Items.ARMORS_BOOTS;
+            };
         }
     }
 

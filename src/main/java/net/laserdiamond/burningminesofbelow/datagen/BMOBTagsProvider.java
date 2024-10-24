@@ -2,7 +2,9 @@ package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.block.BlockTaggable;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.item.ItemTaggable;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -32,11 +34,11 @@ public class BMOBTagsProvider {
         {
             for (RegistryObject<Item> item : BMOBItems.ITEMS.getEntries())
             {
-                if (item.get() instanceof Taggable<?> taggable)
+                if (item.get() instanceof ItemTaggable taggable)
                 {
-                    for (TagKey<?> itemTag : taggable.getTags())
+                    for (TagKey<Item> itemTag : taggable.getTags())
                     {
-                        this.tag((TagKey<Item>) itemTag).add(item.get());
+                        this.tag(itemTag).add(item.get());
                     }
                 }
             }
@@ -55,11 +57,11 @@ public class BMOBTagsProvider {
         {
             for (RegistryObject<Block> block : BMOBBlocks.BLOCKS.getEntries())
             {
-                if (block.get() instanceof Taggable<?> taggable)
+                if (block.get() instanceof BlockTaggable taggable)
                 {
-                    for (TagKey<?> blockTag : taggable.getTags())
+                    for (TagKey<Block> blockTag : taggable.getTags())
                     {
-                        this.tag((TagKey<Block>) blockTag).add(block.get());
+                        this.tag(blockTag).add(block.get());
                     }
                 }
             }

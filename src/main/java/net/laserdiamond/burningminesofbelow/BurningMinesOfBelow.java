@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow;
 
 import com.mojang.logging.LogUtils;
+import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
@@ -100,6 +101,7 @@ public class BurningMinesOfBelow {
 
     private void registerEvents(IEventBus eventBus)
     {
+        BMOBAttributes.registerAttributes(eventBus);
         BMOBItems.registerItems(eventBus);
         BMOBBlocks.registerBlocks(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
