@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.util.Language;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -33,5 +34,8 @@ public class DataGenerators {
         BMOBTagsProvider.Blocks blocksTagGenerator = generator.addProvider(event.includeServer(), new BMOBTagsProvider.Blocks(packOutput, lookUpProvider, fileHelper));
         generator.addProvider(event.includeServer(), new BMOBTagsProvider.Items(packOutput, lookUpProvider, blocksTagGenerator.contentsGetter(), fileHelper));
         generator.addProvider(event.includeServer(), new BMOBTagsProvider.Entities(packOutput, lookUpProvider, fileHelper));
+
+        generator.addProvider(event.includeClient(), new BMOBLanguageProvider(packOutput, Language.EN_US));
+
     }
 }

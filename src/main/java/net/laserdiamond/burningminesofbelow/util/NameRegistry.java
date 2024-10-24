@@ -8,13 +8,16 @@ import java.util.HashMap;
  * Class used to help map names to new objects and features of this mod
  * @param <T> The {@link RegistryObject} type
  */
-public final class NameRegistry<T> {
+public class NameRegistry<T> {
 
-    private final HashMap<String, RegistryObject<T>> registryMap;
+    /**
+     * The {@link HashMap} containing all the {@link RegistryObject}s and their names
+     */
+    private final HashMap<RegistryObject<T>, String> registryMap; // Can be multiple instances of this registryMap
 
-    public NameRegistry()
+    protected NameRegistry()
     {
-        this.registryMap = new HashMap<>();
+        this.registryMap = new HashMap<>(); // Create the HashMap to map the Name to the RegistryObject
     }
 
     /**
@@ -24,14 +27,14 @@ public final class NameRegistry<T> {
      */
     public void addEntry(String name, RegistryObject<T> registryObject)
     {
-        this.registryMap.put(name, registryObject);
+        this.registryMap.put(registryObject, name);
     }
 
     /**
      * Returns a deep copy of the name registry map
      * @return A deep copy of the name registry map
      */
-    public HashMap<String, RegistryObject<T>> getRegistryMap() {
+    public HashMap<RegistryObject<T>, String> getRegistryMap() {
         return new HashMap<>(this.registryMap);
     }
 }

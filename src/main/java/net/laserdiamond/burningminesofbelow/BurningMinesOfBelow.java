@@ -48,7 +48,7 @@ public class BurningMinesOfBelow {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        BMOBItems.registerItems(modEventBus);
+        this.registerEvents(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
