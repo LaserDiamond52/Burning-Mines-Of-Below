@@ -1,5 +1,6 @@
 package net.laserdiamond.burningminesofbelow.item.equipment.armor;
 
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
@@ -40,7 +41,15 @@ public class BMOBArmorItem extends ArmorItem implements ItemTaggable
         double heatIntervalValue = this.heatIntervalAmount()[slot].value();
         double freezeIntervalValue = this.freezeIntervalAmount()[slot].value();
         double refinedMineralChanceValue = this.refinedMineralChanceAmount()[slot].value();
-        Multimap<Attribute, AttributeModifier> modifiers = this.getDefaultAttributeModifiers(pType.getSlot());
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> modifiers = ImmutableMultimap.builder();
+
+        modifiers.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor armor", this.getMaterial().getDefenseForType(pType), AttributeModifier.Operation.ADDITION));
+        modifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", this.getMaterial().getToughness(), AttributeModifier.Operation.ADDITION));
+
+        if (this.getMaterial().getKnockbackResistance() != 0.0)
+        {
+            modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.getMaterial().getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
+        }
 
         if (damageValue != 0.0)
         {
@@ -63,7 +72,7 @@ public class BMOBArmorItem extends ArmorItem implements ItemTaggable
             modifiers.put(BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), new AttributeModifier(uuid, "Armor refined mineral chance", refinedMineralChanceValue, this.freezeIntervalAmount()[slot].operation()));
         }
 
-
+        this.defaultModifiers = modifiers.build();
     }
 
     /**
