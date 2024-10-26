@@ -34,7 +34,13 @@ public class NameRegistry<T> {
      * Returns a deep copy of the name registry map
      * @return A deep copy of the name registry map
      */
-    public HashMap<RegistryObject<T>, String> getRegistryMap() {
-        return new HashMap<>(this.registryMap);
+    public HashMap<RegistryObject<T>, String> getRegistryMap()
+    {
+        final HashMap<RegistryObject<T>, String> returnMap = new HashMap<>();
+        for (RegistryObject<T> object : this.registryMap.keySet())
+        {
+            returnMap.put(object, this.registryMap.get(object));
+        }
+        return returnMap;
     }
 }

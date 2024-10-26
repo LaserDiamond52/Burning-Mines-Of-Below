@@ -8,7 +8,9 @@ import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.laserdiamond.burningminesofbelow.util.NameRegistry;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -30,6 +32,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
         this.addBlockTranslations();
         this.addEntityTranslations();
         this.addAttributeTranslations();
+        this.addCreativeTabTranslations();
     }
 
     /**
@@ -72,8 +75,25 @@ public class BMOBLanguageProvider extends LanguageProvider {
         NameRegistry<Attribute> attributeNameRegistry = this.languageRegistry.getAttributeNameRegistry();
         for (RegistryObject<Attribute> attribute : attributeNameRegistry.getRegistryMap().keySet())
         {
-            this.add(attribute.getId().toString(), attributeNameRegistry.getRegistryMap().get(attribute));
+            this.add("attribute." + idToTranslation(attribute.getId()).replace(BurningMinesOfBelow.MODID, "name"), attributeNameRegistry.getRegistryMap().get(attribute));
         }
+    }
+
+    /**
+     * Adds all the creative mode tab translations
+     */
+    private void addCreativeTabTranslations()
+    {
+        NameRegistry<CreativeModeTab> creativeModeTabNameRegistry = this.languageRegistry.getCreativeModeTabNameRegistry();
+        for (RegistryObject<CreativeModeTab> creativeTab : creativeModeTabNameRegistry.getRegistryMap().keySet())
+        {
+            this.add("creative_tab." + idToTranslation(creativeTab.getId()), creativeModeTabNameRegistry.getRegistryMap().get(creativeTab));
+        }
+    }
+
+    private String idToTranslation(ResourceLocation id)
+    {
+        return id.toString().replace(":", ".");
     }
 
 }

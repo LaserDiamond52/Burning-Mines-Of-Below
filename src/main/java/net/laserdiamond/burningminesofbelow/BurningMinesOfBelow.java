@@ -3,6 +3,7 @@ package net.laserdiamond.burningminesofbelow;
 import com.mojang.logging.LogUtils;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.minecraft.client.Minecraft;
@@ -77,25 +78,9 @@ public class BurningMinesOfBelow {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-
-    }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
+        for (RegistryObject<Item> item : BMOBItems.ITEMS.getEntries())
         {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            BMOBCreativeTabs.addItemToTab(item, BMOBCreativeTabs.MAIN_TAB, event);
         }
     }
 
@@ -105,5 +90,6 @@ public class BurningMinesOfBelow {
         BMOBItems.registerItems(eventBus);
         BMOBBlocks.registerBlocks(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
+        BMOBCreativeTabs.registerCreativeTabs(eventBus);
     }
 }

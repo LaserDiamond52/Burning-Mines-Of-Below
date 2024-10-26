@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.util;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -18,6 +19,7 @@ public class LanguageRegistry {
     private final NameRegistry<Item> itemNameRegistry;
     private final NameRegistry<Block> blockNameRegistry;
     private final NameRegistry<Attribute> attributeNameRegistry;
+    private final NameRegistry<CreativeModeTab> creativeModeTabNameRegistry;
 
     // TODO: Add other name registries here
 
@@ -29,6 +31,7 @@ public class LanguageRegistry {
         this.itemNameRegistry = new NameRegistry<>();
         this.blockNameRegistry = new NameRegistry<>();
         this.attributeNameRegistry = new NameRegistry<>();
+        this.creativeModeTabNameRegistry = new NameRegistry<>();
     }
 
     /**
@@ -61,5 +64,7 @@ public class LanguageRegistry {
         return attributeNameRegistry;
     }
 
-
+    public NameRegistry<CreativeModeTab> getCreativeModeTabNameRegistry() {
+        return creativeModeTabNameRegistry;
+    }
 }

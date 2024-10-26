@@ -1,10 +1,9 @@
 package net.laserdiamond.burningminesofbelow.item.equipment.armor;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
-import net.laserdiamond.burningminesofbelow.item.ItemTaggable;
+import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,15 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BMOBArmorItem extends ArmorItem implements ItemTaggable
+public class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 {
     private final List<TagKey<Item>> tags;
     protected List<MobEffectInstance> effectInstances;
 
     public BMOBArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties, List<TagKey<Item>> tags) {
         super(pMaterial, pType, pProperties);
-        this.tags = tags;
+        this.tags = new ArrayList<>(tags);
         this.effectInstances = new ArrayList<>();
+
+        this.tags.addAll(BMOBTags.Items.armorTags(pType));
 
         int slot = pType.ordinal();
         UUID uuid = BMOBArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
@@ -73,6 +74,11 @@ public class BMOBArmorItem extends ArmorItem implements ItemTaggable
         }
 
         this.defaultModifiers = modifiers.build();
+    }
+
+    public static String getArmorPieceName(Type type)
+    {
+        return type.getName().substring(0, 1).toUpperCase() + type.getName().substring(1);
     }
 
     /**

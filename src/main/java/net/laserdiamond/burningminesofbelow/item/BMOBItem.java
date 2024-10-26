@@ -1,5 +1,6 @@
 package net.laserdiamond.burningminesofbelow.item;
 
+import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * A simple item of this mod
  */
-public class BMOBItem extends Item implements ItemTaggable {
+public class BMOBItem extends Item implements Taggable<Item> {
 
     private final List<TagKey<Item>> tags;
 

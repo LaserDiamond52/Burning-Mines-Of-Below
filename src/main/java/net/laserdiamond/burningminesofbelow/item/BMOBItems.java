@@ -1,10 +1,9 @@
 package net.laserdiamond.burningminesofbelow.item;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
-import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorItem;
-import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
-import net.laserdiamond.burningminesofbelow.item.equipment.armor.BlaziumArmorItem;
+import net.laserdiamond.burningminesofbelow.item.equipment.armor.*;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
@@ -180,21 +179,97 @@ public class BMOBItems {
                 }
             });
 
-
-    public static final RegistryObject<Item> BLAZIUM_HELMET = registerItem("Blazium Helmet", "blazium_helmet",
-            () -> new BlaziumArmorItem(ArmorItem.Type.HELMET, new Item.Properties(), List.of(BMOBTags.Items.getArmorPieceTag(ArmorItem.Type.HELMET), ItemTags.TRIMMABLE_ARMOR)));
-
-
-    public static final RegistryObject<Item> BLAZIUM_CHESTPLATE = registerItem("Blazium Chestplate", "blazium_chestplate",
-            () -> new BlaziumArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties(), List.of(Tags.Items.ARMORS_CHESTPLATES, ItemTags.TRIMMABLE_ARMOR)));
+    /**
+     * Garnet item
+     */
+    public static final RegistryObject<Item> GARNET = registerItem("Garnet", "garnet",
+            () -> new BMOBItem(new Item.Properties(), List.of()));
 
 
-    public static final RegistryObject<Item> BLAZIUM_LEGGINGS = registerItem("Blazium Leggings", "blazium_leggings",
-            () -> new BlaziumArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties(), List.of(Tags.Items.ARMORS_LEGGINGS, ItemTags.TRIMMABLE_ARMOR)));
+    /**
+     * Peridot item
+     */
+    public static final RegistryObject<Item> PERIDOT = registerItem("Peridot", "peridot",
+            () -> new BMOBItem(new Item.Properties(), List.of()));
 
+    /**
+     * Refined Garnet item
+     */
+    public static final RegistryObject<Item> REFINED_GARNET = registerItem("Refined Garnet", "refined_garnet",
+            () -> new BMOBItem(new Item.Properties(), List.of()));
 
-    public static final RegistryObject<Item> BLAZIUM_BOOTS = registerItem("Blazium Boots", "blazium_boots",
-            () -> new BlaziumArmorItem(ArmorItem.Type.BOOTS, new Item.Properties(), List.of(Tags.Items.ARMORS_BOOTS, ItemTags.TRIMMABLE_ARMOR)));
+    /**
+     * Refined Peridot item
+     */
+    public static final RegistryObject<Item> REFINED_PERIDOT = registerItem("Refined Peridot", "refined_peridot",
+            () -> new BMOBItem(new Item.Properties(), List.of()));
+
+    /**
+     * Blazium Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Blazium armor piece
+     */
+    public static RegistryObject<Item> getBlaziumArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Blazium " + BMOBArmorItem.getArmorPieceName(type), "blazium_" + type.getName(),
+                () -> new BlaziumArmorItem(type, new Item.Properties(), List.of()));
+    }
+
+    /**
+     * Cyronite Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Cyronite armor piece
+     */
+    public static RegistryObject<Item> getCyroniteArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Cyronite " + BMOBArmorItem.getArmorPieceName(type), "cyronite_" + type.getName(),
+                () -> new CyroniteArmorItem(type, new Item.Properties(), List.of()));
+    }
+
+    /**
+     * Diamonite Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Diamonite armor piece
+     */
+    public static RegistryObject<Item> getDiamoniteArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Diamonite " + BMOBArmorItem.getArmorPieceName(type), "diamonite_" + type.getName(),
+                () -> new DiamoniteArmorItem(type, new Item.Properties(), List.of()));
+    }
+
+    /**
+     * Infernal Blazium Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Infernal Blazium armor piece
+     */
+    public static RegistryObject<Item> getInfernalBlaziumArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Infernal Blazium " + BMOBArmorItem.getArmorPieceName(type), "infernal_blazium_" + type.getName(),
+                () -> new InfernalBlaziumArmorItem(type, new Item.Properties(), List.of()));
+    }
+
+    /**
+     * Frigid Cyronite Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Frigid Cyronite armor piece
+     */
+    public static RegistryObject<Item> getFrigidCyroniteArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Frigid Cyronite " + BMOBArmorItem.getArmorPieceName(type), "frigid_cyronite_" + type.getName(),
+                () -> new FrigidCyroniteArmorItem(type, new Item.Properties(), List.of()));
+    }
+
+    /**
+     * Refined Diamonite Armor pieces
+     * @param type The armor piece type
+     * @return A {@link RegistryObject} that represents the specified Refined Diamonite armor piece
+     */
+    public static RegistryObject<Item> getRefinedDiamoniteArmorPiece(ArmorItem.Type type)
+    {
+        return registerItem("Refined Diamonite " + BMOBArmorItem.getArmorPieceName(type), "refined_diamonite_" + type.getName(),
+                () -> new RefinedDiamoniteArmorItem(type, new Item.Properties(), List.of()));
+    }
+
 
     /**
      * Registers a new item under the mod's item registry
@@ -216,6 +291,15 @@ public class BMOBItems {
      */
     public static void registerItems(IEventBus eventBus)
     {
+        for (ArmorItem.Type type : ArmorItem.Type.values())
+        {
+            getBlaziumArmorPiece(type);
+            getCyroniteArmorPiece(type);
+            getDiamoniteArmorPiece(type);
+            getInfernalBlaziumArmorPiece(type);
+            getFrigidCyroniteArmorPiece(type);
+            getRefinedDiamoniteArmorPiece(type);
+        }
         ITEMS.register(eventBus);
     }
 }

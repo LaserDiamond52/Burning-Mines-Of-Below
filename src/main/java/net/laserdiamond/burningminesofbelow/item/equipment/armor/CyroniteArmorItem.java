@@ -5,16 +5,15 @@ import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
 
-public final class BlaziumArmorItem extends BMOBArmorItem implements ForgeCraftable {
+public final class CyroniteArmorItem extends BMOBArmorItem implements ForgeCraftable {
 
-    public BlaziumArmorItem(Type pType, Properties pProperties, List<TagKey<Item>> tags) {
-        super(BMOBArmorMaterials.BLAZIUM, pType, pProperties, tags);
+    public CyroniteArmorItem(Type pType, Properties pProperties, List<TagKey<Item>> tags) {
+        super(BMOBArmorMaterials.CYRONITE, pType, pProperties, tags);
     }
 
     @Override
@@ -29,24 +28,13 @@ public final class BlaziumArmorItem extends BMOBArmorItem implements ForgeCrafta
     }
 
     @Override
-    protected ItemAttribute[] heatIntervalAmount() {
+    protected ItemAttribute[] freezeIntervalAmount() {
         return new ItemAttribute[]
                 {
                         new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
                         new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
                         new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
                         new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05)
-                };
-    }
-
-    @Override
-    protected ItemAttribute[] speedAmount() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025)
                 };
     }
 
@@ -63,7 +51,7 @@ public final class BlaziumArmorItem extends BMOBArmorItem implements ForgeCrafta
 
     @Override
     public List<Item> miscItems() {
-        return List.of(BMOBItems.BLAZIUM_INGOT.get());
+        return List.of(BMOBItems.CYRONITE_SHARD.get());
     }
 
     @Override
@@ -73,11 +61,11 @@ public final class BlaziumArmorItem extends BMOBArmorItem implements ForgeCrafta
 
     @Override
     public int heatFuelCost() {
-        return 100;
+        return 0;
     }
 
     @Override
     public int freezeFuelCost() {
-        return 0;
+        return 100;
     }
 }

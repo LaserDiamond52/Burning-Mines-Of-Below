@@ -13,6 +13,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 
+import java.util.List;
+
 public class BMOBTags {
 
     public static class Blocks
@@ -32,15 +34,21 @@ public class BMOBTags {
             return ItemTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
         }
 
-        public static TagKey<Item> getArmorPieceTag(ArmorItem.Type type)
+        /**
+         * A list of tags to apply to an armor piece
+         * @param type The armor piece type
+         * @return A list of tags to apply to the armor piece. This includes the tag that indicates what armor piece it is, and also tags the armor piece as trimmable.
+         */
+        public static List<TagKey<Item>> armorTags(ArmorItem.Type type)
         {
-            return switch (type)
+            TagKey<Item> armorTag = switch (type)
             {
                 case HELMET -> Tags.Items.ARMORS_HELMETS;
                 case CHESTPLATE -> Tags.Items.ARMORS_CHESTPLATES;
                 case LEGGINGS -> Tags.Items.ARMORS_LEGGINGS;
                 case BOOTS -> Tags.Items.ARMORS_BOOTS;
             };
+            return List.of(armorTag, ItemTags.TRIMMABLE_ARMOR);
         }
     }
 

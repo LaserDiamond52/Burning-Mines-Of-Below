@@ -21,7 +21,7 @@ public enum BMOBArmorMaterials implements ArmorMaterial {
 
     REFINED_DIAMONITE("refined_diamonite", 90, new int[]{7, 12, 10, 7}, 13, SoundEvents.ARMOR_EQUIP_DIAMOND, 2.5F, 0.0F, () -> Ingredient.of(BMOBItems.REFINED_DIAMOND.get())),
 
-    CYRONITE("cyronite", 70, new int[]{3, 8, 6, 3}, 15, SoundEvents.AMETHYST_BLOCK_CHIME, 2F, 0.05F, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get())),
+    CYRONITE("cyronite", 70, new int[]{3, 8, 6, 3}, 15, SoundEvents.AMETHYST_BLOCK_CHIME, 2.25F, 0.05F, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get())),
 
     FRIGID_CYRONITE("frigid_cyronite", 81, new int[]{4, 9, 7, 4}, 17, SoundEvents.AMETHYST_BLOCK_CHIME, 2F, 0.05F, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get(), BMOBItems.FRIGID_CYRONITE_CRYSTAL.get())),
     ;
