@@ -1,9 +1,11 @@
 package net.laserdiamond.burningminesofbelow.util;
 
+import net.minecraft.client.KeyMapping;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
 
@@ -16,10 +18,11 @@ import java.util.HashMap;
 public class LanguageRegistry {
 
     private final Language lang;
-    private final NameRegistry<Item> itemNameRegistry;
-    private final NameRegistry<Block> blockNameRegistry;
-    private final NameRegistry<Attribute> attributeNameRegistry;
-    private final NameRegistry<CreativeModeTab> creativeModeTabNameRegistry;
+    private final NameRegistry<RegistryObject<Item>> itemNameRegistry;
+    private final NameRegistry<RegistryObject<Block>> blockNameRegistry;
+    private final NameRegistry<RegistryObject<Attribute>> attributeNameRegistry;
+    private final NameRegistry<RegistryObject<CreativeModeTab>> creativeModeTabNameRegistry;
+    private final NameRegistry<KeyMapping> keyMappingNameRegistry;
 
     // TODO: Add other name registries here
 
@@ -32,6 +35,7 @@ public class LanguageRegistry {
         this.blockNameRegistry = new NameRegistry<>();
         this.attributeNameRegistry = new NameRegistry<>();
         this.creativeModeTabNameRegistry = new NameRegistry<>();
+        this.keyMappingNameRegistry = new NameRegistry<>();
     }
 
     /**
@@ -52,19 +56,23 @@ public class LanguageRegistry {
         return lang;
     }
 
-    public NameRegistry<Item> getItemNameRegistry() {
+    public NameRegistry<RegistryObject<Item>> getItemNameRegistry() {
         return itemNameRegistry;
     }
 
-    public NameRegistry<Block> getBlockNameRegistry() {
+    public NameRegistry<RegistryObject<Block>> getBlockNameRegistry() {
         return blockNameRegistry;
     }
 
-    public NameRegistry<Attribute> getAttributeNameRegistry() {
+    public NameRegistry<RegistryObject<Attribute>> getAttributeNameRegistry() {
         return attributeNameRegistry;
     }
 
-    public NameRegistry<CreativeModeTab> getCreativeModeTabNameRegistry() {
+    public NameRegistry<RegistryObject<CreativeModeTab>> getCreativeModeTabNameRegistry() {
         return creativeModeTabNameRegistry;
+    }
+
+    public NameRegistry<KeyMapping> getKeyMappingNameRegistry() {
+        return keyMappingNameRegistry;
     }
 }

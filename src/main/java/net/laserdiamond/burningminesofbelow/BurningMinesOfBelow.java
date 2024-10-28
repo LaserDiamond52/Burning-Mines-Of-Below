@@ -5,9 +5,11 @@ import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -62,6 +64,11 @@ public class BurningMinesOfBelow {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
+    public static ResourceLocation getModResource(String path)
+    {
+        return new ResourceLocation(MODID, path);
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
@@ -73,6 +80,8 @@ public class BurningMinesOfBelow {
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+
+        BMOBPackets.registerPackets();
     }
 
     // Add the example block item to the building blocks tab

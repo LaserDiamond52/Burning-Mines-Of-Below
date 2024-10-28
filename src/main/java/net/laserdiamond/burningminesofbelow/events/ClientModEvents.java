@@ -1,6 +1,8 @@
 package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
+import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -20,10 +22,14 @@ public class ClientModEvents
 
     }
 
+    /**
+     * Registers all the key mappings for this mod
+     * @param event {@link RegisterKeyMappingsEvent}
+     */
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event)
     {
-
+        event.register(BMOBKeyBindings.INSTANCE.abilityKey);
     }
 
     @SubscribeEvent
@@ -41,7 +47,7 @@ public class ClientModEvents
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
     {
-
+        event.registerAboveAll("heat", HeatHUDOverlay.HUD_HEAT);
     }
 
     @SubscribeEvent

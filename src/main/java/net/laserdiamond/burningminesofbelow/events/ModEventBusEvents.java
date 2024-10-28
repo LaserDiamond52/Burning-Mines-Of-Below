@@ -25,13 +25,14 @@ public class ModEventBusEvents
     @SubscribeEvent
     public static void registerEntityAttributes(EntityAttributeCreationEvent event)
     {
+        // TODO: Creation of Attributes for entities go here
     }
 
     @SubscribeEvent
     public static void entityAttributeModification(EntityAttributeModificationEvent event)
     {
-        event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), 30);
-        event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), 45);
+        event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), 600);
+        event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), 900);
         event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), 0);
     }
 

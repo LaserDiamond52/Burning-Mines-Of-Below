@@ -1,12 +1,11 @@
 package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
-import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
-import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.laserdiamond.burningminesofbelow.util.NameRegistry;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -33,6 +32,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
         this.addEntityTranslations();
         this.addAttributeTranslations();
         this.addCreativeTabTranslations();
+        this.addKeyMappingTranslations();
     }
 
     /**
@@ -40,7 +40,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addItemTranslations()
     {
-        NameRegistry<Item> itemNameRegistry = this.languageRegistry.getItemNameRegistry();
+        NameRegistry<RegistryObject<Item>> itemNameRegistry = this.languageRegistry.getItemNameRegistry();
         for (RegistryObject<Item> item : itemNameRegistry.getRegistryMap().keySet())
         {
             this.add(item.get(), itemNameRegistry.getRegistryMap().get(item));
@@ -52,7 +52,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addBlockTranslations()
     {
-        NameRegistry<Block> blockNameRegistry = this.languageRegistry.getBlockNameRegistry();
+        NameRegistry<RegistryObject<Block>> blockNameRegistry = this.languageRegistry.getBlockNameRegistry();
         for (RegistryObject<Block> block : blockNameRegistry.getRegistryMap().keySet())
         {
             this.add(block.get(), blockNameRegistry.getRegistryMap().get(block));
@@ -72,7 +72,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addAttributeTranslations()
     {
-        NameRegistry<Attribute> attributeNameRegistry = this.languageRegistry.getAttributeNameRegistry();
+        NameRegistry<RegistryObject<Attribute>> attributeNameRegistry = this.languageRegistry.getAttributeNameRegistry();
         for (RegistryObject<Attribute> attribute : attributeNameRegistry.getRegistryMap().keySet())
         {
             this.add("attribute." + idToTranslation(attribute.getId()).replace(BurningMinesOfBelow.MODID, "name"), attributeNameRegistry.getRegistryMap().get(attribute));
@@ -84,10 +84,20 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addCreativeTabTranslations()
     {
-        NameRegistry<CreativeModeTab> creativeModeTabNameRegistry = this.languageRegistry.getCreativeModeTabNameRegistry();
+        NameRegistry<RegistryObject<CreativeModeTab>> creativeModeTabNameRegistry = this.languageRegistry.getCreativeModeTabNameRegistry();
         for (RegistryObject<CreativeModeTab> creativeTab : creativeModeTabNameRegistry.getRegistryMap().keySet())
         {
             this.add("creative_tab." + idToTranslation(creativeTab.getId()), creativeModeTabNameRegistry.getRegistryMap().get(creativeTab));
+        }
+    }
+
+    private void addKeyMappingTranslations()
+    {
+        this.add(BMOBKeyBindings.BURNING_MINES_OF_BELOW_CATEGORY, "Burning Mines Of Below Keybindings");
+        NameRegistry<KeyMapping> keyMappingNameRegistry = this.languageRegistry.getKeyMappingNameRegistry();
+        for (KeyMapping keyMapping : keyMappingNameRegistry.getRegistryMap().keySet())
+        {
+            this.add(keyMapping.getName(), keyMappingNameRegistry.getRegistryMap().get(keyMapping));
         }
     }
 

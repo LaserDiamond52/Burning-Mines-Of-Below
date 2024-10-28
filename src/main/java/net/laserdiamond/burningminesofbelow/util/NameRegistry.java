@@ -13,7 +13,7 @@ public class NameRegistry<T> {
     /**
      * The {@link HashMap} containing all the {@link RegistryObject}s and their names
      */
-    private final HashMap<RegistryObject<T>, String> registryMap; // Can be multiple instances of this registryMap
+    private final HashMap<T, String> registryMap; // Can be multiple instances of this registryMap
 
     protected NameRegistry()
     {
@@ -23,21 +23,21 @@ public class NameRegistry<T> {
     /**
      * Adds a new entry to the name registry
      * @param name The name of the object
-     * @param registryObject The object being named
+     * @param object The object being named
      */
-    public void addEntry(String name, RegistryObject<T> registryObject)
+    public void addEntry(String name, T object)
     {
-        this.registryMap.put(registryObject, name);
+        this.registryMap.put(object, name);
     }
 
     /**
      * Returns a deep copy of the name registry map
      * @return A deep copy of the name registry map
      */
-    public HashMap<RegistryObject<T>, String> getRegistryMap()
+    public HashMap<T, String> getRegistryMap()
     {
-        final HashMap<RegistryObject<T>, String> returnMap = new HashMap<>();
-        for (RegistryObject<T> object : this.registryMap.keySet())
+        final HashMap<T, String> returnMap = new HashMap<>();
+        for (T object : this.registryMap.keySet())
         {
             returnMap.put(object, this.registryMap.get(object));
         }
