@@ -6,6 +6,9 @@ import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
+/**
+ * A basic block of this mod
+ */
 public class BMOBBlock extends Block implements Taggable<Block> {
 
     private final List<TagKey<Block>> tags;
