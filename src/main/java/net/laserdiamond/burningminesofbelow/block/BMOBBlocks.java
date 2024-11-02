@@ -38,24 +38,21 @@ public class BMOBBlocks {
     private static <T extends Block> RegistryObject<Block> registerBlock(String name, String localName, Supplier<T> blockSupplier)
     {
         RegistryObject<Block> block = BLOCKS.register(localName, blockSupplier);
-        registerBlockItem(name, localName, block);
+        registerBlockItem(localName, block);
         LanguageRegistry.instance(Language.EN_US).getBlockNameRegistry().addEntry(name, block);
         return block;
     }
 
     /**
      * Registers the block item of the block
-     * @param name The name of the block in-game
      * @param localName The local name of the block
      * @param block The {@link RegistryObject} of the {@link Block}
      * @return A {@link RegistryObject} representing the newly created {@link Item} of the {@link Block}
      * @param <T> the {@link Block} type
      */
-    private static <T extends Block> RegistryObject<Item> registerBlockItem(String name, String localName, RegistryObject<T> block)
+    private static <T extends Block> RegistryObject<Item> registerBlockItem(String localName, RegistryObject<T> block)
     {
-        final RegistryObject<Item> blockItem = BMOBItems.ITEMS.register(localName, () -> new BlockItem(block.get(), new Item.Properties()));
-        LanguageRegistry.instance(Language.EN_US).getItemNameRegistry().addEntry(name, blockItem);
-        return blockItem;
+        return BMOBItems.ITEMS.register(localName, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     /**

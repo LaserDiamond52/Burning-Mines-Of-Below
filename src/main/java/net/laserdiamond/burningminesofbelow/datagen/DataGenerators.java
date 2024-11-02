@@ -25,7 +25,7 @@ public class DataGenerators {
         final ExistingFileHelper fileHelper = event.getExistingFileHelper();
         final CompletableFuture<HolderLookup.Provider> lookUpProvider = event.getLookupProvider();
 
-        //generator.addProvider(event.includeClient(), BMOBLootTableProvider.create(packOutput));
+        generator.addProvider(event.includeClient(), BMOBLootTableProvider.create(packOutput));
         generator.addProvider(event.includeServer(), new BMOBRecipeProvider(packOutput));
 
         generator.addProvider(event.includeClient(), new BMOBItemModelProvider(packOutput, fileHelper));

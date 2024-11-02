@@ -87,6 +87,8 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     {
         this(blockPos, blockState);
         this.forgeLevel = forgeLevel;
+        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0];
+        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1];
     }
 
     /**
@@ -138,7 +140,7 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block." + BurningMinesOfBelow.MODID + ".forge_level_" + this.forgeLevel); // TODO: Item name (should include level)
+        return Component.translatable("block." + BurningMinesOfBelow.MODID + ".forge_level_" + this.forgeLevel);
     }
 
     @Nullable

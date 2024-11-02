@@ -2,7 +2,9 @@ package net.laserdiamond.burningminesofbelow.screen.forge;
 
 import net.laserdiamond.burningminesofbelow.block.BMOBBlock;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.block.ForgeBlock;
 import net.laserdiamond.burningminesofbelow.block.entity.ForgeBlockEntity;
+import net.laserdiamond.burningminesofbelow.item.BMOBItem;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
@@ -71,7 +74,7 @@ public class ForgeMenu extends AbstractContainerMenu {
     {
         int fuelLevel = this.containerData.get(fuelDataInt);
         int maxFuelLevel = this.containerData.get(maxFuelDataInt);
-        int fuelLevelSize = 66;
+        int fuelLevelSize = ForgeScreen.FUEL_BAR_LENGTH;
 
         return (maxFuelLevel != 0 && fuelLevel != 0) ? (fuelLevel * fuelLevelSize / maxFuelLevel) : 0;
     }
@@ -129,10 +132,13 @@ public class ForgeMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
+        return stillValid(BMOBBlocks.FORGE_LEVEL_1.get(), player) || stillValid(BMOBBlocks.FORGE_LEVEL_2.get(), player) || stillValid(BMOBBlocks.FORGE_LEVEL_3.get(), player);
+    }
+
+    private boolean stillValid(Block block, Player player)
+    {
         return stillValid(ContainerLevelAccess.create(this.level, this.be.getBlockPos()), player,
-                BMOBBlocks.FORGE_LEVEL_1.orElse(BMOBBlocks.FORGE_LEVEL_2.orElse(BMOBBlocks.FORGE_LEVEL_3.get()))
-//                BMOBBlocks.FORGE_LEVEL_1.get()
-        );
+                block);
     }
 
     private void addPlayerInventory(Inventory inventory)

@@ -29,4 +29,13 @@ public class BMOBBlockLootTables extends BlockLootSubProvider {
             }
         }
     }
+
+    /**
+     * Supply all registered blocks to the {@link BlockLootSubProvider} in order to make sure all blocks have a loot table associated with them
+     * @return An {@link java.util.Iterator} that contains all the blocks of this mod
+     */
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+        return BMOBBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+    }
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(BurningMinesOfBelow.MODID, "textures/gui/forge.png");
+    public static final int FUEL_BAR_LENGTH = 53;
 
     public ForgeScreen(ForgeMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -45,8 +46,8 @@ public class ForgeScreen extends AbstractContainerScreen<ForgeMenu> {
         int heatFuelLevel = this.menu.getScaledFuelLevel(2,3);
         int freezeFuelLevel = this.menu.getScaledFuelLevel(4, 5);
 
-        guiGraphics.blit(TEXTURE, x + 12, y + 8 + 66 - heatFuelLevel, 176, 66 - heatFuelLevel, 16, heatFuelLevel); // Heat Fuel
-        guiGraphics.blit(TEXTURE, x + 34, y + 8 + 66 - freezeFuelLevel, 192, 66 - freezeFuelLevel, 16, freezeFuelLevel); // Freeze Fuel
+        guiGraphics.blit(TEXTURE, x + 12, y + 17 + FUEL_BAR_LENGTH - heatFuelLevel, 176, FUEL_BAR_LENGTH - heatFuelLevel, 16, heatFuelLevel); // Heat Fuel
+        guiGraphics.blit(TEXTURE, x + 34, y + 17 + FUEL_BAR_LENGTH - freezeFuelLevel, 192, FUEL_BAR_LENGTH - freezeFuelLevel, 16, freezeFuelLevel); // Freeze Fuel
     }
 
     @Override

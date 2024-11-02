@@ -24,9 +24,14 @@ public class NameRegistry<T> {
      * Adds a new entry to the name registry
      * @param name The name of the object
      * @param object The object being named
+     * @throws IllegalArgumentException If the object already has a name mapped to it
      */
-    public void addEntry(String name, T object)
+    public void addEntry(String name, T object) throws IllegalArgumentException
     {
+        if (this.registryMap.get(object) != null || this.registryMap.containsKey(object))
+        {
+            throw new IllegalArgumentException("A name has already been given to this object!");
+        }
         this.registryMap.put(object, name);
     }
 
