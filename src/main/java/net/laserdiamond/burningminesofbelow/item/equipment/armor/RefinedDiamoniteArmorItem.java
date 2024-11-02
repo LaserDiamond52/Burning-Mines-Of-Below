@@ -15,7 +15,13 @@ public class RefinedDiamoniteArmorItem extends BMOBArmorItem implements ForgeCra
 
     @Override
     public Item mainItem() {
-        return BMOBItems.getDiamoniteArmorPiece(this.type).get();
+        return switch (this.type)
+        {
+            case HELMET -> BMOBItems.DIAMONITE_HELMET.get();
+            case CHESTPLATE -> BMOBItems.DIAMONITE_CHESTPLATE.get();
+            case LEGGINGS -> BMOBItems.DIAMONITE_LEGGINGS.get();
+            case BOOTS -> BMOBItems.DIAMONITE_BOOTS.get();
+        };
     }
 
     @Override

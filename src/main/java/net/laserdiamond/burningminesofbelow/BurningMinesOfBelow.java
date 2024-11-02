@@ -3,10 +3,12 @@ package net.laserdiamond.burningminesofbelow;
 import com.mojang.logging.LogUtils;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
+import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -98,7 +100,10 @@ public class BurningMinesOfBelow {
         BMOBAttributes.registerAttributes(eventBus);
         BMOBItems.registerItems(eventBus);
         BMOBBlocks.registerBlocks(eventBus);
+        BMOBBlockEntities.registerBlockEntities(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
         BMOBCreativeTabs.registerCreativeTabs(eventBus);
+        BMOBMenuTypes.registerMenuTypes(eventBus);
+        BMOBRecipes.registerSerializers(eventBus);
     }
 }

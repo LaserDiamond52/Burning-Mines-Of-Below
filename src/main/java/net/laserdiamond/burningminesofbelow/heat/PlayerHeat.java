@@ -74,9 +74,14 @@ public class PlayerHeat {
      * Adds heat to the player
      * @param add The amount of heat to add
      * @param canOverheat Whether the player can overheat or not. If the player cannot overheat, the player's heat level cannot go above the safe level
+     * @throws IllegalArgumentException If the heat amount to add is less than 0
      */
-    public void addHeat(int add, boolean canOverheat)
+    public void addHeat(int add, boolean canOverheat) throws IllegalArgumentException
     {
+        if (add < 0)
+        {
+            throw new IllegalArgumentException("Amount to add cannot be negative!");
+        }
         int newHeat = this.heat + add;
         if (canOverheat) // Player can overheat
         {
@@ -94,9 +99,14 @@ public class PlayerHeat {
      * Removes heat from the player
      * @param remove The amount of heat to remove
      * @param canFreeze Whether the player can freeze or not. If the player cannot freeze, the player's heat level cannot go below the safe level
+     * @throws IllegalArgumentException If the heat amount to remove is less than 0
      */
-    public void removeHeat(int remove, boolean canFreeze)
+    public void removeHeat(int remove, boolean canFreeze) throws IllegalArgumentException
     {
+        if (remove < 0)
+        {
+            throw new IllegalArgumentException("Amount to remove cannot be negative!");
+        }
         int newHeat = this.heat - remove;
         if (canFreeze) // Player can freeze
         {
@@ -110,26 +120,51 @@ public class PlayerHeat {
         this.heat = Math.max(newHeat, FROSTBITE_ZONE); // Player is not freezing and does not have a heat value below the frostbite zone
     }
 
+    /**
+     * Checks if the integer amount is in the hypothermia zone
+     * @param heat The heat amount as an integer
+     * @return True if the integer is within the hypothermia zone, false otherwise
+     */
     public static boolean isHypothermia(int heat)
     {
         return heat <= HYPOTHERMIA_ZONE && heat >= MIN_HEAT;
     }
 
+    /**
+     * Checks if the integer amount is in the frostbite zone
+     * @param heat The heat amount as an integer
+     * @return True if the integer is within the frostbite zone, false otherwise
+     */
     public static boolean isFrostBite(int heat)
     {
         return heat <= FROSTBITE_ZONE && heat >= HYPOTHERMIA_ZONE;
     }
 
+    /**
+     * Checks if the integer amount is in the safe zone
+     * @param heat The heat amount as an integer
+     * @return True if the integer is within the frostbite zone, false otherwise
+     */
     public static boolean isSafe(int heat)
     {
         return heat <= HOT_ZONE && heat > FROSTBITE_ZONE;
     }
 
+    /**
+     * Checks if the heat amount is in the hot zone
+     * @param heat The heat amount as an integer
+     * @return True if the integer is within the frostbite zone, false otherwise
+     */
     public static boolean isHot(int heat)
     {
         return heat >= HOT_ZONE && heat <= HEAT_EXHAUSTION_ZONE;
     }
 
+    /**
+     * Checks if the heat amount is in the heat exhaustion zone
+     * @param heat The heat amount as an integer
+     * @return True if the integer is within the frostbite zone, false otherwise
+     */
     public static boolean isHeatExhaustion(int heat)
     {
         return heat <= MAX_HEAT && heat >= HEAT_EXHAUSTION_ZONE;

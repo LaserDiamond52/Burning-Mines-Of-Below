@@ -76,11 +76,6 @@ public class BMOBArmorItem extends ArmorItem implements Taggable<Item>
         this.defaultModifiers = modifiers.build();
     }
 
-    public static String getArmorPieceName(Type type)
-    {
-        return type.getName().substring(0, 1).toUpperCase() + type.getName().substring(1);
-    }
-
     /**
      * The attack damage modifiers for the armor piece
      * @return An array of {@link ItemAttribute}s that contain the operation and value of the damage modifiers for the armor set

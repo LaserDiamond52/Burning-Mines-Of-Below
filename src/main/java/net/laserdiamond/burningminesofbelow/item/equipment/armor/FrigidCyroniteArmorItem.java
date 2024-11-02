@@ -39,7 +39,13 @@ public final class FrigidCyroniteArmorItem extends BMOBArmorItem implements Forg
 
     @Override
     public Item mainItem() {
-        return BMOBItems.getCyroniteArmorPiece(this.type).get();
+        return switch (this.type)
+        {
+            case HELMET -> BMOBItems.CYRONITE_HELMET.get();
+            case CHESTPLATE -> BMOBItems.CYRONITE_CHESTPLATE.get();
+            case LEGGINGS -> BMOBItems.CYRONITE_LEGGINGS.get();
+            case BOOTS -> BMOBItems.CYRONITE_BOOTS.get();
+        };
     }
 
     @Override

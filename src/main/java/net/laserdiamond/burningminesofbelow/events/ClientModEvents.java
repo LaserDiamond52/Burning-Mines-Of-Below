@@ -3,6 +3,9 @@ package net.laserdiamond.burningminesofbelow.events;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
+import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
+import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -19,7 +22,7 @@ public class ClientModEvents
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-
+        MenuScreens.register(BMOBMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
     }
 
     /**

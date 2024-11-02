@@ -83,7 +83,7 @@ public class ModEvents
                 int playerTicks = player.tickCount;
                 if (player.isCreative() || player.isSpectator())
                 {
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat()), ((ServerPlayer) player));
+                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), ((ServerPlayer) player));
                     return; // Player's heat should not change if they are in creative/spectator
                 }
 
@@ -94,8 +94,7 @@ public class ModEvents
                     HeatModifier heatModifier = heatUpPlayer(player, heat);
                     heat.addHeat(heatModifier.value(), heatModifier.canBypass());
 
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat()), (ServerPlayer) player);
-                    //System.out.println("Heat Tick: " + heat.getHeat());
+                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), (ServerPlayer) player);
                 }
 
                 final int freezeInterval = (int) getAttributeValue(player.getAttribute(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get()), "Freeze Interval");
@@ -105,8 +104,7 @@ public class ModEvents
                     HeatModifier coolModifier = coolDownPlayer(player, heat);
                     heat.removeHeat(coolModifier.value(), coolModifier.canBypass());
 
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat()), ((ServerPlayer) player));
-                    //System.out.println("Freeze Tick: " + heat.getHeat());
+                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), ((ServerPlayer) player));
                 }
 
             });
@@ -225,7 +223,7 @@ public class ModEvents
             {
                 player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(playerHeat ->
                 {
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat()), player);
+                    BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
                 });
             }
         }

@@ -34,7 +34,7 @@ public class FreezeC2SPacket extends BMOBPacket {
 
             if (player.isCreative() || player.isSpectator())
             {
-                BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat()), player);
+                BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
                 return; // Player should not be affected by freezing if they are in creative/spectator mode
             }
 
@@ -81,7 +81,7 @@ public class FreezeC2SPacket extends BMOBPacket {
             // TODO: Player should lose heat if they are in the cocytus tundra
 
             playerHeat.removeHeat(coolPoints, canFreeze);
-            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat()), player);
+            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
         });
     }
 }

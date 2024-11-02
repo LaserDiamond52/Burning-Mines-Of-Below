@@ -36,7 +36,7 @@ public class HeatC2SPacket extends BMOBPacket {
 
             if (player.isCreative() || player.isSpectator())
             {
-                BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat()), player);
+                BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
                 return; // Player should not be affected by heat/freezing if they are in creative/spectator mode
             }
 
@@ -85,7 +85,7 @@ public class HeatC2SPacket extends BMOBPacket {
             }
 
             playerHeat.addHeat(heatPoints, canOverheat);
-            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat()), player);
+            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
         });
     }
 }

@@ -31,6 +31,9 @@ public class BMOBPackets {
         return packetId++;
     }
 
+    /**
+     * Registers all the packets of this mod
+     */
     public static void registerPackets()
     {
         INSTANCE = NetworkRegistry.ChannelBuilder.named(
@@ -40,6 +43,7 @@ public class BMOBPackets {
                 .networkProtocolVersion(() -> "1.0")
                 .simpleChannel();
 
+        // Packet to send to server when player presses ability key and has an ability item in their hand
         registerPacket(AbilityKeyPacket.class, AbilityKeyPacket::new, NetworkDirection.PLAY_TO_SERVER);
 
         // Since a player heating up and freezing can happen at different intervals, we'll need two different packets for them
@@ -51,6 +55,13 @@ public class BMOBPackets {
         registerPacket(HeatS2CPacket.class, HeatS2CPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     }
 
+    /**
+     * Registers a packet
+     * @param packetClazz The packet class
+     * @param decoder The packet's decoder. A {@link Function} that has a {@link FriendlyByteBuf} input, and returns the packet object
+     * @param direction The direction that the packet will be traveling from
+     * @param <P> The {@link BMOBPacket} type
+     */
     public static <P extends BMOBPacket> void registerPacket(Class<P> packetClazz, Function<FriendlyByteBuf, P> decoder, NetworkDirection direction)
     {
         INSTANCE.messageBuilder(packetClazz, id(), direction)
@@ -60,16 +71,32 @@ public class BMOBPackets {
                 .add();
     }
 
+    /**
+     * Sends an object to the server
+     * @param message The object to send to the server
+     * @param <MSG> The object type
+     */
     public static <MSG> void sendToServer(MSG message)
     {
         INSTANCE.sendToServer(message);
     }
 
+    /**
+     * Sends an object to the player
+     * @param message The object to send to the player
+     * @param player The player receiving the object
+     * @param <MSG> The object type
+     */
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player)
     {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 
+    /**
+     * Sends an object to all clients
+     * @param message The object to send to the clients
+     * @param <MSG> The object type
+     */
     public static <MSG> void sendToAllClients(MSG message)
     {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);

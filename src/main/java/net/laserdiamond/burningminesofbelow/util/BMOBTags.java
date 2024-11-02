@@ -20,6 +20,8 @@ public class BMOBTags {
     public static class Blocks
     {
 
+        public static final TagKey<Block> FORGE_BLOCK = tag("forge_block");
+
         private static TagKey<Block> tag(String name)
         {
             return BlockTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
@@ -28,6 +30,11 @@ public class BMOBTags {
 
     public static class Items
     {
+
+        public static final TagKey<Item> FORGE_HEAT_FUEL = tag("forge_heat_fuel");
+        public static final TagKey<Item> FORGE_FREEZE_FUEL = tag("forge_freeze_fuel");
+        public static final TagKey<Item> FORGE_MAIN_INGREDIENT = tag("forge_main_ingredient");
+        public static final TagKey<Item> FORGE_MISC_INGREDIENT = tag("forge_misc_ingredient");
 
         private static TagKey<Item> tag(String name)
         {

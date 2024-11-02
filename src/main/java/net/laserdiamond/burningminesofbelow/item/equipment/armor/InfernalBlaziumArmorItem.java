@@ -52,7 +52,13 @@ public final class InfernalBlaziumArmorItem extends BMOBArmorItem implements For
 
     @Override
     public Item mainItem() {
-        return BMOBItems.getBlaziumArmorPiece(this.type).get();
+        return switch (this.type)
+        {
+            case HELMET -> BMOBItems.BLAZIUM_HELMET.get();
+            case CHESTPLATE -> BMOBItems.BLAZIUM_CHESTPLATE.get();
+            case LEGGINGS -> BMOBItems.BLAZIUM_LEGGINGS.get();
+            case BOOTS -> BMOBItems.BLAZIUM_BOOTS.get();
+        };
     }
 
     @Override
