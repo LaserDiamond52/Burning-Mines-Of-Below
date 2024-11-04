@@ -6,6 +6,7 @@ import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -49,8 +50,8 @@ public final class FrigidCyroniteArmorItem extends BMOBArmorItem implements Forg
     }
 
     @Override
-    public List<Item> miscItems() {
-        return List.of(BMOBItems.FRIGID_CYRONITE_CRYSTAL.get());
+    public Ingredient miscItems() {
+        return Ingredient.of(BMOBItems.FRIGID_CYRONITE_CRYSTAL.get());
     }
 
     @Override

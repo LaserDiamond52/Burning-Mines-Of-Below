@@ -1,10 +1,7 @@
 package net.laserdiamond.burningminesofbelow.screen.forge;
 
-import net.laserdiamond.burningminesofbelow.block.BMOBBlock;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
-import net.laserdiamond.burningminesofbelow.block.ForgeBlock;
-import net.laserdiamond.burningminesofbelow.block.entity.ForgeBlockEntity;
-import net.laserdiamond.burningminesofbelow.item.BMOBItem;
+import net.laserdiamond.burningminesofbelow.block.entity.AbstractForgeBlockEntity;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,7 +16,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ForgeMenu extends AbstractContainerMenu {
 
-    private final ForgeBlockEntity be;
+    private final AbstractForgeBlockEntity be;
     private final Level level;
     private final ContainerData containerData;
     private SlotItemHandler mainInput, miscInput, fuelInput, output;
@@ -34,7 +31,7 @@ public class ForgeMenu extends AbstractContainerMenu {
         super(BMOBMenuTypes.FORGE_MENU.get(), containerId);
 
         checkContainerSize(inventory, 4);
-        this.be = ((ForgeBlockEntity) blockEntity);
+        this.be = ((AbstractForgeBlockEntity) blockEntity);
         this.level = inventory.player.level();
         this.containerData = containerData;
 

@@ -22,6 +22,11 @@ public class BMOBTags {
 
         public static final TagKey<Block> FORGE_BLOCK = tag("forge_block");
 
+        public static final TagKey<Block> NEEDS_DIAMONITE_TOOL = tag("needs_diamonite_tool");
+        public static final TagKey<Block> NEEDS_REFINED_DIAMONITE_TOOL = tag("needs_refined_diamonite_tool");
+        public static final TagKey<Block> NEEDS_BLAZIUM_TOOL = tag("needs_blazium_tool");
+        public static final TagKey<Block> NEEDS_CYRONITE_TOOL = tag("needs_cyronite_tool");
+
         private static TagKey<Block> tag(String name)
         {
             return BlockTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
@@ -30,7 +35,6 @@ public class BMOBTags {
 
     public static class Items
     {
-
         public static final TagKey<Item> FORGE_HEAT_FUEL = tag("forge_heat_fuel");
         public static final TagKey<Item> FORGE_FREEZE_FUEL = tag("forge_freeze_fuel");
         public static final TagKey<Item> FORGE_MAIN_INGREDIENT = tag("forge_main_ingredient");
@@ -61,6 +65,8 @@ public class BMOBTags {
 
     public static class Biomes
     {
+
+        public static final TagKey<Biome> COCYTUS_TUNDRA = tag("cocytus_tundra");
 
         private static TagKey<Biome> tag(String name)
         {

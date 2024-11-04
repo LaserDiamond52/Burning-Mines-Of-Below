@@ -1,13 +1,12 @@
 package net.laserdiamond.burningminesofbelow.item.equipment.armor;
 
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
-import net.laserdiamond.burningminesofbelow.item.BMOBItem;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -62,8 +61,8 @@ public final class InfernalBlaziumArmorItem extends BMOBArmorItem implements For
     }
 
     @Override
-    public List<Item> miscItems() {
-        return List.of(BMOBItems.INFERNAL_FLAME_INGOT.get());
+    public Ingredient miscItems() {
+        return Ingredient.of(BMOBItems.INFERNAL_FLAME_INGOT.get());
     }
 
     @Override

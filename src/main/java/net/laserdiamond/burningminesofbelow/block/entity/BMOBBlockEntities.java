@@ -16,13 +16,15 @@ public class BMOBBlockEntities {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BurningMinesOfBelow.MODID);
 
-    public static final RegistryObject<BlockEntityType<ForgeBlockEntity>> FORGE = registerBlockEntity("forge_be",
-            () -> BlockEntityType.Builder.of(ForgeBlockEntity::new,
-                            BMOBBlocks.FORGE_LEVEL_1.get(),
-                            BMOBBlocks.FORGE_LEVEL_2.get(),
-                            BMOBBlocks.FORGE_LEVEL_3.get()
-                    )
-                    .build(null));
+    public static final RegistryObject<BlockEntityType<ForgeBlockEntityLevel1>> FORGE_LEVEL_1 = registerBlockEntity("forge_1_be",
+            () -> BlockEntityType.Builder.of(ForgeBlockEntityLevel1::new, BMOBBlocks.FORGE_LEVEL_1.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ForgeBlockEntityLevel2>> FORGE_LEVEL_2 = registerBlockEntity("forge_2_be",
+            () -> BlockEntityType.Builder.of(ForgeBlockEntityLevel2::new, BMOBBlocks.FORGE_LEVEL_2.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ForgeBlockEntityLevel3>> FORGE_LEVEL_3 = registerBlockEntity("forge_3_be",
+            () -> BlockEntityType.Builder.of(ForgeBlockEntityLevel3::new, BMOBBlocks.FORGE_LEVEL_3.get()).build(null));
+
 
     public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerBlockEntity(String localName, Supplier<BlockEntityType<T>> blockEntityTypeSupplier)
     {

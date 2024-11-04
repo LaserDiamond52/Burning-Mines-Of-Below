@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.util;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -23,6 +24,7 @@ public class LanguageRegistry {
     private final NameRegistry<RegistryObject<Attribute>> attributeNameRegistry;
     private final NameRegistry<RegistryObject<CreativeModeTab>> creativeModeTabNameRegistry;
     private final NameRegistry<KeyMapping> keyMappingNameRegistry;
+    private final NameRegistry<RegistryObject<MobEffect>> mobEffectNameRegistry;
 
     // TODO: Add other name registries here
 
@@ -36,6 +38,7 @@ public class LanguageRegistry {
         this.attributeNameRegistry = new NameRegistry<>();
         this.creativeModeTabNameRegistry = new NameRegistry<>();
         this.keyMappingNameRegistry = new NameRegistry<>();
+        this.mobEffectNameRegistry = new NameRegistry<>();
     }
 
     /**
@@ -74,5 +77,9 @@ public class LanguageRegistry {
 
     public NameRegistry<KeyMapping> getKeyMappingNameRegistry() {
         return keyMappingNameRegistry;
+    }
+
+    public NameRegistry<RegistryObject<MobEffect>> getMobEffectNameRegistry() {
+        return mobEffectNameRegistry;
     }
 }

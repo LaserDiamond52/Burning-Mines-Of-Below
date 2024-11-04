@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -50,8 +51,8 @@ public final class CyroniteArmorItem extends BMOBArmorItem implements ForgeCraft
     }
 
     @Override
-    public List<Item> miscItems() {
-        return List.of(BMOBItems.CYRONITE_SHARD.get());
+    public Ingredient miscItems() {
+        return Ingredient.of(BMOBItems.CYRONITE_SHARD.get());
     }
 
     @Override

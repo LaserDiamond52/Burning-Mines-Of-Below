@@ -3,6 +3,9 @@ package net.laserdiamond.burningminesofbelow.datagen;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
+import net.laserdiamond.burningminesofbelow.item.ForgeFuelItem;
+import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -10,6 +13,7 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -30,16 +34,59 @@ public class BMOBTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider provider)
         {
-            for (RegistryObject<Item> item : BMOBItems.ITEMS.getEntries())
+            for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries())
             {
-                if (item.get() instanceof Taggable<?> taggable)
+                Item item = itemRegistryObject.get();
+                if (item instanceof Taggable<?> taggable)
                 {
                     for (TagKey<?> itemTag : taggable.getTags())
                     {
-                        this.tag((TagKey<Item>) itemTag).add(item.get());
+                        this.tag((TagKey<Item>) itemTag).add(itemRegistryObject.get());
+                    }
+                }
+                if (item instanceof ForgeFuelItem forgeFuelItem)
+                {
+                    if (forgeFuelItem.heatFuel() > 0)
+                    {
+                        this.tag(BMOBTags.Items.FORGE_HEAT_FUEL).add(item);
+                    }
+                    if (forgeFuelItem.freezeFuel() > 0)
+                    {
+                        this.tag(BMOBTags.Items.FORGE_FREEZE_FUEL).add(item);
+                    }
+                }
+                if (item instanceof ForgeCraftable forgeCraftable)
+                {
+                    if (!forgeCraftable.mainItem().getDefaultInstance().is(BMOBTags.Items.FORGE_MAIN_INGREDIENT))
+                    {
+                        this.tag(BMOBTags.Items.FORGE_MAIN_INGREDIENT).add(forgeCraftable.mainItem());
+                    }
+                    for (ItemStack ingredientStack : forgeCraftable.miscItems().getItems())
+                    {
+                        if (!ingredientStack.is(BMOBTags.Items.FORGE_MISC_INGREDIENT))
+                        {
+                            this.tag(BMOBTags.Items.FORGE_MISC_INGREDIENT).add(ingredientStack.getItem());
+                        }
                     }
                 }
             }
+
+            // Add tags for fuel items
+            try {
+                for (Item heatFuelItem : BMOBItems.HEAT_FUEL_ITEMS.getFuelItemMap().keySet())
+                {
+                    this.tag(BMOBTags.Items.FORGE_HEAT_FUEL).add(heatFuelItem);
+                }
+                for (Item freezeFuelItem : BMOBItems.FREEZE_FUEL_ITEMS.getFuelItemMap().keySet())
+                {
+                    this.tag(BMOBTags.Items.FORGE_FREEZE_FUEL).add(freezeFuelItem);
+                }
+            } catch (NullPointerException e)
+            {
+                System.out.println("An item returned null, and the tag could not be applied!");
+                e.printStackTrace();
+            }
+
         }
     }
 

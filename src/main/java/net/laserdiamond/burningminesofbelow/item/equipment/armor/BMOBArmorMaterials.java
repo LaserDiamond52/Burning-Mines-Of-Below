@@ -8,7 +8,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public enum BMOBArmorMaterials implements ArmorMaterial {

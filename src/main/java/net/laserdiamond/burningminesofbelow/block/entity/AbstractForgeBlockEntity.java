@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.block.entity;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.recipe.ForgeRecipe;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeMenu;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
@@ -14,10 +15,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -29,8 +33,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-// TODO: Consider making this an abstract class and extending from it to set the different max fuel level values and other properties
-public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
+public abstract class AbstractForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(4);
 
@@ -40,25 +43,28 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
     public static final int OUTPUT_SLOT = 3;
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private final ContainerData containerData;
-    private int forgeLevel;
+    private final int forgeLevel;
     private final int[] progress = new int[]{0, 100};
     private final int[] heatFuelLevel = new int[]{0, 100};
     private final int[] freezeFuelLevel = new int[]{0, 100};
 
-    public ForgeBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BMOBBlockEntities.FORGE.get(), pPos, pBlockState);
-        this.forgeLevel = 1;
+    public AbstractForgeBlockEntity(BlockEntityType<? extends AbstractForgeBlockEntity> forgeBe, BlockPos blockPos, BlockState blockState, int forgeLevel)
+    {
+        super(forgeBe, blockPos, blockState);
+        this.forgeLevel = forgeLevel;
+        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0];
+        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1];
         this.containerData = new ContainerData() {
             @Override
             public int get(int i) {
                 return switch (i)
                 {
-                    case 0 -> ForgeBlockEntity.this.progress[0];
-                    case 1 -> ForgeBlockEntity.this.progress[1];
-                    case 2 -> ForgeBlockEntity.this.heatFuelLevel[0];
-                    case 3 -> ForgeBlockEntity.this.heatFuelLevel[1];
-                    case 4 -> ForgeBlockEntity.this.freezeFuelLevel[0];
-                    case 5 -> ForgeBlockEntity.this.freezeFuelLevel[1];
+                    case 0 -> AbstractForgeBlockEntity.this.progress[0];
+                    case 1 -> AbstractForgeBlockEntity.this.progress[1];
+                    case 2 -> AbstractForgeBlockEntity.this.heatFuelLevel[0];
+                    case 3 -> AbstractForgeBlockEntity.this.heatFuelLevel[1];
+                    case 4 -> AbstractForgeBlockEntity.this.freezeFuelLevel[0];
+                    case 5 -> AbstractForgeBlockEntity.this.freezeFuelLevel[1];
                     default -> 0;
                 };
             }
@@ -67,12 +73,12 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
             public void set(int i, int i1) {
                 switch (i)
                 {
-                    case 0 -> ForgeBlockEntity.this.progress[0] = i1;
-                    case 1 -> ForgeBlockEntity.this.progress[1] = i1;
-                    case 2 -> ForgeBlockEntity.this.heatFuelLevel[0] = i1;
-                    case 3 -> ForgeBlockEntity.this.heatFuelLevel[1] = i1;
-                    case 4 -> ForgeBlockEntity.this.freezeFuelLevel[0] = i1;
-                    case 5 -> ForgeBlockEntity.this.freezeFuelLevel[1] = i1;
+                    case 0 -> AbstractForgeBlockEntity.this.progress[0] = i1;
+                    case 1 -> AbstractForgeBlockEntity.this.progress[1] = i1;
+                    case 2 -> AbstractForgeBlockEntity.this.heatFuelLevel[0] = i1;
+                    case 3 -> AbstractForgeBlockEntity.this.heatFuelLevel[1] = i1;
+                    case 4 -> AbstractForgeBlockEntity.this.freezeFuelLevel[0] = i1;
+                    case 5 -> AbstractForgeBlockEntity.this.freezeFuelLevel[1] = i1;
                 }
             }
 
@@ -81,27 +87,6 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
                 return 6;
             }
         };
-    }
-
-    public ForgeBlockEntity(BlockPos blockPos, BlockState blockState, int forgeLevel)
-    {
-        this(blockPos, blockState);
-        this.forgeLevel = forgeLevel;
-        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0];
-        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1];
-    }
-
-    /**
-     * Sets the level of Forge and the maximum fuel capacities of the level to set to. If no level is set, the Forge will default to level 1
-     * @param forgeLevel The level of the Forge
-     * @return {@link ForgeBlockEntity} instance
-     */
-    public ForgeBlockEntity setForgeLevel(int forgeLevel)
-    {
-        this.forgeLevel = forgeLevel; // Set forge level
-        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0];
-        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1];
-        return this; // Set max fuel capacities and return the object instance of this class
     }
 
     @Override
@@ -176,16 +161,51 @@ public class ForgeBlockEntity extends BlockEntity implements MenuProvider {
      */
     public void tick(Level level, BlockPos blockPos, BlockState blockState)
     {
-        if (itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_HEAT_FUEL))
-        {
-            this.heatFuelLevel[0] = Math.min(this.heatFuelLevel[1], this.heatFuelLevel[0]); // TODO: Add fuel of item to 2nd parameter
+        ItemStack fuelItemStack = this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT);
 
-        } else if (itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_FREEZE_FUEL))
+        boolean heatFuelConsumed = false;
+        boolean freezeFuelConsumed = false;
+        Item returnItem = Items.AIR;
+        int itemCount = 0;
+        if (this.heatFuelLevel[0] < this.heatFuelLevel[1])
         {
-            this.freezeFuelLevel[0] = Math.min(this.freezeFuelLevel[1], this.freezeFuelLevel[0]); // TODO: Add fuel of item to 2nd parameter
-
+            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_HEAT_FUEL))
+            {
+                int fuelAmount = BMOBItems.HEAT_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem());
+                this.heatFuelLevel[0] = Math.min(this.heatFuelLevel[1], this.heatFuelLevel[0] + fuelAmount); // Add fuel
+                returnItem = fuelItemStack.getItem(); // The item to return is assumed to be the fuel item
+                itemCount = fuelItemStack.getCount() - 1; // The new amount we want in the fuel slot
+                heatFuelConsumed = true;
+            }
         }
-        // TODO: If items are buckets, replace the item in the slot with an empty bucket
+        if (this.freezeFuelLevel[0] < this.freezeFuelLevel[1])
+        {
+            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_FREEZE_FUEL))
+            {
+                int fuelAmount = BMOBItems.FREEZE_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem());
+                this.freezeFuelLevel[0] = Math.min(this.freezeFuelLevel[1], this.freezeFuelLevel[0] + fuelAmount); // Add fuel
+                returnItem = fuelItemStack.getItem(); // The item to return is assumed to be the fuel item
+                itemCount = fuelItemStack.getCount() - 1; // The new amount we want in the fuel slot
+                freezeFuelConsumed = true;
+            }
+        }
+
+        if (heatFuelConsumed || freezeFuelConsumed) // Consume items only if the fuel has been consumed
+        {
+            if (fuelItemStack.getItem() instanceof BucketItem) // If a fuel item that is a bucket is placed...
+            {
+                this.itemStackHandler.setStackInSlot(FUEL_ITEM_INPUT_SLOT, new ItemStack(Items.BUCKET)); // Replace the item in the slot with an empty bucket
+            } else
+            {
+                if (itemCount <= 0)
+                {
+                    returnItem = Items.AIR; // Set the item to air if the consumed amount is 0 or less
+                }
+                ItemStack returnStack = new ItemStack(returnItem);
+                returnStack.setCount(itemCount);
+                this.itemStackHandler.setStackInSlot(FUEL_ITEM_INPUT_SLOT, returnStack);
+            }
+        }
 
         if (this.hasRecipeJson())
         {

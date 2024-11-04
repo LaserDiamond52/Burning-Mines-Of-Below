@@ -8,6 +8,7 @@ import net.laserdiamond.burningminesofbelow.util.NameRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -29,6 +30,7 @@ public class BMOBLanguageProvider extends LanguageProvider {
     {
         this.addItemTranslations();
         this.addBlockTranslations();
+        this.addMobEffectTranslations();
         this.addEntityTranslations();
         this.addAttributeTranslations();
         this.addCreativeTabTranslations();
@@ -56,6 +58,18 @@ public class BMOBLanguageProvider extends LanguageProvider {
         for (RegistryObject<Block> block : blockNameRegistry.getRegistryMap().keySet())
         {
             this.add(block.get(), blockNameRegistry.getRegistryMap().get(block));
+        }
+    }
+
+    /**
+     * Adds al the mob effect name translations
+     */
+    private void addMobEffectTranslations()
+    {
+        NameRegistry<RegistryObject<MobEffect>> mobEffectNameRegistry = this.languageRegistry.getMobEffectNameRegistry();
+        for (RegistryObject<MobEffect> mobEffect : mobEffectNameRegistry.getRegistryMap().keySet())
+        {
+            this.add(mobEffect.get(), mobEffectNameRegistry.getRegistryMap().get(mobEffect));
         }
     }
 

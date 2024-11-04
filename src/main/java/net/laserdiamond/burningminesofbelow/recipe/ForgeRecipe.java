@@ -2,9 +2,8 @@ package net.laserdiamond.burningminesofbelow.recipe;
 
 import com.google.gson.JsonObject;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.block.entity.ForgeBlockEntity;
+import net.laserdiamond.burningminesofbelow.block.entity.AbstractForgeBlockEntity;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -38,7 +37,7 @@ public class ForgeRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer simpleContainer, Level level) {
-        return !level.isClientSide && mainIngredient.test(simpleContainer.getItem(ForgeBlockEntity.MAIN_ITEM_INPUT_SLOT)) && miscIngredient.test(simpleContainer.getItem(ForgeBlockEntity.MISC_ITEM_INPUT_SLOT));
+        return !level.isClientSide && mainIngredient.test(simpleContainer.getItem(AbstractForgeBlockEntity.MAIN_ITEM_INPUT_SLOT)) && miscIngredient.test(simpleContainer.getItem(AbstractForgeBlockEntity.MISC_ITEM_INPUT_SLOT));
     }
 
     @Override

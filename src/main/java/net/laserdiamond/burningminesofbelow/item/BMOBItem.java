@@ -4,13 +4,12 @@ import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple item of this mod
  */
-public class BMOBItem extends Item implements Taggable<Item> {
+public class BMOBItem extends Item implements Taggable<Item>, ForgeFuelItem {
 
     private final List<TagKey<Item>> tags;
 

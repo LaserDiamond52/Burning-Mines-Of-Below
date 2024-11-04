@@ -2,7 +2,7 @@ package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
-import net.laserdiamond.burningminesofbelow.block.ForgeBlock;
+import net.laserdiamond.burningminesofbelow.block.AbstractForgeBlock;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -21,7 +21,7 @@ public class BMOBBlocksStateProvider extends BlockStateProvider {
         for (RegistryObject<Block> blockRegistryObject : BMOBBlocks.BLOCKS.getEntries())
         {
             Block block = blockRegistryObject.get();
-            if (block instanceof ForgeBlock forgeBlock)
+            if (block instanceof AbstractForgeBlock forgeBlock)
             {
                 this.simpleBlockWithItem(forgeBlock, new ModelFile.UncheckedModelFile(this.modLoc("block/forge")));
             }

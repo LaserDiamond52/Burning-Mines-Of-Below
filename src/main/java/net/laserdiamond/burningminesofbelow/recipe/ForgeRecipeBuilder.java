@@ -1,7 +1,6 @@
 package net.laserdiamond.burningminesofbelow.recipe;
 
 import com.google.gson.JsonObject;
-import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;

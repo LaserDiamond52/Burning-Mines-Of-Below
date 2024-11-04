@@ -4,10 +4,11 @@ import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
-public class RefinedDiamoniteArmorItem extends BMOBArmorItem implements ForgeCraftable {
+public final class RefinedDiamoniteArmorItem extends BMOBArmorItem implements ForgeCraftable {
 
     public RefinedDiamoniteArmorItem(Type pType, Properties pProperties, List<TagKey<Item>> tags) {
         super(BMOBArmorMaterials.REFINED_DIAMONITE, pType, pProperties, tags);
@@ -25,8 +26,8 @@ public class RefinedDiamoniteArmorItem extends BMOBArmorItem implements ForgeCra
     }
 
     @Override
-    public List<Item> miscItems() {
-        return List.of(BMOBItems.REFINED_DIAMOND.get());
+    public Ingredient miscItems() {
+        return Ingredient.of(BMOBItems.REFINED_DIAMOND.get());
     }
 
     @Override

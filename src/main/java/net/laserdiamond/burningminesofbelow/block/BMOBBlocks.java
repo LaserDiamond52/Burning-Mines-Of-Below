@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.block;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
@@ -21,11 +22,25 @@ import java.util.function.Supplier;
 
 public class BMOBBlocks {
 
+    /**
+     * Block registry of this mod
+     */
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BurningMinesOfBelow.MODID);
 
-    public static final RegistryObject<Block> FORGE_LEVEL_1 = registerBlock("Forge Level 1", "forge_level_1", () -> new ForgeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL), 1));
-    public static final RegistryObject<Block> FORGE_LEVEL_2 = registerBlock("Forge Level 2", "forge_level_2", () -> new ForgeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL), 2));
-    public static final RegistryObject<Block> FORGE_LEVEL_3 = registerBlock("Forge Level 3", "forge_level_3", () -> new ForgeBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL), 3));
+    /**
+     * Level 1 Forge block
+     */
+    public static final RegistryObject<Block> FORGE_LEVEL_1 = registerBlock("Forge Level 1", "forge_level_1", () -> new ForgeBlockLevel1(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL)));
+
+    /**
+     * Level 2 Forge block
+     */
+    public static final RegistryObject<Block> FORGE_LEVEL_2 = registerBlock("Forge Level 2", "forge_level_2", () -> new ForgeBlockLevel2(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL)));
+
+    /**
+     * Level 3 Forge block
+     */
+    public static final RegistryObject<Block> FORGE_LEVEL_3 = registerBlock("Forge Level 3", "forge_level_3", () -> new ForgeBlockLevel3(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL)));
 
     /**
      * Registers a new block under this mod's registry

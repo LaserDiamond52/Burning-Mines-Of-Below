@@ -47,11 +47,18 @@ public class ClientModEvents
 
     }
 
+    /**
+     * Registers all the GUI overlays for this mod
+     * @param event {@link RegisterGuiOverlaysEvent}
+     */
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
     {
         event.registerAboveAll("heat", HeatHUDOverlay.HUD_HEAT);
+        //event.registerAboveAll("heat_exhaustion_nausea", HeatFreezeEffectsOverlay.OVERLAY);
     }
+
+
 
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event)

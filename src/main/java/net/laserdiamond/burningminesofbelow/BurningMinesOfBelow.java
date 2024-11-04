@@ -4,36 +4,25 @@ import com.mojang.logging.LogUtils;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
+import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
+import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
@@ -54,6 +43,7 @@ public class BurningMinesOfBelow {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
+        this.createArmorConfigs();
         this.registerEvents(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
@@ -105,5 +95,14 @@ public class BurningMinesOfBelow {
         BMOBCreativeTabs.registerCreativeTabs(eventBus);
         BMOBMenuTypes.registerMenuTypes(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
+        BMOBEffects.registerEffects(eventBus);
+    }
+
+    private void createArmorConfigs()
+    {
+        for (BMOBArmorMaterials materials : BMOBArmorMaterials.values())
+        {
+            new ArmorConfig(materials).createFile();
+        }
     }
 }

@@ -3,7 +3,6 @@ package net.laserdiamond.burningminesofbelow.attribute;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
-import net.laserdiamond.burningminesofbelow.util.NameRegistry;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,12 +22,12 @@ public class BMOBAttributes {
     /**
      * The player's heat interval value. Controls how long it takes for the player to heat up
      */
-    public static final RegistryObject<Attribute> PLAYER_HEAT_INTERVAL = registerAttribute("Heat Interval", "heat_interval", () -> new RangedAttribute(descriptionId("heat_interval"), 600, 0, 1024).setSyncable(true));
+    public static final RegistryObject<Attribute> PLAYER_HEAT_INTERVAL = registerAttribute("Heat Resistance", "heat_interval", () -> new RangedAttribute(descriptionId("heat_interval"), 600, 0, 1024).setSyncable(true));
 
     /**
      * The player's freeze interval value. Controls how long it takes for the player to freeze
      */
-    public static final RegistryObject<Attribute> PLAYER_FREEZE_INTERVAL = registerAttribute("Freeze Interval", "freeze_interval", () -> new RangedAttribute(descriptionId("freeze_interval"), 900, 0, 1024).setSyncable(true));
+    public static final RegistryObject<Attribute> PLAYER_FREEZE_INTERVAL = registerAttribute("Freeze Resistance", "freeze_interval", () -> new RangedAttribute(descriptionId("freeze_interval"), 900, 0, 1024).setSyncable(true));
 
     /**
      * The player's refined mineral chance value. Determines the chance of the player dropping a refined mineral from mining refined ores

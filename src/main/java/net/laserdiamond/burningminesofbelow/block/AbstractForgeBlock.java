@@ -1,7 +1,6 @@
 package net.laserdiamond.burningminesofbelow.block;
 
-import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
-import net.laserdiamond.burningminesofbelow.block.entity.ForgeBlockEntity;
+import net.laserdiamond.burningminesofbelow.block.entity.AbstractForgeBlockEntity;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.core.BlockPos;
@@ -28,28 +27,45 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForgeBlock extends BaseEntityBlock implements Taggable<Block> {
+/**
+ * Abstract class for creating Forge blocks
+ * @param <F> The Forge block entity
+ * @see AbstractForgeBlockEntity
+ */
+public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> extends BaseEntityBlock implements Taggable<Block> {
 
     public static final VoxelShape SHAPE = Block.box(0,0,0,16,16,16);
     private final List<TagKey<Block>> tags;
-    private final int forgeLevel;
 
-    protected ForgeBlock(Properties pProperties, List<TagKey<Block>> tags, int forgeLevel) {
+    protected AbstractForgeBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(pProperties);
         this.tags = new ArrayList<>(tags);
-        this.forgeLevel = forgeLevel;
         this.tags.add(BMOBTags.Blocks.FORGE_BLOCK);
+    }
+
+    /**
+     * The {@link BlockEntityType} of the {@link AbstractForgeBlockEntity}
+     * @return A {@link BlockEntityType} instance of the Forge block entity
+     */
+    protected abstract BlockEntityType<F> forgeBlockEntity();
+
+    /**
+     * Returns a new object instance of the Forge block entity
+     * @param blockPos The position of the block
+     * @param blockState The {@link BlockState} of the block
+     * @return A new object instance of the Forge block entity
+     */
+    protected abstract F newForgeBlockEntity(BlockPos blockPos, BlockState blockState);
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return this.newForgeBlockEntity(blockPos, blockState);
     }
 
     @Override
     public List<TagKey<Block>> getTags() {
         return this.tags;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new ForgeBlockEntity(blockPos, blockState, this.forgeLevel);
     }
 
     @Override
@@ -68,7 +84,7 @@ public class ForgeBlock extends BaseEntityBlock implements Taggable<Block> {
         if (pState.getBlock() != pNewState.getBlock())
         {
             BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof ForgeBlockEntity forgeBlockEntity)
+            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity)
             {
                 forgeBlockEntity.drops();
             }
@@ -83,7 +99,7 @@ public class ForgeBlock extends BaseEntityBlock implements Taggable<Block> {
         if (!pLevel.isClientSide)
         {
             BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof ForgeBlockEntity forgeBlockEntity)
+            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity)
             {
                 NetworkHooks.openScreen(((ServerPlayer) pPlayer), forgeBlockEntity, pPos);
             } else
@@ -101,10 +117,6 @@ public class ForgeBlock extends BaseEntityBlock implements Taggable<Block> {
         {
             return null;
         }
-        return createTickerHelper(pBlockEntityType, BMOBBlockEntities.FORGE.get(), ((level, blockPos, blockState, blockEntity) -> blockEntity.tick(level, blockPos, blockState)));
-    }
-
-    public int getForgeLevel() {
-        return forgeLevel;
+        return createTickerHelper(pBlockEntityType, this.forgeBlockEntity(), ((level, blockPos, blockState, blockEntity) -> blockEntity.tick(level, blockPos, blockState)));
     }
 }

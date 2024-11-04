@@ -7,6 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -39,8 +40,8 @@ public final class DiamoniteArmorItem extends BMOBArmorItem implements ForgeCraf
     }
 
     @Override
-    public List<Item> miscItems() {
-        return List.of(BMOBItems.REFINED_DIAMOND.get());
+    public Ingredient miscItems() {
+        return Ingredient.of(BMOBItems.REFINED_DIAMOND.get());
     }
 
     @Override

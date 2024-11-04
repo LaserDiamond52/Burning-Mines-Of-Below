@@ -1,7 +1,6 @@
 package net.laserdiamond.burningminesofbelow.recipe;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
