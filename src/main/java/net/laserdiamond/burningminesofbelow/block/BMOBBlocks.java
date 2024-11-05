@@ -42,6 +42,17 @@ public class BMOBBlocks {
      */
     public static final RegistryObject<Block> FORGE_LEVEL_3 = registerBlock("Forge Level 3", "forge_level_3", () -> new ForgeBlockLevel3(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL)));
 
+
+    // TODO: Ore blocks for:
+    // Garnet
+    // Peridot
+    // Refined Diamond
+    // Cyronite Ore
+
+    // TODO: Blocks for:
+    // Soul bricks (and its family of blocks)
+    // Frozen Soul Sand/Soil
+
     /**
      * Registers a new block under this mod's registry
      * @param name The name of the block in-game

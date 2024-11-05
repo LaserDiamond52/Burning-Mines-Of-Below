@@ -18,7 +18,7 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.List;
 import java.util.Map;
 
-public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem {
+public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem, HandheldItem {
 
     public BlaziumSwordItem(int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties, List<TagKey<Item>> tags) {
         super(BMOBToolTiers.BLAZIUM, pAttackDamageModifier, pAttackSpeedModifier, pProperties, tags);

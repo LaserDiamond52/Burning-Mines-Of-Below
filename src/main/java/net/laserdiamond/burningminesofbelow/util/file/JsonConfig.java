@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.util.file;
 
 import com.google.gson.JsonObject;
+import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,44 +22,52 @@ public abstract class JsonConfig {
      */
     protected JsonConfig(String fileName) {
         this.fileName = fileName;
-        this.file = new File(filePath() + File.separator + fileName + ".json");
+        this.file = new File(modFilePath() + fileName + ".json");
         this.jsonObject = new JsonObject();
     }
 
     /**
-     * The folder path for the file
-     * @return The folder path for the file
+     * The mod's file directory for storing files
+     * @return The folder path for the mod's files
      */
-    public abstract String filePath();
+    private String modFilePath()
+    {
+        return BurningMinesOfBelow.MODID + File.separator + folderName() + File.separator;
+    }
+
+    /**
+     * The folder name for the file directory
+     * @return The folder name for the file
+     */
+    public abstract String folderName();
 
     /**
      * Creates the json config file
      * @return True only if a new file was created. Returns false if the file already exists or if the file couldn't be created
      */
-    public boolean createFile()
+    public final boolean createFile()
     {
         if (this.file.exists())
         {
             return false; // File exists. Don't replace
         }
         this.file.getParentFile().mkdirs();
-        try
+        try (FileWriter fileWriter = new FileWriter(this.file)) // Try-with-resources to close FileWriter regardless of exceptions being thrown
         {
-            FileWriter fileWriter = new FileWriter(this.file);
-            fileWriter.write(this.jsonObject.toString());
-            fileWriter.close();
+
+            fileWriter.write(this.jsonObject.toString()); // Write the json object to the file
             if (this.file.createNewFile())
             {
-                System.out.println("Created File: " + this.fileName);
+                BurningMinesOfBelow.LOGGER.info("Created File: " + this.fileName); // File was created
                 return true;
             } else
             {
-                System.out.println("Couldn't create file: " + this.fileName);
+                BurningMinesOfBelow.LOGGER.info("Couldn't create file: " + this.fileName); // File was not created
                 return false;
             }
         } catch (IOException e)
         {
-            System.out.println("ERROR TO CREATE FILE: " + this.fileName + "!");
+            BurningMinesOfBelow.LOGGER.info("ERROR TO CREATE FILE: " + this.fileName + "!"); // Exception creating file
             e.printStackTrace();
         }
         return false;

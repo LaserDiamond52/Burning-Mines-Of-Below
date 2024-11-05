@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BMOBArmorItem extends ArmorItem implements Taggable<Item>
+public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 {
+    // TODO: abstract method for storing armor config?
     private final List<TagKey<Item>> tags;
     protected List<MobEffectInstance> effectInstances;
 

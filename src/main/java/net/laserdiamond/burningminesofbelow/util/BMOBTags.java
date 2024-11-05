@@ -27,6 +27,11 @@ public class BMOBTags {
         public static final TagKey<Block> NEEDS_BLAZIUM_TOOL = tag("needs_blazium_tool");
         public static final TagKey<Block> NEEDS_CYRONITE_TOOL = tag("needs_cyronite_tool");
 
+        /**
+         * Creates a {@link Block} tag under this mod's directory
+         * @param name The name of the tag
+         * @return A {@link TagKey} representing the tag
+         */
         private static TagKey<Block> tag(String name)
         {
             return BlockTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
@@ -40,6 +45,11 @@ public class BMOBTags {
         public static final TagKey<Item> FORGE_MAIN_INGREDIENT = tag("forge_main_ingredient");
         public static final TagKey<Item> FORGE_MISC_INGREDIENT = tag("forge_misc_ingredient");
 
+        /**
+         * Creates an {@link Item} tag under this mod's directory
+         * @param name The name of the tag
+         * @return A {@link TagKey} representing the tag
+         */
         private static TagKey<Item> tag(String name)
         {
             return ItemTags.create(new ResourceLocation(BurningMinesOfBelow.MODID, name));
@@ -68,6 +78,11 @@ public class BMOBTags {
 
         public static final TagKey<Biome> COCYTUS_TUNDRA = tag("cocytus_tundra");
 
+        /**
+         * Creates a {@link Biome} tag under this mod's directory
+         * @param name The name of the tag
+         * @return A {@link TagKey} representing the tag
+         */
         private static TagKey<Biome> tag(String name)
         {
             return TagKey.create(Registries.BIOME, new ResourceLocation(BurningMinesOfBelow.MODID, name));
@@ -77,6 +92,11 @@ public class BMOBTags {
     public static class Entities
     {
 
+        /**
+         * Creates an {@link net.minecraft.world.entity.Entity} tag under this mod's directory
+         * @param name The name of the tag
+         * @return A {@link TagKey} representing the tag
+         */
         private static TagKey<EntityType<?>> tag(String name)
         {
             return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(BurningMinesOfBelow.MODID, name));

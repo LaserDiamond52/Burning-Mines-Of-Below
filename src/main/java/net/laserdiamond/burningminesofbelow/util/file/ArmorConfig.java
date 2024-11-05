@@ -14,6 +14,10 @@ public final class ArmorConfig extends JsonConfig {
 
     private final BMOBArmorMaterials armorMaterial;
 
+    /**
+     * Creates a Json file to store the armor set values
+     * @param armorMaterial The armor material of this mod
+     */
     public ArmorConfig(BMOBArmorMaterials armorMaterial) {
         super(armorMaterial.getName().replace(BurningMinesOfBelow.MODID + ":", ""));
         this.armorMaterial = armorMaterial;
@@ -32,24 +36,36 @@ public final class ArmorConfig extends JsonConfig {
     }
 
     @Override
-    public String filePath() {
+    public String folderName() {
         return "armor";
     }
 
+    /**
+     * Creates a {@link JsonObject} that contains all of an armor piece's stats
+     * @param type The armor piece type
+     * @return A {@link JsonObject} that contains information about an armor piece's stats
+     */
     private JsonObject armorObjectJson(ArmorItem.Type type)
     {
         JsonObject armorObj = new JsonObject();
 
+        // TODO: Other stat operations/values
         armorObj.addProperty("armor", this.armorMaterial.getDefenseForType(type));
-        armorObj.add("damage", this.bmobAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("heat_resistance", this.bmobAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("freeze_resistance", this.bmobAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("refined_mineral_chance", this.bmobAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0));
+        armorObj.add("damage", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
+        armorObj.add("heat_resistance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
+        armorObj.add("freeze_resistance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
+        armorObj.add("refined_mineral_chance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
 
         return armorObj;
     }
 
-    private JsonObject bmobAttribute(AttributeModifier.Operation operation, double value)
+    /**
+     * {@link JsonObject} that can contain the operation value and stat value of the {@link AttributeModifier} to be applied to the armor piece
+     * @param operation The {@link AttributeModifier}'s operation
+     * @param value The value of the {@link AttributeModifier}
+     * @return A {@link JsonObject} containing the operation and value of the {@link AttributeModifier} for the armor piece stat
+     */
+    private JsonObject attributeToJsonObj(AttributeModifier.Operation operation, double value)
     {
         JsonObject attributeObj = new JsonObject();
         attributeObj.addProperty("operation", operation.toValue());
@@ -57,43 +73,81 @@ public final class ArmorConfig extends JsonConfig {
         return attributeObj;
     }
 
-
+    /**
+     * Gets the armor point value of the armor piece
+     * @param type The armor piece type
+     * @return An integer depicting the armor points the armor piece gives when worn
+     */
     public int getArmor(ArmorItem.Type type)
     {
         JsonObject armorObj = this.jsonObject.getAsJsonObject(type.getName());
         return armorObj.get("armor").getAsInt();
     }
 
+    /**
+     * Gets the toughness value of the armor set
+     * @return The toughness value per piece of the armor set
+     */
     public float getToughness()
     {
         return this.jsonObject.get("toughness").getAsFloat();
     }
 
+    /**
+     * Gets the knockback resistance of the armor set
+     * @return The knockback resistance per piece of the armor set
+     */
     public float getKnockbackResistance()
     {
         return this.jsonObject.get("knockback_resistance").getAsFloat();
     }
 
+    /**
+     * Gets the damage increase value of the armor piece
+     * @param type The armor piece type
+     * @return An {@link ItemAttribute} containing the {@link AttributeModifier} operation and value of the damage increase
+     */
     public ItemAttribute getDamageIncrease(ArmorItem.Type type)
     {
         return this.getItemAttribute(type, "damage");
     }
 
+    /**
+     * Gets the heat resistance value of the armor piece
+     * @param type The armor piece type
+     * @return An {@link ItemAttribute} containing the {@link AttributeModifier} operation and value of the heat resistance
+     */
     public ItemAttribute getHeatResistance(ArmorItem.Type type)
     {
         return this.getItemAttribute(type, "heat_resistance");
     }
 
+    /**
+     * Gets the freeze resistance value of the armor piece
+     * @param type The armor piece type
+     * @return An {@link ItemAttribute} containing the {@link AttributeModifier} operation and value of the freeze resistance
+     */
     public ItemAttribute getFreezeResistance(ArmorItem.Type type)
     {
         return this.getItemAttribute(type, "freeze_resistance");
     }
 
+    /**
+     * Gets the refined mineral chance value of the armor piece
+     * @param type The armor piece type
+     * @return An {@link ItemAttribute} containing the {@link AttributeModifier} operation and value of the refined mineral chance
+     */
     public ItemAttribute getRefinedMineralChance(ArmorItem.Type type)
     {
         return this.getItemAttribute(type, "refined_mineral_chance");
     }
 
+    /**
+     * Helper method for getting the {@link ItemAttribute}s for the armor set
+     * @param type The armor piece type
+     * @param key The stat's key
+     * @return An {@link ItemAttribute} containing the operation and value of the {@link AttributeModifier} to be applied to the armor piece
+     */
     private ItemAttribute getItemAttribute(ArmorItem.Type type, String key)
     {
         JsonObject armorObj = this.jsonObject.getAsJsonObject(type.getName());
