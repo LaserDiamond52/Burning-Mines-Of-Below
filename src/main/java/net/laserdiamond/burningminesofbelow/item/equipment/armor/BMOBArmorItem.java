@@ -5,6 +5,7 @@ import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
+import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -28,49 +29,58 @@ public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
     private final List<TagKey<Item>> tags;
     protected List<MobEffectInstance> effectInstances;
 
-    public BMOBArmorItem(ArmorMaterial pMaterial, Type pType, Properties pProperties, List<TagKey<Item>> tags) {
+    public BMOBArmorItem(BMOBArmorMaterials pMaterial, Type pType, Properties pProperties, List<TagKey<Item>> tags) {
         super(pMaterial, pType, pProperties);
         this.tags = new ArrayList<>(tags);
         this.effectInstances = new ArrayList<>();
 
         this.tags.addAll(BMOBTags.Items.armorTags(pType));
 
+        // TODO: Add file here
+        ArmorConfig armorConfig = new ArmorConfig(pMaterial);
+        //armorConfig.createFile();
+
         int slot = pType.ordinal();
         UUID uuid = BMOBArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
-        double damageValue = this.damageOutputAmounts()[slot].value();
-        double speedValue = this.speedAmount()[slot].value();
-        double heatIntervalValue = this.heatIntervalAmount()[slot].value();
-        double freezeIntervalValue = this.freezeIntervalAmount()[slot].value();
-        double refinedMineralChanceValue = this.refinedMineralChanceAmount()[slot].value();
+        int armor = armorConfig.getArmor(pType);
+        float toughness = armorConfig.getToughness();
+        float knockbackResistance = armorConfig.getKnockbackResistance();
+
+        final ItemAttribute damageAttribute = armorConfig.getDamageIncrease(pType);
+        final ItemAttribute speedAttribute = armorConfig.getSpeedIncrease(pType);
+        final ItemAttribute heatIntervalAttribute = armorConfig.getHeatResistance(pType);
+        final ItemAttribute freezeIntervalAttribute = armorConfig.getFreezeResistance(pType);
+        final ItemAttribute refinedMineralAttribute = armorConfig.getRefinedMineralChance(pType);
+
         ImmutableMultimap.Builder<Attribute, AttributeModifier> modifiers = ImmutableMultimap.builder();
 
-        modifiers.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor armor", this.getMaterial().getDefenseForType(pType), AttributeModifier.Operation.ADDITION));
-        modifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", this.getMaterial().getToughness(), AttributeModifier.Operation.ADDITION));
+        modifiers.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor armor", armor, AttributeModifier.Operation.ADDITION));
+        modifiers.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", toughness, AttributeModifier.Operation.ADDITION));
 
         if (this.getMaterial().getKnockbackResistance() != 0.0)
         {
-            modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.getMaterial().getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
+            modifiers.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", knockbackResistance, AttributeModifier.Operation.ADDITION));
         }
 
-        if (damageValue != 0.0)
+        if (damageAttribute.value() != 0.0)
         {
-            modifiers.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Armor attack damage", damageValue, this.damageOutputAmounts()[slot].operation()));
+            modifiers.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid, "Armor attack damage", damageAttribute.value(), damageAttribute.operation()));
         }
-        if (speedValue != 0.0)
+        if (speedAttribute.value() != 0.0)
         {
-            modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Armor movement speed", speedValue, this.speedAmount()[slot].operation()));
+            modifiers.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(uuid, "Armor movement speed", speedAttribute.value(), speedAttribute.operation()));
         }
-        if (heatIntervalValue != 0.0)
+        if (heatIntervalAttribute.value() != 0.0)
         {
-            modifiers.put(BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), new AttributeModifier(uuid, "Armor heat interval", heatIntervalValue, this.heatIntervalAmount()[slot].operation()));
+            modifiers.put(BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), new AttributeModifier(uuid, "Armor heat interval", heatIntervalAttribute.value(), heatIntervalAttribute.operation()));
         }
-        if (freezeIntervalValue != 0.0)
+        if (freezeIntervalAttribute.value() != 0.0)
         {
-            modifiers.put(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), new AttributeModifier(uuid, "Armor freeze interval", freezeIntervalValue, this.freezeIntervalAmount()[slot].operation()));
+            modifiers.put(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), new AttributeModifier(uuid, "Armor freeze interval", freezeIntervalAttribute.value(), freezeIntervalAttribute.operation()));
         }
-        if (refinedMineralChanceValue != 0.0)
+        if (refinedMineralAttribute.value() != 0.0)
         {
-            modifiers.put(BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), new AttributeModifier(uuid, "Armor refined mineral chance", refinedMineralChanceValue, this.freezeIntervalAmount()[slot].operation()));
+            modifiers.put(BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), new AttributeModifier(uuid, "Armor refined mineral chance", refinedMineralAttribute.value(), refinedMineralAttribute.operation()));
         }
 
         this.defaultModifiers = modifiers.build();

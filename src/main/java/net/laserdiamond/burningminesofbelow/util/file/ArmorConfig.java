@@ -27,7 +27,10 @@ public final class ArmorConfig extends JsonConfig {
 
         for (ArmorItem.Type type : ArmorItem.Type.values())
         {
-            this.jsonObject.add(type.getName(), armorObjectJson(type));
+            if (this.jsonObject.getAsJsonObject(type.getName()) == null)
+            {
+                this.jsonObject.add(type.getName(), armorObjectJson(type));
+            }
         }
 
         // TODO: Hard-coded armor stats should be written to the file
@@ -47,14 +50,19 @@ public final class ArmorConfig extends JsonConfig {
      */
     private JsonObject armorObjectJson(ArmorItem.Type type)
     {
-        JsonObject armorObj = new JsonObject();
+        JsonObject armorObj = this.jsonObject.getAsJsonObject(type.getName());
+        if (armorObj == null)
+        {
+            armorObj = new JsonObject();
+        }
 
         // TODO: Other stat operations/values
         armorObj.addProperty("armor", this.armorMaterial.getDefenseForType(type));
-        armorObj.add("damage", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("heat_resistance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("freeze_resistance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
-        armorObj.add("refined_mineral_chance", this.attributeToJsonObj(AttributeModifier.Operation.MULTIPLY_BASE, 0));
+        armorObj.add("speed", this.attributeToJsonObj(this.armorMaterial.getSpeedForType(type)));
+        armorObj.add("damage", this.attributeToJsonObj(this.armorMaterial.getDamageForType(type)));
+        armorObj.add("heat_resistance", this.attributeToJsonObj(this.armorMaterial.getHeatResistanceAmountForType(type)));
+        armorObj.add("freeze_resistance", this.attributeToJsonObj(this.armorMaterial.getFreezeResistanceAmountForType(type)));
+        armorObj.add("refined_mineral_chance", this.attributeToJsonObj(this.armorMaterial.getRefinedMineralChanceAmountForType(type)));
 
         return armorObj;
     }
@@ -71,6 +79,16 @@ public final class ArmorConfig extends JsonConfig {
         attributeObj.addProperty("operation", operation.toValue());
         attributeObj.addProperty("value", value);
         return attributeObj;
+    }
+
+    /**
+     * {@link JsonObject} that can contain the operation value and stat value of the {@link AttributeModifier} to be applied to the armor piece
+     * @param itemAttribute The {@link AttributeModifier} Attribute properties to apply to the Attribute on the armor piece
+     * @return A {@link JsonObject} containing the operation and value of the {@link AttributeModifier} for the armor piece stat
+     */
+    private JsonObject attributeToJsonObj(ItemAttribute itemAttribute)
+    {
+        return attributeToJsonObj(itemAttribute.operation(), itemAttribute.value());
     }
 
     /**
@@ -100,6 +118,16 @@ public final class ArmorConfig extends JsonConfig {
     public float getKnockbackResistance()
     {
         return this.jsonObject.get("knockback_resistance").getAsFloat();
+    }
+
+    /**
+     * Gets the speed increase value of the armor piece
+     * @param type The armor piece type
+     * @return An {@link ItemAttribute} containing the {@link AttributeModifier} operation and value of the speed increase
+     */
+    public ItemAttribute getSpeedIncrease(ArmorItem.Type type)
+    {
+        return this.getItemAttribute(type, "speed");
     }
 
     /**

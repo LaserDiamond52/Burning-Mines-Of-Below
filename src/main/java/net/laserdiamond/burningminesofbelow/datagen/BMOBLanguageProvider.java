@@ -9,6 +9,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -18,7 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class BMOBLanguageProvider extends LanguageProvider {
 
-    private final LanguageRegistry languageRegistry;
+    private final LanguageRegistry<?> languageRegistry;
 
     public BMOBLanguageProvider(PackOutput output, Language lang) {
         super(output, BurningMinesOfBelow.MODID, lang.getName());
@@ -78,7 +80,11 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addEntityTranslations()
     {
-
+        NameRegistry<RegistryObject<EntityType<? extends Entity>>> entityNameRegistry = this.languageRegistry.getEntityNameRegistry();
+        for (RegistryObject<EntityType<? extends Entity>> entity : entityNameRegistry.getRegistryMap().keySet())
+        {
+            this.add(entity.get(), entityNameRegistry.getRegistryMap().get(entity));
+        }
     }
 
     /**

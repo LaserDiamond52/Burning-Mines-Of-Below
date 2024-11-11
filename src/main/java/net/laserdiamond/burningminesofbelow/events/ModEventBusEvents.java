@@ -28,33 +28,9 @@ public class ModEventBusEvents
         event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), 0);
     }
 
-//    @SubscribeEvent
-//    public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event)
-//    {
-//
-//    }
-
-//    @SubscribeEvent
-//    public static void onPlayerCloned(PlayerEvent.Clone event)
-//    {
-//
-//    }
-
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event)
     {
 
     }
-
-//    @SubscribeEvent
-//    public static void onPlayerTick(TickEvent.PlayerTickEvent event)
-//    {
-//
-//    }
-
-//    @SubscribeEvent
-//    public static void onPlayerJoinWorld(EntityJoinLevelEvent event)
-//    {
-//
-//    }
 }

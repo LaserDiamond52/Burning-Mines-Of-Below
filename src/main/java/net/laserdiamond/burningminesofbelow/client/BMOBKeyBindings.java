@@ -15,8 +15,9 @@ public final class BMOBKeyBindings {
 
     public static final String BURNING_MINES_OF_BELOW_CATEGORY = "key.categories." + BurningMinesOfBelow.MODID;
 
-    public final KeyMapping abilityKey = registerKeyMapping("Cast Ability", "cast_ability", KeyConflictContext.IN_GAME, InputConstants.KEY_T);
+    public final KeyMapping abilityKey = registerKeyMapping("Cast Ability", "cast_ability", KeyConflictContext.IN_GAME, InputConstants.KEY_R);
 
+    @SuppressWarnings("unchecked")
     private KeyMapping registerKeyMapping(String name, String description, KeyConflictContext keyConflictContext, int keyInputConstant)
     {
         KeyMapping keyMapping = new KeyMapping("key." + BurningMinesOfBelow.MODID + "." + description,

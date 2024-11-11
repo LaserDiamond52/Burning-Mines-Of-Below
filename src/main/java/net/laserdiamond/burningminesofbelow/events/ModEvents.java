@@ -3,14 +3,18 @@ package net.laserdiamond.burningminesofbelow.events;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
+import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.BlaziumFireBall;
 import net.laserdiamond.burningminesofbelow.heat.HeatModifier;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeat;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeatProvider;
+import net.laserdiamond.burningminesofbelow.item.equipment.tools.BlaziumSwordItem;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.network.packet.heat.HeatS2CPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -78,9 +83,9 @@ public class ModEvents
 
         if (event.side == LogicalSide.SERVER)
         {
+            int playerTicks = player.tickCount;
             player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(heat ->
             {
-                int playerTicks = player.tickCount;
                 if (player.isCreative() || player.isSpectator())
                 {
                     BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), ((ServerPlayer) player));
@@ -132,6 +137,42 @@ public class ModEvents
                 }
 
             });
+
+            final BlaziumSwordItem.BlaziumFireBallAbility blaziumFireBallAbility = BlaziumSwordItem.BlaziumFireBallAbility.INSTANCE;
+
+            if (blaziumFireBallAbility.isAbilityActive(player)) // Player can launch fireballs
+            {
+                if (blaziumFireBallAbility.getTickTimeToNextLaunch(player) + 1 == playerTicks) // Player is ready to launch
+                {
+                    int fireballsLaunched = blaziumFireBallAbility.getFireBallsLaunched(player); // Amount of fireballs launched
+
+                    // Launch fireball
+                    final Level level = player.level();
+                    level.playSound(null, player.getOnPos(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 100, 1);
+                    Vec3 playerView = player.getLookAngle();
+                    double x = player.getX();
+                    double eyeY = player.getEyeY();
+                    double z = player.getZ();
+
+                    BlaziumFireBall blaziumFireBall = new BlaziumFireBall(level, player, playerView.x, playerView.y, playerView.z);
+                    blaziumFireBall.setPos(x, eyeY, z);
+                    level.addFreshEntity(blaziumFireBall);
+
+                    blaziumFireBallAbility.setTickTimeToNextLaunch(player, playerTicks + 5); // Set interval for next launch
+                    blaziumFireBallAbility.setFireBallsLaunched(player, fireballsLaunched + 1); // Update amount of fireballs launched
+
+                    if (blaziumFireBallAbility.hasLaunchedMaxFireBalls(player)) // Check if player has launched the maximum amount of fireballs
+                    {
+                        blaziumFireBallAbility.setFireBallsLaunched(player, 0); // Reset fireballs launched
+                        blaziumFireBallAbility.setAbilityActive(player, false); // Ability is no longer active
+                    }
+                }
+            } else // Player is not ready to launch
+            {
+                blaziumFireBallAbility.setTickTimeToNextLaunch(player, playerTicks); // Keep the player updated on when to launch the first fireball
+            }
+
+
         }
     }
 

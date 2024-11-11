@@ -1,5 +1,6 @@
 package net.laserdiamond.burningminesofbelow.item;
 
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -19,4 +20,16 @@ public interface AbilityItem {
      * @param event The {@link NetworkEvent.Context}
      */
     void onKeyPressClient(InputEvent.Key event);
+
+    /**
+     * The cooldown of the item ability
+     * @return The cooldown of the item ability in ticks
+     */
+    double cooldown();
+
+    /**
+     * The name of the ability
+     * @return The name of the ability as a {@link Component}
+     */
+    Component abilityName();
 }

@@ -1,7 +1,9 @@
 package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.item.BMOBItem;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.item.equipment.tools.HandheldItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -49,6 +51,13 @@ public class BMOBItemModelProvider extends ItemModelProvider {
             if (item instanceof ArmorItem)
             {
                 this.trimmedArmorItem(itemRegistryObject);
+
+            } else if (item instanceof BMOBItem)
+            {
+                this.basicItem(itemRegistryObject.get());
+            } else if (item instanceof HandheldItem)
+            {
+                this.handheldItem(itemRegistryObject);
             }
         }
     }

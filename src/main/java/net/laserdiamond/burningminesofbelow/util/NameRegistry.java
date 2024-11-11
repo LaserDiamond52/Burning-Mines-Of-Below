@@ -1,5 +1,7 @@
 package net.laserdiamond.burningminesofbelow.util;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;

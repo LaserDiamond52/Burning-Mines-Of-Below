@@ -5,6 +5,7 @@ import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
 import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
@@ -31,11 +32,15 @@ import org.slf4j.Logger;
 @Mod(BurningMinesOfBelow.MODID)
 public class BurningMinesOfBelow {
 
-    // Define mod id in a common place for everything to reference
+    /**
+     * Mod ID of this mod
+     */
     public static final String MODID = "burningminesofbelow";
-    // Directly reference a slf4j logger
-    public static final Logger LOGGER = LogUtils.getLogger();
 
+    /**
+     * slf4j Minecraft logger
+     */
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public BurningMinesOfBelow() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -56,11 +61,6 @@ public class BurningMinesOfBelow {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
-    public static ResourceLocation getModResource(String path)
-    {
-        return new ResourceLocation(MODID, path);
-    }
-
     private void commonSetup(final FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
@@ -76,7 +76,10 @@ public class BurningMinesOfBelow {
         BMOBPackets.registerPackets();
     }
 
-    // Add the example block item to the building blocks tab
+    /**
+     * Adds items to the creative tabs
+     * @param event The {@link BuildCreativeModeTabContentsEvent}
+     */
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         for (RegistryObject<Item> item : BMOBItems.ITEMS.getEntries())
@@ -85,12 +88,17 @@ public class BurningMinesOfBelow {
         }
     }
 
+    /**
+     * Registers all the events of this mod
+     * @param eventBus The {@link IEventBus} of this mod
+     */
     private void registerEvents(IEventBus eventBus)
     {
         BMOBAttributes.registerAttributes(eventBus);
         BMOBItems.registerItems(eventBus);
         BMOBBlocks.registerBlocks(eventBus);
         BMOBBlockEntities.registerBlockEntities(eventBus);
+        BMOBEntities.registerEntities(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
         BMOBCreativeTabs.registerCreativeTabs(eventBus);
         BMOBMenuTypes.registerMenuTypes(eventBus);
@@ -98,6 +106,9 @@ public class BurningMinesOfBelow {
         BMOBEffects.registerEffects(eventBus);
     }
 
+    /**
+     * Creates all the armor json config files of this mod
+     */
     private void createArmorConfigs()
     {
         for (BMOBArmorMaterials materials : BMOBArmorMaterials.values())

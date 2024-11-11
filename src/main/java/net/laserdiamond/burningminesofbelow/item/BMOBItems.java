@@ -695,6 +695,7 @@ public class BMOBItems {
      * @param itemSupplier The item supplier
      * @return A {@link RegistryObject} representing the newly created {@link Item}
      */
+    @SuppressWarnings("unchecked")
     private static RegistryObject<Item> registerItem(String name, String localName, Supplier<Item> itemSupplier)
     {
         RegistryObject<Item> registryItem = ITEMS.register(localName, itemSupplier);

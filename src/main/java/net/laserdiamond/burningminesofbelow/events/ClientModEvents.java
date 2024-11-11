@@ -3,9 +3,12 @@ package net.laserdiamond.burningminesofbelow.events;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
+import net.laserdiamond.burningminesofbelow.entity.client.CyroboltRenderer;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -55,7 +58,6 @@ public class ClientModEvents
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event)
     {
         event.registerAboveAll("heat", HeatHUDOverlay.HUD_HEAT);
-        //event.registerAboveAll("heat_exhaustion_nausea", HeatFreezeEffectsOverlay.OVERLAY);
     }
 
 
@@ -63,7 +65,7 @@ public class ClientModEvents
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event)
     {
-
+        EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CyroboltRenderer::new);
     }
 
 }

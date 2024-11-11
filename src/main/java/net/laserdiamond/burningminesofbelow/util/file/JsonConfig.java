@@ -1,11 +1,10 @@
 package net.laserdiamond.burningminesofbelow.util.file;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Json config file class for storing information about assets of this mod
@@ -14,7 +13,7 @@ public abstract class JsonConfig {
 
     protected final String fileName;
     protected final File file;
-    protected final JsonObject jsonObject;
+    protected JsonObject jsonObject;
 
     /**
      * Creates a new Json config file
@@ -23,7 +22,19 @@ public abstract class JsonConfig {
     protected JsonConfig(String fileName) {
         this.fileName = fileName;
         this.file = new File(modFilePath() + fileName + ".json");
-        this.jsonObject = new JsonObject();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(this.file))) // Try-with-resources to close BufferedReader regardless of exceptions being thrown
+        {
+            this.jsonObject = new Gson().fromJson(br, JsonObject.class); // Get existing json object from file
+            if (this.jsonObject == null)
+            {
+                this.jsonObject = new JsonObject(); // Json object doesn't exist. Create new one
+            }
+        } catch (IOException e)
+        {
+            BurningMinesOfBelow.LOGGER.info("ERROR CREATING JSON OBJECT FOR FILE " + fileName);
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -52,9 +63,9 @@ public abstract class JsonConfig {
             return false; // File exists. Don't replace
         }
         this.file.getParentFile().mkdirs();
+
         try (FileWriter fileWriter = new FileWriter(this.file)) // Try-with-resources to close FileWriter regardless of exceptions being thrown
         {
-
             fileWriter.write(this.jsonObject.toString()); // Write the json object to the file
             if (this.file.createNewFile())
             {
@@ -67,7 +78,7 @@ public abstract class JsonConfig {
             }
         } catch (IOException e)
         {
-            BurningMinesOfBelow.LOGGER.info("ERROR TO CREATE FILE: " + this.fileName + "!"); // Exception creating file
+            BurningMinesOfBelow.LOGGER.info("ERROR CREATING FILE: " + this.fileName + "!"); // Exception creating file
             e.printStackTrace();
         }
         return false;
