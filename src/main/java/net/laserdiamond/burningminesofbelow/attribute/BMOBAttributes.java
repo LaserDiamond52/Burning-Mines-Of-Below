@@ -22,17 +22,17 @@ public class BMOBAttributes {
     /**
      * The player's heat interval value. Controls how long it takes for the player to heat up
      */
-    public static final RegistryObject<Attribute> PLAYER_HEAT_INTERVAL = registerAttribute("Heat Resistance", "heat_interval", () -> new RangedAttribute(descriptionId("heat_interval"), 600, 0, 1024).setSyncable(true));
+    public static final RegistryObject<Attribute> PLAYER_HEAT_INTERVAL = registerAttribute("Heat Resistance", "heat_interval", () -> new RangedAttribute(descriptionId("heat_interval"), 600, 0, 20480).setSyncable(true));
 
     /**
      * The player's freeze interval value. Controls how long it takes for the player to freeze
      */
-    public static final RegistryObject<Attribute> PLAYER_FREEZE_INTERVAL = registerAttribute("Freeze Resistance", "freeze_interval", () -> new RangedAttribute(descriptionId("freeze_interval"), 900, 0, 1024).setSyncable(true));
+    public static final RegistryObject<Attribute> PLAYER_FREEZE_INTERVAL = registerAttribute("Freeze Resistance", "freeze_interval", () -> new RangedAttribute(descriptionId("freeze_interval"), 900, 0, 20480).setSyncable(true));
 
     /**
      * The player's refined mineral chance value. Determines the chance of the player dropping a refined mineral from mining refined ores
      */
-    public static final RegistryObject<Attribute> PLAYER_REFINED_MINERAL_CHANCE = registerAttribute("Refined Mineral Chance", "refined_mineral_chance", () -> new RangedAttribute(descriptionId("refined_mineral_chance"), 0, 0, 1024).setSyncable(true));
+    public static final RegistryObject<Attribute> PLAYER_REFINED_MINERAL_CHANCE = registerAttribute("Refined Mineral Chance", "refined_mineral_chance", () -> new RangedAttribute(descriptionId("refined_mineral_chance"), 0, 0, 10240).setSyncable(true));
 
     /**
      * Registers a new {@link Attribute} under this mod's Attribute registry
@@ -41,6 +41,7 @@ public class BMOBAttributes {
      * @param attributeSupplier The {@link Supplier} for the attribute
      * @return A {@link RegistryObject} representing the newly created {@link Attribute}
      */
+    @SuppressWarnings("unchecked")
     public static RegistryObject<Attribute> registerAttribute(String name, String localName, Supplier<Attribute> attributeSupplier)
     {
         RegistryObject<Attribute> attributeRegistryObject = ATTRIBUTES.register("generic." + localName, attributeSupplier);

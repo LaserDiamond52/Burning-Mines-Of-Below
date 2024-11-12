@@ -2,6 +2,7 @@ package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
+import net.laserdiamond.burningminesofbelow.block.RefinedOreBlock;
 import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.BlaziumFireBall;
 import net.laserdiamond.burningminesofbelow.heat.HeatModifier;
@@ -10,6 +11,7 @@ import net.laserdiamond.burningminesofbelow.heat.PlayerHeatProvider;
 import net.laserdiamond.burningminesofbelow.item.equipment.tools.BlaziumSwordItem;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.network.packet.heat.HeatS2CPacket;
+import net.laserdiamond.burningminesofbelow.util.BMOBMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,15 +23,21 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
@@ -113,28 +121,31 @@ public class ModEvents
                 }
 
                 final int heatStrokeInterval = 20;
-                if (playerTicks % heatStrokeInterval == 0)
+                if (playerTicks % heatStrokeInterval == 0) // Give player heatstroke effects
                 {
                     giveHeatStroke(player, heat);
                 }
 
                 final int heatExhaustionInterval = 100;
-                if (playerTicks % heatExhaustionInterval == 0)
+                if (playerTicks % heatExhaustionInterval == 0) // Give player heat exhaustion effects
                 {
                     giveHeatExhaustion(player, heat);
                 }
 
                 final int frostbiteInterval = 20;
-                if (playerTicks % frostbiteInterval == 0)
+                if (playerTicks % frostbiteInterval == 0) // Give player frostbite effects
                 {
                     giveFrostbite(player, heat);
                 }
 
                 final int hypothermiaInterval = 100;
-                if (playerTicks % hypothermiaInterval == 0)
+                if (playerTicks % hypothermiaInterval == 0) // Give player hypothermia effects
                 {
                     giveHypothermia(player, heat);
                 }
+
+                // TODO:
+                // - Player should rapidly gain heat if they are on fire or in lava
 
             });
 
@@ -354,6 +365,10 @@ public class ModEvents
         }
     }
 
+    /**
+     * Called when a player joins the world
+     * @param event {@link EntityJoinLevelEvent}
+     */
     @SubscribeEvent
     public static void onPlayerJoinWorld(EntityJoinLevelEvent event)
     {
@@ -365,6 +380,51 @@ public class ModEvents
                 {
                     BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
                 });
+            }
+        }
+    }
+
+    /**
+     * Called when a player mines a refined ore block
+     * @param event {@link net.minecraftforge.event.level.BlockEvent.BreakEvent}
+     */
+    @SubscribeEvent
+    public static void onPlayerMineRefinedOre(BlockEvent.BreakEvent event)
+    {
+        final Player player = event.getPlayer();
+        if (!event.getLevel().isClientSide())
+        {
+            if (event.getState().getBlock() instanceof RefinedOreBlock refinedOreBlock) // Check if player is mining a refined ore block
+            {
+                if (ForgeHooks.isCorrectToolForDrops(event.getState(), player)) // Check if player is using the correct tool for drops
+                {
+                    final AttributeInstance refinedOreDropChanceAttribute = player.getAttribute(BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get());
+                    if (refinedOreDropChanceAttribute == null)
+                    {
+                        return; // Don't continue if attribute instance is null
+                    }
+                    final double attributeValue = refinedOreDropChanceAttribute.getValue(); // Attribute value
+
+                    // Last two digits are the drop chance
+                    // Every 100 guarantees +1 refined ore drop
+
+                    final double dropChance = BMOBMath.getLastTwoDigitsFromChance(attributeValue); // Chance for +1
+                    final double guaranteedChance = BMOBMath.getGuaranteedFromChance(attributeValue); // Guaranteed +1
+
+                    int random = BMOBMath.getRandomInteger(100);
+                    int itemsToDrop = 0;
+
+                    if (random <= dropChance) // If we can drop
+                    {
+                        itemsToDrop++;
+                    }
+
+                    final ItemStack droppedItem = refinedOreBlock.getRefinedDrop().getDefaultInstance(); // Item Stack for refined ore drop
+                    droppedItem.setCount((int) (itemsToDrop + guaranteedChance)); // Set amount
+
+                    player.level().addFreshEntity(new ItemEntity(player.level(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), droppedItem)); // Add entity to world
+
+                }
             }
         }
     }

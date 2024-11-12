@@ -21,11 +21,11 @@ public class BMOBTags {
     {
 
         public static final TagKey<Block> FORGE_BLOCK = tag("forge_block");
-
         public static final TagKey<Block> NEEDS_DIAMONITE_TOOL = tag("needs_diamonite_tool");
         public static final TagKey<Block> NEEDS_REFINED_DIAMONITE_TOOL = tag("needs_refined_diamonite_tool");
         public static final TagKey<Block> NEEDS_BLAZIUM_TOOL = tag("needs_blazium_tool");
         public static final TagKey<Block> NEEDS_CYRONITE_TOOL = tag("needs_cyronite_tool");
+        public static final TagKey<Block> REFINED_ORE = tag("refined_ore");
 
         /**
          * Creates a {@link Block} tag under this mod's directory

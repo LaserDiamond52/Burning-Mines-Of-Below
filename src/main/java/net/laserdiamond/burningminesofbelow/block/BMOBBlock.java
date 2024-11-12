@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class BMOBBlock extends Block implements Taggable<Block> {
 
-    private final List<TagKey<Block>> tags;
+    protected final List<TagKey<Block>> tags;
 
     public BMOBBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(pProperties);
