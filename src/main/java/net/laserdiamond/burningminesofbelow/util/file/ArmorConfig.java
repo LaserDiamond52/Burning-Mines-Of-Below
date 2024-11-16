@@ -32,10 +32,6 @@ public final class ArmorConfig extends JsonConfig {
                 this.jsonObject.add(type.getName(), armorObjectJson(type));
             }
         }
-
-        // TODO: Hard-coded armor stats should be written to the file
-        // If the hard-coded stat and the stat in the file do not match, use the file stat
-        // If the file stat is not a wanted value, use the hard-coded stat
     }
 
     @Override
@@ -56,7 +52,6 @@ public final class ArmorConfig extends JsonConfig {
             armorObj = new JsonObject();
         }
 
-        // TODO: Other stat operations/values
         armorObj.addProperty("armor", this.armorMaterial.getDefenseForType(type));
         armorObj.add("speed", this.attributeToJsonObj(this.armorMaterial.getSpeedForType(type)));
         armorObj.add("damage", this.attributeToJsonObj(this.armorMaterial.getDamageForType(type)));

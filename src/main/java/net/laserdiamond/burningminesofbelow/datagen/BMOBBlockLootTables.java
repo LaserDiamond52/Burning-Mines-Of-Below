@@ -34,13 +34,22 @@ public class BMOBBlockLootTables extends BlockLootSubProvider {
                 this.dropSelf(forgeBlock);
             } else if (block instanceof RefinedOreBlock refinedOreBlock)
             {
-                this.add(refinedOreBlock, this.createOreDrop(refinedOreBlock, refinedOreBlock.getOreDrop()));
-            } else if (block instanceof BMOBMultiOreBlock multiOreBlock)
+                this.add(refinedOreBlock, oreBlock -> this.createOreDrop(refinedOreBlock, refinedOreBlock.getOreDrop().get()));
+            } else if (block instanceof BMOBMultiOreBlock bmobMultiOreBlock)
             {
-                this.add(multiOreBlock, this.createMultiOreDrops(multiOreBlock, multiOreBlock.getOreDrop(), multiOreBlock.getMinCount(), multiOreBlock.getMaxCount()));
-            } else if (block instanceof BMOBOreBlock oreBlock)
+                this.add(bmobMultiOreBlock, multiOreBlock -> this.createMultiOreDrops(bmobMultiOreBlock, bmobMultiOreBlock.getOreDrop().get(), bmobMultiOreBlock.getMinCount(), bmobMultiOreBlock.getMaxCount()));
+            } else if (block instanceof BMOBOreBlock bmobOreBlock)
             {
-                this.add(oreBlock, this.createOreDrop(oreBlock, oreBlock.getOreDrop()));
+                this.add(bmobOreBlock, oreBlock -> this.createOreDrop(bmobOreBlock, bmobOreBlock.getOreDrop().get()));
+            } else if (block instanceof VanillaRefinedOreBlock vanillaRefinedOreBlock)
+            {
+                this.add(vanillaRefinedOreBlock, refinedOreBlock -> this.createOreDrop(vanillaRefinedOreBlock, vanillaRefinedOreBlock.getOreDrop()));
+            } else if (block instanceof BMOBBlock bmobBlock)
+            {
+                this.dropSelf(bmobBlock);
+            } else if (block instanceof BMOBSkullBlock)
+            {
+                this.dropSelf(block);
             }
         }
     }

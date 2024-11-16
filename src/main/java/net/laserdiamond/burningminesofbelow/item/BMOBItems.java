@@ -1,15 +1,20 @@
 package net.laserdiamond.burningminesofbelow.item;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.block.BMOBBlock;
+import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.equipment.armor.*;
 import net.laserdiamond.burningminesofbelow.item.equipment.tools.*;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -680,6 +685,16 @@ public class BMOBItems {
                 }
             });
 
+//    /**
+//     * Frozen Wither Skull item
+//     */
+//    public static final RegistryObject<Item> FROZEN_WITHER_SKULL = registerHeadBlockItem("Frozen Wither Skull", "frozen_wither_skull", BMOBBlocks.FROZEN_WITHER_SKULL.get(), BMOBBlocks.FROZEN_WITHER_SKULL_WALL.get());
+//
+//    /**
+//     * Blaze Skull item
+//     */
+//    public static final RegistryObject<Item> BLAZE_SKULL = registerHeadBlockItem("Blaze Skull", "blaze_skull", BMOBBlocks.BLAZE_SKULL.get(), BMOBBlocks.BLAZE_SKULL_WALL.get());
+
     public static final FuelItemRegistry HEAT_FUEL_ITEMS = new FuelItemRegistry()
             .addEntry(Items.LAVA_BUCKET, 10)
             .addEntry(Items.BLAZE_ROD, 15);
@@ -701,6 +716,22 @@ public class BMOBItems {
         RegistryObject<Item> registryItem = ITEMS.register(localName, itemSupplier);
         LanguageRegistry.instance(Language.EN_US).getItemNameRegistry().addEntry(name, registryItem);
         return registryItem;
+    }
+
+    /**
+     * Registers the head item for the head block under the mod's item registry
+     * @param name The name of the item in-game
+     * @param localName The local name of the item
+     * @param block The default head block of the item
+     * @param wallBlock The wall head block of the item
+     * @return A {@link RegistryObject} representing the newly created {@link StandingAndWallBlockItem}
+     */
+    @SuppressWarnings("unchecked")
+    private static RegistryObject<Item> registerHeadBlockItem(String name, String localName, Block block, Block wallBlock)
+    {
+        RegistryObject<Item> item = BMOBItems.ITEMS.register(localName, () -> new StandingAndWallBlockItem(block, wallBlock, new Item.Properties(), Direction.DOWN));
+        LanguageRegistry.instance(Language.EN_US).getItemNameRegistry().addEntry(name, item);
+        return item;
     }
 
     /**

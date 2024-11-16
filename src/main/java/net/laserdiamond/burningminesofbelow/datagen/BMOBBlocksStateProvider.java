@@ -1,8 +1,7 @@
 package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
-import net.laserdiamond.burningminesofbelow.block.AbstractForgeBlock;
+import net.laserdiamond.burningminesofbelow.block.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -24,7 +23,23 @@ public class BMOBBlocksStateProvider extends BlockStateProvider {
             if (block instanceof AbstractForgeBlock forgeBlock)
             {
                 this.simpleBlockWithItem(forgeBlock, new ModelFile.UncheckedModelFile(this.modLoc("block/forge")));
+            } else if (block instanceof BMOBOreBlock || block instanceof BMOBMultiOreBlock || block instanceof RefinedOreBlock || block instanceof VanillaRefinedOreBlock || block instanceof BMOBBlock)
+            {
+                this.blockWithItem(blockRegistryObject);
             }
+//            else if (block instanceof BMOBSkullBlock bmobSkullBlock)
+//            {
+//                this.simpleBlock(bmobSkullBlock, new ModelFile.UncheckedModelFile(this.mcLoc("block/skull")));
+//            }
+//            else if (block instanceof BMOBSkullBlockWall bmobSkullBlockWall)
+//            {
+//                this.simpleBlock(bmobSkullBlockWall, new ModelFile.UncheckedModelFile(this.mcLoc("block/skull")));
+//            }
         }
+    }
+
+    private void blockWithItem(RegistryObject<Block> blockRegistryObject)
+    {
+        this.simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
     }
 }

@@ -26,6 +26,10 @@ public class BMOBTags {
         public static final TagKey<Block> NEEDS_BLAZIUM_TOOL = tag("needs_blazium_tool");
         public static final TagKey<Block> NEEDS_CYRONITE_TOOL = tag("needs_cyronite_tool");
         public static final TagKey<Block> REFINED_ORE = tag("refined_ore");
+        public static final TagKey<Block> FREEZING_REAPER_SUMMON_BLOCK = tag("freezing_reaper_summoning_block");
+        public static final TagKey<Block> FREEZING_REAPER_BASE_BLOCK = tag("freezing_reaper_base_block");
+        public static final TagKey<Block> KING_INFERNIUS_SUMMON_BLOCK = tag("king_infernius_summoning_block");
+        public static final TagKey<Block> KING_INFERNIUS_BASE_BLOCK = tag("king_infernius_base_block");
 
         /**
          * Creates a {@link Block} tag under this mod's directory

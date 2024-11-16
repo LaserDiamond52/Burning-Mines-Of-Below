@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.level.block.Block;
@@ -59,6 +60,10 @@ public class BMOBItemModelProvider extends ItemModelProvider {
             {
                 this.handheldItem(itemRegistryObject);
             }
+//            else if (item instanceof StandingAndWallBlockItem)
+//            {
+//                this.skullBlockItem(itemRegistryObject);
+//            }
         }
     }
 
@@ -67,6 +72,13 @@ public class BMOBItemModelProvider extends ItemModelProvider {
         this.withExistingParent(itemRegistryObject.getId().getPath(),
                 new ResourceLocation("item/handheld")).texture("layer0",
                 new ResourceLocation(BurningMinesOfBelow.MODID, "item/" + itemRegistryObject.getId().getPath()));
+    }
+
+    private void skullBlockItem(RegistryObject<Item> itemRegistryObject)
+    {
+        this.withExistingParent(itemRegistryObject.getId().getPath(),
+                new ResourceLocation("item/template_skull")).texture("layer0",
+                new ResourceLocation(BurningMinesOfBelow.MODID, "block/" + itemRegistryObject.getId().getPath()));
     }
 
     private void simpleBlockItem(RegistryObject<Block> blockRegistryObject)
