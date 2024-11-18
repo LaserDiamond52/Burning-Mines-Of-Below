@@ -1,14 +1,22 @@
 package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
+import net.laserdiamond.burningminesofbelow.block.entity.renderer.BMOBSkullBlockEntityRenderer;
 import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
+import net.laserdiamond.burningminesofbelow.client.BMOBModelLayers;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.entity.client.CyroboltRenderer;
+import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -38,16 +46,25 @@ public class ClientModEvents
         event.register(BMOBKeyBindings.INSTANCE.abilityKey);
     }
 
+    /**
+     * Registers the block entity renderers of this mod
+     * @param event {@link net.minecraftforge.client.event.EntityRenderersEvent.RegisterRenderers}
+     */
     @SubscribeEvent
     public static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event)
     {
-
+        event.registerBlockEntityRenderer(BMOBBlockEntities.SKULL_BLOCK_ENTITY.get(), BMOBSkullBlockEntityRenderer::new);
     }
 
+    /**
+     * Registers layer definitions for block entities that make use of Vanilla models
+     * @param event {@link net.minecraftforge.client.event.EntityRenderersEvent.RegisterLayerDefinitions}
+     */
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
-
+        event.registerLayerDefinition(BMOBModelLayers.FROZEN_WITHER_SKULL, SkullModel::createMobHeadLayer);
+        event.registerLayerDefinition(BMOBModelLayers.BLAZE_SKULL, SkullModel::createMobHeadLayer);
     }
 
     /**
@@ -61,10 +78,10 @@ public class ClientModEvents
     }
 
 
-
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event)
     {
+        BMOBPackets.registerPackets();
         EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CyroboltRenderer::new);
     }
 

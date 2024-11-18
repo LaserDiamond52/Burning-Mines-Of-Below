@@ -13,6 +13,8 @@ import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
+import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBSurfaceRules;
+import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBTerrablender;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
@@ -27,6 +29,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+import terrablender.api.SurfaceRuleManager;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(BurningMinesOfBelow.MODID)
@@ -73,7 +76,9 @@ public class BurningMinesOfBelow {
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
 
-        BMOBPackets.registerPackets();
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeCocytusTundraSurfaceRules());
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeCocytusWastelandsSurfaceRules());
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeMagmaFieldsSurfaceRules());
     }
 
     /**
@@ -104,6 +109,7 @@ public class BurningMinesOfBelow {
         BMOBMenuTypes.registerMenuTypes(eventBus);
         BMOBRecipes.registerSerializers(eventBus);
         BMOBEffects.registerEffects(eventBus);
+        BMOBTerrablender.registerBiomes();
     }
 
     /**

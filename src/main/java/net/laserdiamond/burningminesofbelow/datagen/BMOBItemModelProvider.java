@@ -59,14 +59,17 @@ public class BMOBItemModelProvider extends ItemModelProvider {
             } else if (item instanceof HandheldItem)
             {
                 this.handheldItem(itemRegistryObject);
+            } else if (item instanceof StandingAndWallBlockItem)
+            {
+                this.skullBlockItem(itemRegistryObject);
             }
-//            else if (item instanceof StandingAndWallBlockItem)
-//            {
-//                this.skullBlockItem(itemRegistryObject);
-//            }
         }
     }
 
+    /**
+     * Creates a handheld model for the item. Primarily used for tools
+     * @param itemRegistryObject The item to make the model for
+     */
     private void handheldItem(RegistryObject<Item> itemRegistryObject)
     {
         this.withExistingParent(itemRegistryObject.getId().getPath(),
@@ -74,18 +77,21 @@ public class BMOBItemModelProvider extends ItemModelProvider {
                 new ResourceLocation(BurningMinesOfBelow.MODID, "item/" + itemRegistryObject.getId().getPath()));
     }
 
+    /**
+     * Creates a mob head model for the item. Primarily used for mob heads of this mod
+     * @param itemRegistryObject The item to make the model for
+     */
     private void skullBlockItem(RegistryObject<Item> itemRegistryObject)
     {
         this.withExistingParent(itemRegistryObject.getId().getPath(),
-                new ResourceLocation("item/template_skull")).texture("layer0",
+                new ResourceLocation(BurningMinesOfBelow.MODID, "item/mob_head")).texture("0",
                 new ResourceLocation(BurningMinesOfBelow.MODID, "block/" + itemRegistryObject.getId().getPath()));
     }
 
-    private void simpleBlockItem(RegistryObject<Block> blockRegistryObject)
-    {
-
-    }
-
+    /**
+     * Creates all armor models for the item. This includes all the trims that can be applied to the item
+     * @param itemRegistryObject The item to create the models for
+     */
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject)
     {
         final String MOD_ID = BurningMinesOfBelow.MODID;

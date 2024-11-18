@@ -80,7 +80,9 @@ public class BMOBTags {
     public static class Biomes
     {
 
-        public static final TagKey<Biome> COCYTUS_TUNDRA = tag("cocytus_tundra");
+        public static final TagKey<Biome> COCYTUS = tag("cocytus");
+
+        public static final TagKey<Biome> MAGMA = tag("magma");
 
         /**
          * Creates a {@link Biome} tag under this mod's directory

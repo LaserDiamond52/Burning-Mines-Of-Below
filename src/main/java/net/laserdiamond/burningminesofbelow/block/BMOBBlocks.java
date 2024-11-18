@@ -14,6 +14,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.Tags;
@@ -46,6 +48,16 @@ public class BMOBBlocks {
      * Level 3 Forge block
      */
     public static final RegistryObject<Block> FORGE_LEVEL_3 = registerBlock("Forge Level 3", "forge_level_3", () -> new ForgeBlockLevel3(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion(), List.of(BlockTags.MINEABLE_WITH_PICKAXE, Tags.Blocks.NEEDS_WOOD_TOOL)));
+
+    /**
+     * Frozen Netherrack block
+     */
+    public static final RegistryObject<Block> FROZEN_NETHERRACK = registerBlock("Frozen Netherrack", "frozen_netherrack", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL)));
+
+    /**
+     * Magnite Stone block
+     */
+    public static final RegistryObject<Block> MAGNITE_STONE = registerBlock("Magnite Stone", "magnite_stone", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE), List.of(BlockTags.INFINIBURN_NETHER, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL)));
 
     /**
      * Garnet Ore block
@@ -90,37 +102,43 @@ public class BMOBBlocks {
     /**
      * Frozen Soul Sand block
      */
-    public static final RegistryObject<Block> FROZEN_SOUL_SAND = registerBlock("Frozen Soul Sand", "frozen_soul_sand", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND).speedFactor(0.4F), List.of(Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_SOUL_SAND = registerBlock("Frozen Soul Sand", "frozen_soul_sand", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND).speedFactor(0.4F), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
 
     /**
      * Frozen Soul Soil block
      */
-    public static final RegistryObject<Block> FROZEN_SOUL_SOIL = registerBlock("Frozen Soul Soil", "frozen_soul_soil", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SOIL), List.of(Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_SOUL_SOIL = registerBlock("Frozen Soul Soil", "frozen_soul_soil", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SOIL), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
 
     /**
      * Blaze block
      */
     public static final RegistryObject<Block> BLAZE_BLOCK = registerBlock("Blaze Block", "blaze_block", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE), List.of(BlockTags.INFINIBURN_OVERWORLD, BlockTags.INFINIBURN_NETHER, BlockTags.INFINIBURN_END, BMOBTags.Blocks.KING_INFERNIUS_BASE_BLOCK, BlockTags.NEEDS_STONE_TOOL, BlockTags.MINEABLE_WITH_PICKAXE)));
 
-//    /**
-//     * Frozen Wither Skull block
-//     */
-//    public static final RegistryObject<Block> FROZEN_WITHER_SKULL = registerHeadBlock("Frozen Wither Skull", "frozen_wither_skull", () -> new FrozenWitherSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL).pushReaction(PushReaction.DESTROY), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
-//
-//    /**
-//     * Frozen Wither Skull block (wall)
-//     */
-//    public static final RegistryObject<Block> FROZEN_WITHER_SKULL_WALL = registerHeadBlock("Frozen Wither Skull", "frozen_wither_skull_wall", () -> new FrozenWitherSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).pushReaction(PushReaction.DESTROY).dropsLike(FROZEN_WITHER_SKULL.get()), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
-//
-//    /**
-//     * Blaze Skull block
-//     */
-//    public static final RegistryObject<Block> BLAZE_SKULL = registerHeadBlock("Blaze Skull", "blaze_skull", () -> new BlazeSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL).pushReaction(PushReaction.DESTROY), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
-//
-//    /**
-//     * Blaze Skull block (wall)
-//     */
-//    public static final RegistryObject<Block> BLAZE_SKULL_WALL = registerHeadBlock("Blaze Skull", "blaze_skull_wall", () -> new BlazeSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).pushReaction(PushReaction.DESTROY).dropsLike(BLAZE_SKULL.get()), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
+    /**
+     * Frozen Wither Skull block
+     */
+    public static final RegistryObject<Block> FROZEN_WITHER_SKULL = registerHeadBlock("Frozen Wither Skull", "frozen_wither_skull",
+            () -> new FrozenWitherSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
+
+    /**
+     * Frozen Wither Skull Wall block
+     */
+    public static final RegistryObject<Block> FROZEN_WITHER_SKULL_WALL = registerHeadBlockWall("frozen_wither_skull_wall",
+            () -> new FrozenWitherSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(FROZEN_WITHER_SKULL.get()),
+                    List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
+
+    /**
+     * Blaze Skull block
+     */
+    public static final RegistryObject<Block> BLAZE_SKULL = registerHeadBlock("Blaze Skull", "blaze_skull",
+            () -> new BlazeSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
+
+    /**
+     * Blaze Skull Wall block
+     */
+    public static final RegistryObject<Block> BLAZE_SKULL_WALL = registerHeadBlockWall("blaze_skull_wall",
+            () -> new BlazeSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(BLAZE_SKULL.get()),
+                    List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
 
     /**
      * Registers a new block under this mod's registry
@@ -151,13 +169,34 @@ public class BMOBBlocks {
         return BMOBItems.ITEMS.register(localName, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-
+    /**
+     * Registers the default head block. No block item is registered on its own, and one must be registered in {@link BMOBItems}
+     * @see BMOBItems
+     * @param name The name of the head block
+     * @param localName The local name of the head block
+     * @param blockSupplier The {@link Supplier} for the Skull block
+     * @return A {@link RegistryObject} representing the newly created {@link SkullBlock}
+     * @param <T> The {@link SkullBlock} type
+     */
     @SuppressWarnings("unchecked")
-    private static <T extends Block> RegistryObject<Block> registerHeadBlock(String name, String localName, Supplier<T> blockSupplier)
+    private static <T extends SkullBlock> RegistryObject<Block> registerHeadBlock(String name, String localName, Supplier<T> blockSupplier)
     {
         RegistryObject<Block> block = BLOCKS.register(localName, blockSupplier);
         LanguageRegistry.instance(Language.EN_US).getBlockNameRegistry().addEntry(name, block);
         return block;
+    }
+
+    /**
+     * Registers the wall variant of the head block. The translation name is provided by the default variant of this block. Similarly, no block item is registered on its own, and one must be registered in {@link BMOBItems}
+     * @see BMOBItems
+     * @param localName The local name of the head block
+     * @param blockSupplier The {@link Supplier} for the Skull block
+     * @return A {@link RegistryObject} representing the newly created {@link SkullBlock}
+     * @param <T> The {@link WallSkullBlock} type
+     */
+    private static <T extends WallSkullBlock> RegistryObject<Block> registerHeadBlockWall(String localName, Supplier<T> blockSupplier)
+    {
+        return BLOCKS.register(localName, blockSupplier);
     }
 
     /**

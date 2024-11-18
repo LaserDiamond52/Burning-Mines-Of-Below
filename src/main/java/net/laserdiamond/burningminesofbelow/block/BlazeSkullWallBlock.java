@@ -20,6 +20,6 @@ public class BlazeSkullWallBlock extends BMOBSkullBlockWall {
 
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        //BMOBBlocks.BLAZE_SKULL.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+        BMOBBlocks.BLAZE_SKULL.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
     }
 }

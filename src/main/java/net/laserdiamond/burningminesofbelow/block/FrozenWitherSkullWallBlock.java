@@ -19,6 +19,6 @@ public class FrozenWitherSkullWallBlock extends BMOBSkullBlockWall {
 
     @Override
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
-        //BMOBBlocks.FROZEN_WITHER_SKULL.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
+        BMOBBlocks.FROZEN_WITHER_SKULL.get().setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
     }
 }

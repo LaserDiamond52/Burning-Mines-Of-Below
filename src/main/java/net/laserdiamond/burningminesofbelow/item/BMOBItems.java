@@ -685,15 +685,9 @@ public class BMOBItems {
                 }
             });
 
-//    /**
-//     * Frozen Wither Skull item
-//     */
-//    public static final RegistryObject<Item> FROZEN_WITHER_SKULL = registerHeadBlockItem("Frozen Wither Skull", "frozen_wither_skull", BMOBBlocks.FROZEN_WITHER_SKULL.get(), BMOBBlocks.FROZEN_WITHER_SKULL_WALL.get());
-//
-//    /**
-//     * Blaze Skull item
-//     */
-//    public static final RegistryObject<Item> BLAZE_SKULL = registerHeadBlockItem("Blaze Skull", "blaze_skull", BMOBBlocks.BLAZE_SKULL.get(), BMOBBlocks.BLAZE_SKULL_WALL.get());
+    public static final RegistryObject<Item> FROZEN_WITHER_SKULL = registerHeadBlockItem("frozen_wither_skull", BMOBBlocks.FROZEN_WITHER_SKULL, BMOBBlocks.FROZEN_WITHER_SKULL_WALL);
+
+    public static final RegistryObject<Item> BLAZE_SKULL = registerHeadBlockItem("blaze_skull", BMOBBlocks.BLAZE_SKULL, BMOBBlocks.BLAZE_SKULL_WALL);
 
     public static final FuelItemRegistry HEAT_FUEL_ITEMS = new FuelItemRegistry()
             .addEntry(Items.LAVA_BUCKET, 10)
@@ -720,18 +714,14 @@ public class BMOBItems {
 
     /**
      * Registers the head item for the head block under the mod's item registry
-     * @param name The name of the item in-game
      * @param localName The local name of the item
      * @param block The default head block of the item
      * @param wallBlock The wall head block of the item
      * @return A {@link RegistryObject} representing the newly created {@link StandingAndWallBlockItem}
      */
-    @SuppressWarnings("unchecked")
-    private static RegistryObject<Item> registerHeadBlockItem(String name, String localName, Block block, Block wallBlock)
+    private static RegistryObject<Item> registerHeadBlockItem(String localName, RegistryObject<Block> block, RegistryObject<Block> wallBlock)
     {
-        RegistryObject<Item> item = BMOBItems.ITEMS.register(localName, () -> new StandingAndWallBlockItem(block, wallBlock, new Item.Properties(), Direction.DOWN));
-        LanguageRegistry.instance(Language.EN_US).getItemNameRegistry().addEntry(name, item);
-        return item;
+        return ITEMS.register(localName, () -> new StandingAndWallBlockItem(block.get(), wallBlock.get(), new Item.Properties(), Direction.DOWN));
     }
 
     /**
