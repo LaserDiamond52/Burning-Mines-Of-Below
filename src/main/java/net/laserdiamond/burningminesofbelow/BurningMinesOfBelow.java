@@ -76,9 +76,7 @@ public class BurningMinesOfBelow {
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
 
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeCocytusTundraSurfaceRules());
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeCocytusWastelandsSurfaceRules());
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.makeMagmaFieldsSurfaceRules());
+        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.createSurfaceRules());
     }
 
     /**
