@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.entity;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cyrobolt;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
@@ -29,6 +30,9 @@ public class BMOBEntities {
             () -> EntityType.Builder.<Cyrobolt>of(Cyrobolt::new, MobCategory.MISC).sized(0.5F, 0.5F).build("cyrobolt"));
 
     // TODO: Add other entities
+
+    public static RegistryObject<EntityType<MagniteBlazeEntity>> MAGNITE_BLAZE = registerEntity("Magnite Blaze", "magnite_blaze",
+            () -> EntityType.Builder.of(MagniteBlazeEntity::new, MobCategory.MONSTER).sized(2.0F, 2.0F).build("magnite_blaze"));
 
     /**
      * Registers a new entity under the mod's entity registry

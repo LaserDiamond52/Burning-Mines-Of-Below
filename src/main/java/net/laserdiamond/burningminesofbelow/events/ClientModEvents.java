@@ -1,22 +1,19 @@
 package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
 import net.laserdiamond.burningminesofbelow.block.entity.renderer.BMOBSkullBlockEntityRenderer;
 import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.client.BMOBModelLayers;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
-import net.laserdiamond.burningminesofbelow.entity.client.CyroboltRenderer;
+import net.laserdiamond.burningminesofbelow.entity.client.renderer.CyroboltRenderer;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.SkullModel;
-import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;

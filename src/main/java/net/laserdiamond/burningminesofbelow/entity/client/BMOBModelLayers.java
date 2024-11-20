@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BMOBModelLayers {
 
-    @Deprecated
-    public static final ModelLayerLocation CYROSHARD = new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, "cyroshard"), "main");
+    public static final ModelLayerLocation MAGNITE_BLAZE = new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, "magniteblaze"), "main");
 
 }
