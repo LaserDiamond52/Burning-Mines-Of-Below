@@ -57,7 +57,7 @@ public class BMOBBlocks {
     /**
      * Magnite Stone block
      */
-    public static final RegistryObject<Block> MAGNITE_STONE = registerBlock("Magnite Stone", "magnite_stone", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE), List.of(BlockTags.INFINIBURN_NETHER, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL)));
+    public static final RegistryObject<Block> MAGNITE_STONE = registerBlock("Magnite Stone", "magnite_stone", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(value -> 3), List.of(BlockTags.INFINIBURN_NETHER, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL)));
 
     /**
      * Garnet Ore block
@@ -72,7 +72,7 @@ public class BMOBBlocks {
     /**
      * Deep Garnet Ore block
      */
-    public static final RegistryObject<Block> DEEP_GARNET_ORE = registerBlock("Deep Garnet Ore", "deep_garnet_ore", () -> new RefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE), BMOBItems.GARNET, BMOBItems.REFINED_GARNET, UniformInt.of(14, 17), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_DIAMONITE_TOOL)));
+    public static final RegistryObject<Block> DEEP_GARNET_ORE = registerBlock("Deep Garnet Ore", "deep_garnet_ore", () -> new RefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(value -> 3), BMOBItems.GARNET, BMOBItems.REFINED_GARNET, UniformInt.of(14, 17), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_DIAMONITE_TOOL)));
 
     /**
      * Peridot Ore block
@@ -87,12 +87,12 @@ public class BMOBBlocks {
     /**
      * Deep Peridot Ore block
      */
-    public static final RegistryObject<Block> DEEP_PERIDOT_ORE = registerBlock("Deep Peridot Ore", "deep_peridot_ore", () -> new RefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE), BMOBItems.PERIDOT, BMOBItems.REFINED_PERIDOT, UniformInt.of(16, 19), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_DIAMONITE_TOOL)));
+    public static final RegistryObject<Block> DEEP_PERIDOT_ORE = registerBlock("Deep Peridot Ore", "deep_peridot_ore", () -> new RefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(value -> 3), BMOBItems.PERIDOT, BMOBItems.REFINED_PERIDOT, UniformInt.of(16, 19), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_DIAMONITE_TOOL)));
 
     /**
      * Deep Diamond Ore block
      */
-    public static final RegistryObject<Block> DEEP_DIAMOND_ORE = registerBlock("Deep Diamond Ore", "deep_diamond_ore", () -> new VanillaRefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE), Items.DIAMOND, BMOBItems.REFINED_DIAMOND, UniformInt.of(14, 17), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_DIAMOND_TOOL)));
+    public static final RegistryObject<Block> DEEP_DIAMOND_ORE = registerBlock("Deep Diamond Ore", "deep_diamond_ore", () -> new VanillaRefinedOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(value -> 3), Items.DIAMOND, BMOBItems.REFINED_DIAMOND, UniformInt.of(14, 17), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_DIAMOND_TOOL)));
 
     /**
      * Cyronite Ore block
@@ -112,7 +112,7 @@ public class BMOBBlocks {
     /**
      * Blaze block
      */
-    public static final RegistryObject<Block> BLAZE_BLOCK = registerBlock("Blaze Block", "blaze_block", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE), List.of(BlockTags.INFINIBURN_OVERWORLD, BlockTags.INFINIBURN_NETHER, BlockTags.INFINIBURN_END, BMOBTags.Blocks.KING_INFERNIUS_BASE_BLOCK, BlockTags.NEEDS_STONE_TOOL, BlockTags.MINEABLE_WITH_PICKAXE)));
+    public static final RegistryObject<Block> BLAZE_BLOCK = registerBlock("Blaze Block", "blaze_block", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(value -> 5), List.of(BlockTags.INFINIBURN_OVERWORLD, BlockTags.INFINIBURN_NETHER, BlockTags.INFINIBURN_END, BMOBTags.Blocks.KING_INFERNIUS_BASE_BLOCK, BlockTags.NEEDS_STONE_TOOL, BlockTags.MINEABLE_WITH_PICKAXE)));
 
     /**
      * Frozen Wither Skull block

@@ -7,7 +7,9 @@ import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.client.BMOBModelLayers;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
+import net.laserdiamond.burningminesofbelow.entity.client.model.MagniteBlazeModel;
 import net.laserdiamond.burningminesofbelow.entity.client.renderer.CyroboltRenderer;
+import net.laserdiamond.burningminesofbelow.entity.client.renderer.MagniteBlazeRenderer;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
@@ -31,6 +33,8 @@ public class ClientModEvents
     public static void onClientSetup(FMLClientSetupEvent event)
     {
         MenuScreens.register(BMOBMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
+
+        EntityRenderers.register(BMOBEntities.MAGNITE_BLAZE.get(), MagniteBlazeRenderer::new);
     }
 
     /**
@@ -62,6 +66,7 @@ public class ClientModEvents
     {
         event.registerLayerDefinition(BMOBModelLayers.FROZEN_WITHER_SKULL, SkullModel::createMobHeadLayer);
         event.registerLayerDefinition(BMOBModelLayers.BLAZE_SKULL, SkullModel::createMobHeadLayer);
+        event.registerLayerDefinition(BMOBModelLayers.MAGNITE_BLAZE, MagniteBlazeModel::createBodyLayer);
     }
 
     /**

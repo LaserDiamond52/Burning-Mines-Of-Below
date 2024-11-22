@@ -2,6 +2,8 @@ package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
+import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -18,6 +20,7 @@ public class ModEventBusEvents
     public static void registerEntityAttributes(EntityAttributeCreationEvent event)
     {
         // TODO: Creation of Attributes for entities go here
+        event.put(BMOBEntities.MAGNITE_BLAZE.get(), MagniteBlazeEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -28,6 +31,7 @@ public class ModEventBusEvents
         event.add(EntityType.PLAYER, BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get(), 0);
     }
 
+    @Deprecated
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event)
     {

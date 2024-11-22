@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.entity.client.renderer;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.client.BMOBModelLayers;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
 import net.laserdiamond.burningminesofbelow.entity.client.model.MagniteBlazeModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -9,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, MagniteBlazeModel> {
 
-    public MagniteBlazeRenderer(EntityRendererProvider.Context pContext, MagniteBlazeModel pModel, float pShadowRadius) {
-        super(pContext, pModel, pShadowRadius);
+    public MagniteBlazeRenderer(EntityRendererProvider.Context pContext) {
+        super(pContext, new MagniteBlazeModel(pContext.bakeLayer(BMOBModelLayers.MAGNITE_BLAZE)), 0.75F);
     }
 
     @Override

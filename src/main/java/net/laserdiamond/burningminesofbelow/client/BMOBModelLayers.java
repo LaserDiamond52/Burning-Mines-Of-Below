@@ -17,6 +17,11 @@ public class BMOBModelLayers {
     public static final ModelLayerLocation BLAZE_SKULL = createBasicModelLayer("textures/block/blaze_skull.png");
 
     /**
+     * Model layer for Magnite Blaze entity
+     */
+    public static final ModelLayerLocation MAGNITE_BLAZE = createBasicModelLayer("magnite_blaze_layer");
+
+    /**
      * Creates a basic main model layer
      * @param path The resource location for the texture
      * @return A {@link ModelLayerLocation} for use in this mod

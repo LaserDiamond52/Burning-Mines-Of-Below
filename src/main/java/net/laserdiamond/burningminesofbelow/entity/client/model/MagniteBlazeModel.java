@@ -6,6 +6,7 @@ package net.laserdiamond.burningminesofbelow.entity.client.model;// Made with Bl
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
+import net.laserdiamond.burningminesofbelow.entity.client.animation.BMOBAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,8 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBlazeEntity> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "magniteblaze"), "main");
+
 	private final ModelPart magnite_blaze;
 	private final ModelPart body;
 	private final ModelPart head;
@@ -29,14 +29,14 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 
 	public MagniteBlazeModel(ModelPart root) {
 		this.magnite_blaze = root.getChild("magnite_blaze");
-		this.body = root.getChild("body");
-		this.head = root.getChild("head");
-		this.torso = root.getChild("torso");
-		this.shields = root.getChild("shields");
-		this.north = root.getChild("north");
-		this.south = root.getChild("south");
-		this.east = root.getChild("east");
-		this.west = root.getChild("west");
+		this.body = this.magnite_blaze.getChild("body");
+		this.head = this.body.getChild("head");
+		this.torso = this.body.getChild("torso");
+		this.shields = this.body.getChild("shields");
+		this.north = this.shields.getChild("north");
+		this.south = this.shields.getChild("south");
+		this.east = this.shields.getChild("east");
+		this.west = this.shields.getChild("west");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -74,18 +74,17 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 	}
 
 	@Override
-	public void setupAnim(MagniteBlazeEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(MagniteBlazeEntity magniteBlazeEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		super.setupAnim(magniteBlazeEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
+		this.animate(magniteBlazeEntity.idleAnimation().getAnimationState(), BMOBAnimations.MAGNITE_BLAZE_IDLE, ageInTicks, 1F);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		magnite_blaze.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
+
 
 	@Override
 	public ModelPart root() {
-		return null;
+		return this.magnite_blaze;
 	}
 
 	@Override
