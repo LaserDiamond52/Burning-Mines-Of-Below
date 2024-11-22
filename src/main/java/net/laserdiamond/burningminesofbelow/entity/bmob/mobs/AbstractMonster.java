@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 
-public abstract class AbstractMonster<E extends LivingEntity> extends Monster implements IdleEntityAnimator<E> {
+public abstract class AbstractMonster extends Monster {
 
     protected final AnimationState idleAnimationState;
     protected int idleTimeout;
@@ -19,21 +19,5 @@ public abstract class AbstractMonster<E extends LivingEntity> extends Monster im
         this.idleTimeout = 0;
     }
 
-    public abstract int idleAnimationDuration();
 
-    @Override
-    public IdleAnimation idleAnimation() {
-        return new IdleAnimation(this.idleAnimationState, this.idleTimeout, idleAnimationDuration());
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        if (this.level().isClientSide)
-        {
-            // TODO: Set up animation states
-            this.setUpIdleAnimation();
-        }
-    }
 }

@@ -26,4 +26,6 @@ public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, 
     // 3/5 - 2/5 -> Two shields
     // 2/5 - 1/5 -> One shield
     // 1/5 - 0/5 -> No shields
+
+
 }

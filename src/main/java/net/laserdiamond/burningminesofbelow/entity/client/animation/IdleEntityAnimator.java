@@ -4,6 +4,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
+// TODO: Needs rework
 public interface IdleEntityAnimator<E extends LivingEntity> extends EntityAnimatorBase<E> {
 
     RandomSource random();
@@ -14,8 +15,8 @@ public interface IdleEntityAnimator<E extends LivingEntity> extends EntityAnimat
     {
         if (this.idleAnimation().getTimeout() <= 0)
         {
-            this.idleAnimation().setTimeout(this.random().nextInt(this.idleAnimation().getDuration() / 2) + this.idleAnimation().getDuration());
-            this.idleAnimation().getAnimationState().start(this.entity().tickCount);
+            int timeout = random().nextInt(idleAnimation().getTimeout() / 2) + idleAnimation().getDuration();
+            this.idleAnimation().setTimeout(timeout);
         } else
         {
             this.idleAnimation().decrementTimeout();

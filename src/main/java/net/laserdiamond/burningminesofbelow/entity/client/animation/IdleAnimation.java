@@ -8,10 +8,27 @@ public final class IdleAnimation {
     private int timeout;
     private final int duration;
 
+    /**
+     * Used to help link animations to an entity that should have a timeout phase
+     * @param animationState The {@link AnimationState} for the entity's animation
+     * @param timeout The entity animation state time out variable
+     * @param duration The duration of the animation
+     */
     public IdleAnimation(AnimationState animationState, int timeout, int duration) {
         this.animationState = animationState;
         this.timeout = timeout;
         this.duration = duration;
+    }
+
+    /**
+     * Used to help link animations to an entity that should play continuously uninterrupted
+     * @param animationState The {@link AnimationState} for the entity's animation
+     */
+    public IdleAnimation(AnimationState animationState)
+    {
+        this.animationState = animationState;
+        this.timeout = 0;
+        this.duration = 0;
     }
 
     public AnimationState getAnimationState() {
