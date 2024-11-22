@@ -65,7 +65,7 @@ public class MagniteBlazeAttackGoal extends Goal {
                     return;
                 }
                 // Nearby blazes found!
-                this.magniteBlazeEntity.setAttacking(false);
+                this.magniteBlazeEntity.setAttacking(false); // Magnite Blaze is no longer attacking
 
                 // Loop through all blazes detected
                 blazes.forEach(blaze ->
