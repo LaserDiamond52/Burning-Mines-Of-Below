@@ -1,6 +1,7 @@
 package net.laserdiamond.burningminesofbelow.entity;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.KingInferniusEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cyrobolt;
 import net.laserdiamond.burningminesofbelow.util.Language;
@@ -33,6 +34,9 @@ public class BMOBEntities {
 
     public static RegistryObject<EntityType<MagniteBlazeEntity>> MAGNITE_BLAZE = registerEntity("Magnite Blaze", "magnite_blaze",
             () -> EntityType.Builder.of(MagniteBlazeEntity::new, MobCategory.MONSTER).sized(2.0F, 2.0F).build("magnite_blaze"));
+
+//    public static RegistryObject<EntityType<KingInferniusEntity>> KING_INFERNIUS = registerEntity("King Infernius", "king_infernius",
+//            () -> EntityType.Builder.of(KingInferniusEntity::new, MobCategory.MONSTER).sized(1.0F, 1.0F).build("king_infernius"));
 
     /**
      * Registers a new entity under the mod's entity registry

@@ -26,34 +26,33 @@ public class BMOBSurfaceRules {
         SurfaceRules.RuleSource soulSandSurface = SurfaceRules.sequence(SurfaceRules.ifTrue(WATER_CHECK, FROZEN_SOUL_SAND), FROZEN_SOUL_SOIL);
 
         return SurfaceRules.sequence(
-                SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA),
-                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, soulSandSurface)),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_SOUL_SOIL)),
-                        SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, FROZEN_NETHERRACK),
-                        SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, FROZEN_NETHERRACK),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, FROZEN_NETHERRACK)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA), SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, FROZEN_SOUL_SAND)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA), SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_SOUL_SOIL)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_TUNDRA), SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, FROZEN_NETHERRACK))
         );
     }
 
     private static SurfaceRules.RuleSource makeCocytusWastelandsSurfaceRules()
     {
         return SurfaceRules.sequence(
-                SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND),
-                        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, FROZEN_NETHERRACK)),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_NETHERRACK)),
-                        SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, FROZEN_NETHERRACK),
-                        SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, FROZEN_NETHERRACK),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, FROZEN_NETHERRACK)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND), SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND), SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, FROZEN_NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.COCYTUS_WASTELAND), SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, FROZEN_NETHERRACK))
         );
     }
 
     private static SurfaceRules.RuleSource makeMagmaFieldsSurfaceRules()
     {
         return SurfaceRules.sequence(
-                SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS),
-                                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, MAGNITE_STONE)),
-                        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, MAGMA)),
-                SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, NETHERRACK)
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS), SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, MAGNITE_STONE)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS), SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, MAGNITE_STONE)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS), SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, MAGMA)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS), SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, NETHERRACK)),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(BMOBBiomes.MAGMA_FIELDS), SurfaceRules.ifTrue(SurfaceRules.UNDER_CEILING, MAGMA))
         );
     }
 

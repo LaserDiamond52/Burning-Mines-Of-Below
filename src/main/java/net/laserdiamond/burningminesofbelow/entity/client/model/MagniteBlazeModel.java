@@ -22,10 +22,10 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 	private final ModelPart head;
 	private final ModelPart torso;
 	private final ModelPart shields;
-	private final ModelPart north;
-	private final ModelPart south;
-	private final ModelPart east;
-	private final ModelPart west;
+	public final ModelPart north;
+	public final ModelPart south;
+	public final ModelPart east;
+	public final ModelPart west;
 
 	public MagniteBlazeModel(ModelPart root) {
 		this.magnite_blaze = root.getChild("magnite_blaze");
@@ -47,11 +47,6 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 
 		PartDefinition body = magnite_blaze.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 18).addBox(-4.0F, -32.0F, -3.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(-4.5F, -32.5F, -3.5F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.0F));
-
-		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(36, 0).addBox(-2.0F, -20.0F, -2.0F, 4.0F, 18.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
-
 		PartDefinition shields = body.addOrReplaceChild("shields", CubeListBuilder.create(), PartPose.offset(0.0F, -13.0F, 0.0F));
 
 		PartDefinition north = shields.addOrReplaceChild("north", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
@@ -70,16 +65,19 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 
 		PartDefinition shield_r4 = west.addOrReplaceChild("shield_r4", CubeListBuilder.create().texOffs(32, 22).addBox(-5.0F, -2.0F, -1.0F, 10.0F, 16.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -5.0F, -9.0F, -0.1745F, 0.0F, 0.0F));
 
+		PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 18).addBox(-4.0F, -8.0F, -3.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-4.5F, -8.5F, -3.5F, 9.0F, 9.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -24.0F, -1.0F));
+
+		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(36, 0).addBox(-2.0F, -20.0F, -2.0F, 4.0F, 18.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 0.0F));
+
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
 	@Override
 	public void setupAnim(MagniteBlazeEntity magniteBlazeEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(magniteBlazeEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-
-		this.animate(magniteBlazeEntity.idleAnimation().getAnimationState(), BMOBAnimations.MAGNITE_BLAZE_IDLE, ageInTicks, 1F);
+		this.animate(magniteBlazeEntity.idleAnimationState, BMOBAnimations.MAGNITE_BLAZE_IDLE, ageInTicks, 1F);
 	}
-
 
 
 	@Override

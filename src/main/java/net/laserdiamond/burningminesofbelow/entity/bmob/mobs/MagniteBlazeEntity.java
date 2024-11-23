@@ -42,7 +42,7 @@ import java.util.Optional;
 public class MagniteBlazeEntity extends Blaze implements EntityAttackData {
 
     private static final EntityDataAccessor<Boolean> ATTACKING = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);
-    private final AnimationState idleAnimationState;
+    public final AnimationState idleAnimationState;
     private final int supportInterval;
     private final int supportAmount;
 

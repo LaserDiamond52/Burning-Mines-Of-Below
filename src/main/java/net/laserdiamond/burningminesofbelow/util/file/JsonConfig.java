@@ -66,10 +66,10 @@ public abstract class JsonConfig {
 
         try (FileWriter fileWriter = new FileWriter(this.file)) // Try-with-resources to close FileWriter regardless of exceptions being thrown
         {
-            fileWriter.write(this.jsonObject.toString()); // Write the json object to the file
             if (this.file.createNewFile())
             {
                 BurningMinesOfBelow.LOGGER.info("Created File: " + this.fileName); // File was created
+                fileWriter.write(this.jsonObject.toString()); // Write the json object to the file
                 return true;
             } else
             {

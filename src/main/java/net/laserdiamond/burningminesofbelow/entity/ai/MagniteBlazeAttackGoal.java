@@ -7,6 +7,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.phys.AABB;
@@ -71,7 +72,7 @@ public class MagniteBlazeAttackGoal extends Goal {
                 blazes.forEach(blaze ->
                 {
                     // Fire ray cast at them
-                    RayCast.createRayCast(serverLevel, this.magniteBlazeEntity.position(), Optional.of(e -> !(e instanceof MagniteBlazeEntity)), Blaze.class, List.of())
+                    RayCast.createRayCast(serverLevel, this.magniteBlazeEntity.position(), Optional.of(Entity::isAttackable), Blaze.class, List.of())
                             .setCanPierceBlocks()
                             .setCanPierceEntities()
                             .setParticle(ParticleTypes.FLAME)
