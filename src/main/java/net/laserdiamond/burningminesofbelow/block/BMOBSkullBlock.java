@@ -4,6 +4,7 @@ import net.laserdiamond.burningminesofbelow.block.entity.BMOBSkullBlockEntity;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;

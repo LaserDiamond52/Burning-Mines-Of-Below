@@ -1,11 +1,11 @@
 package net.laserdiamond.burningminesofbelow.entity.client.animation;
 
+import net.laserdiamond.burningminesofbelow.entity.EntityInterfaceBase;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 
 // TODO: Needs rework
-public interface IdleEntityAnimator<E extends LivingEntity> extends EntityAnimatorBase<E> {
+public interface IdleEntityAnimator<LE extends LivingEntity> extends EntityInterfaceBase<LE> {
 
     RandomSource random();
 

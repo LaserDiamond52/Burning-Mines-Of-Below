@@ -160,12 +160,11 @@ public class ModEvents
                     // Launch fireball
                     final Level level = player.level();
                     level.playSound(null, player.getOnPos(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 100, 1);
-                    Vec3 playerView = player.getLookAngle();
                     double x = player.getX();
                     double eyeY = player.getEyeY();
                     double z = player.getZ();
 
-                    BlaziumFireBall blaziumFireBall = new BlaziumFireBall(level, player, playerView.x, playerView.y, playerView.z);
+                    BlaziumFireBall blaziumFireBall = new BlaziumFireBall(level, player, player.getLookAngle());
                     blaziumFireBall.setPos(x, eyeY, z);
                     level.addFreshEntity(blaziumFireBall);
 

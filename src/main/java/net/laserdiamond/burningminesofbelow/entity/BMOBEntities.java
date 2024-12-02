@@ -1,6 +1,8 @@
 package net.laserdiamond.burningminesofbelow.entity;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FreezingReaperEntity;
+import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FrozenSoulEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.KingInferniusEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cyrobolt;
@@ -32,11 +34,29 @@ public class BMOBEntities {
 
     // TODO: Add other entities
 
+    /**
+     * Magnite Blaze mob
+     */
     public static RegistryObject<EntityType<MagniteBlazeEntity>> MAGNITE_BLAZE = registerEntity("Magnite Blaze", "magnite_blaze",
-            () -> EntityType.Builder.of(MagniteBlazeEntity::new, MobCategory.MONSTER).sized(2.0F, 2.0F).build("magnite_blaze"));
+            () -> EntityType.Builder.of(MagniteBlazeEntity::new, MobCategory.MONSTER).sized(0.6F, 1.8F).build("magnite_blaze"));
 
-//    public static RegistryObject<EntityType<KingInferniusEntity>> KING_INFERNIUS = registerEntity("King Infernius", "king_infernius",
-//            () -> EntityType.Builder.of(KingInferniusEntity::new, MobCategory.MONSTER).sized(1.0F, 1.0F).build("king_infernius"));
+    /**
+     * King Infernius boss mob
+     */
+    public static RegistryObject<EntityType<KingInferniusEntity>> KING_INFERNIUS = registerEntity("King Infernius", "king_infernius",
+            () -> EntityType.Builder.of(KingInferniusEntity::new, MobCategory.MONSTER).sized(1.25F, 3.25F).build("king_infernius"));
+
+    /**
+     * Frozen Soul mob
+     */
+    public static RegistryObject<EntityType<FrozenSoulEntity>> FROZEN_SOUL = registerEntity("Frozen Soul", "frozen_soul",
+            () -> EntityType.Builder.of(FrozenSoulEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).build("frozen_soul"));
+
+    /**
+     * Freezing Reaper of the Damned boss mob
+     */
+    public static RegistryObject<EntityType<FreezingReaperEntity>> FREEZING_REAPER = registerEntity("Freezing Reaper of the Damned", "freezing_reaper",
+            () -> EntityType.Builder.of(FreezingReaperEntity::new, MobCategory.MONSTER).sized(0.6F, 1.95F).build("freezing_reaper"));
 
     /**
      * Registers a new entity under the mod's entity registry

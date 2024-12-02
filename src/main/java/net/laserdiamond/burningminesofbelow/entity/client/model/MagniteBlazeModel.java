@@ -3,16 +3,14 @@ package net.laserdiamond.burningminesofbelow.entity.client.model;// Made with Bl
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
-import net.laserdiamond.burningminesofbelow.entity.client.animation.BMOBAnimations;
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBlazeEntity> {
@@ -76,7 +74,7 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 	@Override
 	public void setupAnim(MagniteBlazeEntity magniteBlazeEntity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(magniteBlazeEntity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		this.animate(magniteBlazeEntity.idleAnimationState, BMOBAnimations.MAGNITE_BLAZE_IDLE, ageInTicks, 1F);
+		this.animate(magniteBlazeEntity.getIdleAnimationState(), Animations.MAGNITE_BLAZE_IDLE, ageInTicks, 1F);
 	}
 
 
@@ -86,7 +84,27 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 	}
 
 	@Override
-	public @NotNull ModelPart head() {
+	public @NotNull ModelPart getHead() {
 		return this.head;
+	}
+
+	public static class Animations
+	{
+		/**
+		 * Idle animation for Magnite Blaze
+		 */
+		public static final AnimationDefinition MAGNITE_BLAZE_IDLE = AnimationDefinition.Builder.withLength(4.0F).looping()
+				.addAnimation("shields", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+						new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.5F, KeyframeAnimations.degreeVec(0.0F, 45.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 90.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.5F, KeyframeAnimations.degreeVec(0.0F, 135.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 180.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(2.5F, KeyframeAnimations.degreeVec(0.0F, 225.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 270.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(3.5F, KeyframeAnimations.degreeVec(0.0F, 315.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(4.0F, KeyframeAnimations.degreeVec(0.0F, 360.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+				))
+				.build();
 	}
 }

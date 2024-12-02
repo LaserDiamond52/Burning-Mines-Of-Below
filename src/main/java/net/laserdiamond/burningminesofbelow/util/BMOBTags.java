@@ -19,7 +19,6 @@ public class BMOBTags {
 
     public static class Blocks
     {
-
         public static final TagKey<Block> FORGE_BLOCK = tag("forge_block");
         public static final TagKey<Block> NEEDS_DIAMONITE_TOOL = tag("needs_diamonite_tool");
         public static final TagKey<Block> NEEDS_REFINED_DIAMONITE_TOOL = tag("needs_refined_diamonite_tool");
@@ -48,6 +47,8 @@ public class BMOBTags {
         public static final TagKey<Item> FORGE_FREEZE_FUEL = tag("forge_freeze_fuel");
         public static final TagKey<Item> FORGE_MAIN_INGREDIENT = tag("forge_main_ingredient");
         public static final TagKey<Item> FORGE_MISC_INGREDIENT = tag("forge_misc_ingredient");
+        public static final TagKey<Item> KING_INFERNIUS_SUMMON_ITEM = tag("king_infernius_summon_item");
+        public static final TagKey<Item> FREEZING_REAPER_SUMMON_ITEM = tag("freezing_reaper_summon_item");
 
         /**
          * Creates an {@link Item} tag under this mod's directory

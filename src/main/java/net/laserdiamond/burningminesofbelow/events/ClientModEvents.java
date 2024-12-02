@@ -1,21 +1,26 @@
 package net.laserdiamond.burningminesofbelow.events;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
+import net.laserdiamond.burningminesofbelow.block.BMOBSkullBlock;
 import net.laserdiamond.burningminesofbelow.block.entity.BMOBBlockEntities;
-import net.laserdiamond.burningminesofbelow.block.entity.renderer.BMOBSkullBlockEntityRenderer;
+import net.laserdiamond.burningminesofbelow.block.entity.renderer.BMOBSkullBlockRenderer;
 import net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings;
 import net.laserdiamond.burningminesofbelow.client.BMOBModelLayers;
 import net.laserdiamond.burningminesofbelow.client.HeatHUDOverlay;
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
-import net.laserdiamond.burningminesofbelow.entity.client.model.MagniteBlazeModel;
-import net.laserdiamond.burningminesofbelow.entity.client.renderer.CyroboltRenderer;
-import net.laserdiamond.burningminesofbelow.entity.client.renderer.MagniteBlazeRenderer;
+import net.laserdiamond.burningminesofbelow.entity.client.model.*;
+import net.laserdiamond.burningminesofbelow.entity.client.renderer.*;
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.LayerDefinitions;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
@@ -29,12 +34,18 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents
 {
+
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
         MenuScreens.register(BMOBMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
 
+        EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CyroboltRenderer::new);
         EntityRenderers.register(BMOBEntities.MAGNITE_BLAZE.get(), MagniteBlazeRenderer::new);
+        EntityRenderers.register(BMOBEntities.KING_INFERNIUS.get(), KingInferniusRenderer::new);
+        EntityRenderers.register(BMOBEntities.FROZEN_SOUL.get(), FrozenSoulRenderer::new);
+        EntityRenderers.register(BMOBEntities.FREEZING_REAPER.get(), FreezingReaperRenderer::new);
+
     }
 
     /**
@@ -54,7 +65,7 @@ public class ClientModEvents
     @SubscribeEvent
     public static void registerBlockEntityRenderer(EntityRenderersEvent.RegisterRenderers event)
     {
-        event.registerBlockEntityRenderer(BMOBBlockEntities.SKULL_BLOCK_ENTITY.get(), BMOBSkullBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(BMOBBlockEntities.SKULL_BLOCK_ENTITY.get(), SkullBlockRenderer::new);
     }
 
     /**
@@ -64,10 +75,33 @@ public class ClientModEvents
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
+        final LayerDefinition innerArmorLayerDef = LayerDefinition.create(HumanoidArmorModel.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION), 64, 32);
+        final LayerDefinition outerArmorLayerDef = LayerDefinition.create(HumanoidArmorModel.createBodyLayer(LayerDefinitions.OUTER_ARMOR_DEFORMATION), 64, 32);
+
         event.registerLayerDefinition(BMOBModelLayers.FROZEN_WITHER_SKULL, SkullModel::createMobHeadLayer);
         event.registerLayerDefinition(BMOBModelLayers.BLAZE_SKULL, SkullModel::createMobHeadLayer);
+
         event.registerLayerDefinition(BMOBModelLayers.MAGNITE_BLAZE, MagniteBlazeModel::createBodyLayer);
+        event.registerLayerDefinition(BMOBModelLayers.KING_INFERNIUS, KingInferniusModel::createBodyLayer);
+
+        event.registerLayerDefinition(BMOBModelLayers.FROZEN_SOUL, AbstractHumanoidModel::createBodyLayer);
+        event.registerLayerDefinition(BMOBModelLayers.FROZEN_SOUL_INNER_ARMOR, () -> innerArmorLayerDef);
+        event.registerLayerDefinition(BMOBModelLayers.FROZEN_SOUL_OUTER_ARMOR, () -> outerArmorLayerDef);
+
+        event.registerLayerDefinition(BMOBModelLayers.FREEZING_REAPER, FreezingReaperModel::createBodyLayer);
+
+
     }
+
+    @SubscribeEvent
+    public static void addLayers(EntityRenderersEvent.AddLayers event)
+    {
+        BMOBSkullBlockRenderer.addSkullBlockLayer(BMOBSkullBlock.Types.BLAZE_SKULL, BMOBModelLayers.BLAZE_SKULL, new ResourceLocation(BurningMinesOfBelow.MODID,"textures/block/blaze_skull.png"));
+        BMOBSkullBlockRenderer.addSkullBlockLayer(BMOBSkullBlock.Types.FROZEN_WITHER_SKULL, BMOBModelLayers.FROZEN_WITHER_SKULL, new ResourceLocation(BurningMinesOfBelow.MODID,"textures/block/frozen_wither_skull.png"));
+
+    }
+
+
 
     /**
      * Registers all the GUI overlays for this mod
@@ -84,7 +118,6 @@ public class ClientModEvents
     public static void commonSetup(FMLCommonSetupEvent event)
     {
         BMOBPackets.registerPackets();
-        EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CyroboltRenderer::new);
     }
 
 }

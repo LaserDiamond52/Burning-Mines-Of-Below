@@ -1,5 +1,7 @@
 package net.laserdiamond.burningminesofbelow.util;
 
+import net.minecraft.world.entity.Entity;
+
 import java.util.Random;
 
 public class BMOBMath {
@@ -40,5 +42,20 @@ public class BMOBMath {
     public static int getLastTwoDigitsFromChance(double chance)
     {
         return (int) (Math.max(0, chance) % 100);
+    }
+
+    /**
+     * Gets the distance between two entities. If the two entities are not in the same dimension, then the maximum integer value is returned.
+     * @param entity The entity to start from
+     * @param target The target entity to find the distance from
+     * @return The distance between the entity and target entity. Returns 2<sup>31</sup>-1 if the entities are not in the same dimension.
+     */
+    public static double getDistance(Entity entity, Entity target)
+    {
+        if (entity.level().dimension() != entity.level().dimension())
+        {
+            return Integer.MAX_VALUE;
+        }
+        return entity.distanceTo(target);
     }
 }

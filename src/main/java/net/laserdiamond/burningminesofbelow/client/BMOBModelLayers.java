@@ -22,13 +22,59 @@ public class BMOBModelLayers {
     public static final ModelLayerLocation MAGNITE_BLAZE = createBasicModelLayer("magnite_blaze_layer");
 
     /**
+     * Model layer for King Infernius entity
+     */
+    public static final ModelLayerLocation KING_INFERNIUS = createBasicModelLayer("king_infernius");
+
+    /**
+     * Model layer for Frozen Soul entity
+     */
+    public static final ModelLayerLocation FROZEN_SOUL = createBasicModelLayer("frozen_soul");
+
+    /**
+     * Model layer for Freezing Reaper of the Damned entity
+     */
+    public static final ModelLayerLocation FREEZING_REAPER = createBasicModelLayer("freezing_reaper");
+
+    /**
+     * Inner Armor Model layer for Frozen Soul entity
+     */
+    public static final ModelLayerLocation FROZEN_SOUL_INNER_ARMOR = createInnerArmorLayer("frozen_soul");
+
+    /**
+     * Outer Armor Model Layer for Frozen Soul entity
+     */
+    public static final ModelLayerLocation FROZEN_SOUL_OUTER_ARMOR = createOuterArmorLayer("frozen_soul");
+
+
+    /**
      * Creates a basic main model layer
-     * @param path The resource location for the texture
+     * @param path The resource location for the texture. For mobs, their local name is used.
      * @return A {@link ModelLayerLocation} for use in this mod
      */
     public static ModelLayerLocation createBasicModelLayer(String path)
     {
         return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "main");
+    }
+
+    /**
+     * Creates a model layer for inner armor. This is used for mob renderers that have a {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
+     * @param path The resource location for the texture. Typically, the local name of the mob is used here.
+     * @return A {@link ModelLayerLocation} for use with the {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
+     */
+    public static ModelLayerLocation createInnerArmorLayer(String path)
+    {
+        return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "inner_armor");
+    }
+
+    /**
+     * Creates a model layer for outer armor. This is used for mob renderers that have a {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
+     * @param path The resource location for the texture. Typically, the local name of the mob is used here.
+     * @return A {@link ModelLayerLocation} for used with the {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
+     */
+    public static ModelLayerLocation createOuterArmorLayer(String path)
+    {
+        return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "outer_armor");
     }
 
 }

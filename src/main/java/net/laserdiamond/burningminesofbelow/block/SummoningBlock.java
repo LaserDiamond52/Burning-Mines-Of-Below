@@ -28,22 +28,23 @@ public interface SummoningBlock<LE extends LivingEntity, BE extends BlockEntity>
     TagKey<Block> summoningBlock();
 
     /**
+     * The item tag of the block that can be used to trigger the entity to spawn
+     * @return The item tag of the block that cna be used to summon the entity.
+     */
+    TagKey<Item> summoningItem();
+
+    /**
      * The base blocks that can be used to help spawn the entity
      * @return The base blocks that can be used to help spawn the entity
      */
     TagKey<Block> baseBlocks();
 
     /**
-     * The block entity block as an item
-     * @return The item of the block
-     */
-    Item blockAsItem();
-
-    /**
-     * The entity to spawn
+     * The entity to spawn. {@link net.minecraft.world.entity.EntityType}#create needs to be invoked
+     * @param level The {@link Level} to spawn the entity in
      * @return The entity to spawn when all the blocks are placed
      */
-    LE entityToSpawn();
+    LE entityToSpawn(Level level);
 
     /**
      * Spawns the entity at the block position in the level
@@ -62,7 +63,7 @@ public interface SummoningBlock<LE extends LivingEntity, BE extends BlockEntity>
                 BlockPattern.BlockPatternMatch blockPatternMatch = getOrCreateEntityFull().find(level, pos);
                 if (blockPatternMatch != null)
                 {
-                    LE entity = entityToSpawn();
+                    LE entity = entityToSpawn(level);
                     if (entity != null)
                     {
                         CarvedPumpkinBlock.clearPatternBlocks(level, blockPatternMatch);
@@ -85,9 +86,10 @@ public interface SummoningBlock<LE extends LivingEntity, BE extends BlockEntity>
      * @param stack The item stack being used to spawn the entity
      * @return True if the entity can spawn, false otherwise
      */
+    @Deprecated
     default boolean canSpawnMob(Level level, BlockPos pos, ItemStack stack)
     {
-        if (stack.is(blockAsItem()) && pos.getY() >= level.getMinBuildHeight() + 2 && level.getDifficulty() != Difficulty.PEACEFUL && !level.isClientSide)
+        if (stack.is(summoningItem()) && pos.getY() >= level.getMinBuildHeight() + 2 && level.getDifficulty() != Difficulty.PEACEFUL && !level.isClientSide)
         {
             return getOrCreateEntityBase().find(level, pos) != null;
         } else
