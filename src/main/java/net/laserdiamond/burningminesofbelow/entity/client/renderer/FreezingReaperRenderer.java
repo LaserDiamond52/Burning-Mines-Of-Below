@@ -47,7 +47,7 @@ public class FreezingReaperRenderer extends MobRenderer<FreezingReaperEntity, Fr
         protected void renderArmWithItem(LivingEntity pLivingEntity, ItemStack pItemStack, ItemDisplayContext pDisplayContext, HumanoidArm pArm, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
             if (pArm == HumanoidArm.RIGHT)
             {
-                pPoseStack.translate(0.0F, 0.5F, 0.0F);
+                pPoseStack.translate(0.0F, 1.5F, 0.0F);
             }
             super.renderArmWithItem(pLivingEntity, pItemStack, pDisplayContext, pArm, pPoseStack, pBuffer, pPackedLight);
         }

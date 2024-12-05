@@ -4,6 +4,10 @@ package net.laserdiamond.burningminesofbelow.entity.client.model;// Made with Bl
 
 
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FreezingReaperEntity;
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -132,7 +136,10 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 	public void setupAnim(FreezingReaperEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
+		this.animate(entity.getIdleAnimationState(), Animations.FREEZING_REAPER_IDLE, ageInTicks, 1.0F);
 		AnimationUtils.bobArms(this.right_arm, this.left_arm, ageInTicks);
+
+		this.animate(FreezingReaperEntity.Attack.MELEE.getAnimationState(), Animations.FREEZING_REAPER_MELEE_ATTACK, ageInTicks, 1.0F);
 	}
 
 	@Override
@@ -152,6 +159,37 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 
 	private static class Animations
 	{
+		/**
+		 * Idle animation for Freezing Reaper
+		 */
+		public static final AnimationDefinition FREEZING_REAPER_IDLE = AnimationDefinition.Builder.withLength(2.0F).looping()
+				.addAnimation("right_leg", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+						new Keyframe(0.0F, KeyframeAnimations.degreeVec(22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.5F, KeyframeAnimations.degreeVec(30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.0F, KeyframeAnimations.degreeVec(25.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.5F, KeyframeAnimations.degreeVec(30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(2.0F, KeyframeAnimations.degreeVec(22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+				))
+				.addAnimation("left_leg", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+						new Keyframe(0.0F, KeyframeAnimations.degreeVec(22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.5F, KeyframeAnimations.degreeVec(30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.0F, KeyframeAnimations.degreeVec(25.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.5F, KeyframeAnimations.degreeVec(30.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(2.0F, KeyframeAnimations.degreeVec(22.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+				))
+				.build();
 
+		/**
+		 * Melee Attack animation for Freezing Reaper
+		 */
+		public static final AnimationDefinition FREEZING_REAPER_MELEE_ATTACK = AnimationDefinition.Builder.withLength(1.0F).looping()
+				.addAnimation("right_arm", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+						new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.25F, KeyframeAnimations.degreeVec(-125.0F, 35.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.5F, KeyframeAnimations.degreeVec(-47.5F, -25.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(0.75F, KeyframeAnimations.degreeVec(-107.5F, -37.5F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+						new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+				))
+				.build();
 	}
 }

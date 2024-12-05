@@ -1,15 +1,19 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
 import net.laserdiamond.burningminesofbelow.entity.ai.AttackSetUp;
+import net.laserdiamond.burningminesofbelow.entity.ai.freezingreaper.FreezingReaperMeleeAttackGoal;
+import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEntity> implements MultiAttackingEntity<FreezingReaperEntity.Attack, FreezingReaperEntity> {
@@ -34,6 +39,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
         // TODO: Create Scythe item for mob to hold
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.CYRONITE_SCYTHE.get()));
     }
 
     @Override
@@ -61,6 +67,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         super.registerGoals();
 
         // TODO: Goals
+        this.goalSelector.addGoal(1, new FreezingReaperMeleeAttackGoal(this, 1.0, true));
 
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1D));
@@ -117,7 +124,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
 
     public enum Attack implements AttackSetUp
     {
-        MELEE (new AnimationState(), 0, FreezingReaperEntity.MELEE_ATTACKING),
+        MELEE (new AnimationState(), 20, FreezingReaperEntity.MELEE_ATTACKING),
         ICE_BARRAGE (new AnimationState(), 0, FreezingReaperEntity.ICE_BARRAGE),
         SUDDEN_BLIZZARD (new AnimationState(), 0, FreezingReaperEntity.SUDDEN_BLIZZARD);
 

@@ -31,20 +31,26 @@ public abstract class AbstractMonster<M extends Monster> extends Monster {
 
     public void setUpAnimationStates()
     {
-        if (this.idleTimeout <= 0)
-        {
-            this.idleTimeout = this.random.nextInt(40) + 80;
-            this.idleAnimationState.start(this.tickCount);
-        } else
-        {
-            this.idleTimeout--;
-        }
+//        if (this.idleTimeout <= 0)
+//        {
+//            this.idleTimeout = this.random.nextInt(40) + 80;
+//            this.idleAnimationState.start(this.tickCount);
+//        } else
+//        {
+//            this.idleTimeout--;
+//        }
     }
 
     @Override
     protected void registerGoals()
     {
         this.goalSelector.addGoal(0, new FloatGoal(this)); // This goal should be used by all mobs. We want them to be able to swim afloat
+    }
+
+    @Override
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        this.idleAnimationState.start(this.tickCount);
     }
 
     @Override

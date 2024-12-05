@@ -130,7 +130,7 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 
 		this.animateWalk(Animations.KING_INFERNIUS_WALK, limbSwing, limbSwingAmount, 5F, 10F); // Walk animation
 
-		this.animate(kingInferniusEntity.getCrownAnimationState(), Animations.KING_INFERNIUS_CROWN, ageInTicks, 1.0F); // Blaze Rod crown animation
+		this.animate(kingInferniusEntity.getIdleAnimationState(), Animations.KING_INFERNIUS_CROWN, ageInTicks, 1.0F); // Blaze Rod crown animation
 		AnimationUtils.bobArms(this.right_arm, this.left_arm, ageInTicks); // idle/bob arms animation
 
 		this.animate(KingInferniusEntity.Attack.MELEE.getAnimationState(), Animations.KING_INFERNIUS_MELEE_ATTACK, ageInTicks, 1.0F); // Melee attack animation

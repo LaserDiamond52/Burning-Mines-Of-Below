@@ -9,6 +9,7 @@ import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -374,6 +375,12 @@ public class BMOBItems {
      */
     public static final RegistryObject<Item> CYRONITE_SWORD = registerItem("Cyronite Sword", "cyronite_sword",
             () -> new CyroniteSwordItem(1, -2.4F, new Item.Properties(), List.of()));
+
+    /**
+     * Cyronite Scythe item
+     */
+    public static final RegistryObject<Item> CYRONITE_SCYTHE = registerItem("Cyronite Scythe", "cyronite_scythe",
+            () -> new CyroniteScytheItem(1, -3F, new Item.Properties(), List.of()));
 
     /**
      * Diamonite Sword item

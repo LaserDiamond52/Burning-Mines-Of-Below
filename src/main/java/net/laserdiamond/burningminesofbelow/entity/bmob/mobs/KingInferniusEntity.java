@@ -41,12 +41,12 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
     public static final EntityDataAccessor<Boolean> SOLAR_FLARE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final int[] attackTimeouts;
-    private final AnimationState crownAnimationState;
+//    private final AnimationState crownAnimationState;
 
     public KingInferniusEntity(EntityType<? extends KingInferniusEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
-        this.crownAnimationState = new AnimationState();
+//        this.crownAnimationState = new AnimationState();
         this.setHealth(this.getMaxHealth());
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
@@ -84,9 +84,9 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
         return this.attackTimeouts;
     }
 
-    public AnimationState getCrownAnimationState() {
-        return crownAnimationState;
-    }
+//    public AnimationState getCrownAnimationState() {
+//        return crownAnimationState;
+//    }
 
     @Override
     protected void registerGoals()
@@ -140,11 +140,11 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
         this.entityData.define(SOLAR_FLARE_ATTACKING, false);
     }
 
-    @Override
-    public void onAddedToWorld() {
-        super.onAddedToWorld();
-        this.crownAnimationState.start(this.tickCount); // Start crown animation
-    }
+//    @Override
+//    public void onAddedToWorld() {
+//        super.onAddedToWorld();
+//       this.crownAnimationState.start(this.tickCount); // Start crown animation
+//    }
 
     @Override
     public void setUpAnimationStates() {
