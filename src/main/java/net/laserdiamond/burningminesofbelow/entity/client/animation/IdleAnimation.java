@@ -2,6 +2,7 @@ package net.laserdiamond.burningminesofbelow.entity.client.animation;
 
 import net.minecraft.world.entity.AnimationState;
 
+@Deprecated
 public final class IdleAnimation {
 
     private final AnimationState animationState;

@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FrozenWitherSkullWallBlock extends BMOBSkullBlockWall {
+public class FrozenWitherSkullWallBlock extends BMOBWallSkullBlock {
 
     public FrozenWitherSkullWallBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(BMOBSkullBlock.Types.FROZEN_WITHER_SKULL, pProperties, tags);

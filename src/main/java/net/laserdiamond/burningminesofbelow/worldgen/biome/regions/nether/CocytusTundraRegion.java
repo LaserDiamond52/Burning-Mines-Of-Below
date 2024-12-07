@@ -1,6 +1,7 @@
-package net.laserdiamond.burningminesofbelow.worldgen.biome.regions;
+package net.laserdiamond.burningminesofbelow.worldgen.biome.regions.nether;
 
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBBiomes;
+import net.laserdiamond.burningminesofbelow.worldgen.biome.regions.AbstractRegion;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
@@ -33,22 +34,27 @@ public final class CocytusTundraRegion extends AbstractRegion {
 
     @NotNull
     @Override
-    protected ParameterUtils.Continentalness continentalness() {
-        return ParameterUtils.Continentalness.INLAND;
+    protected Climate.Parameter continentalness() {
+        return ParameterUtils.Continentalness.span(ParameterUtils.Continentalness.INLAND, ParameterUtils.Continentalness.INLAND);
     }
 
     @Override
-    protected @NotNull ParameterUtils.Erosion[] erosion() {
-        return new ParameterUtils.Erosion[]{ParameterUtils.Erosion.EROSION_0, ParameterUtils.Erosion.EROSION_1};
+    protected @NotNull Climate.Parameter erosion() {
+        return ParameterUtils.Erosion.span(ParameterUtils.Erosion.EROSION_0, ParameterUtils.Erosion.EROSION_1);
     }
 
     @Override
-    protected @NotNull ParameterUtils.Depth[] depth() {
-        return new ParameterUtils.Depth[]{ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR};
+    protected @NotNull Climate.Parameter depth() {
+        return ParameterUtils.Depth.span(ParameterUtils.Depth.SURFACE, ParameterUtils.Depth.FLOOR);
     }
 
     @Override
-    protected @NotNull ParameterUtils.Weirdness[] weirdness() {
-        return new ParameterUtils.Weirdness[]{ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING};
+    protected @NotNull Climate.Parameter weirdness() {
+        return ParameterUtils.Weirdness.span(ParameterUtils.Weirdness.MID_SLICE_NORMAL_ASCENDING, ParameterUtils.Weirdness.MID_SLICE_NORMAL_DESCENDING);
+    }
+
+    @Override
+    protected float offset() {
+        return 0F;
     }
 }

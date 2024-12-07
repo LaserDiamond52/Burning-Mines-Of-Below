@@ -33,31 +33,88 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+/**
+ * An abstract class for the Forge Block Entity.
+ * <p>Responsibilities:</p>
+ * <li>Create and run major functionality of the Forge Block</li>
+ */
 public abstract class AbstractForgeBlockEntity extends BlockEntity implements MenuProvider {
 
+    /**
+     * The {@link ItemStackHandler} of the block entity. Helps handle items that can be stored in the block entity
+     */
     private final ItemStackHandler itemStackHandler = new ItemStackHandler(4);
 
+    /**
+     * The inventory index for the main item input slot
+     */
     public static final int MAIN_ITEM_INPUT_SLOT = 0;
+
+    /**
+     * The inventory index for the miscellaneous item input slot
+     */
     public static final int MISC_ITEM_INPUT_SLOT = 1;
+
+    /**
+     * The inventory index for the fuel item input slot
+     */
     public static final int FUEL_ITEM_INPUT_SLOT = 2;
+
+    /**
+     * the inventory index for the recipe output slot.
+     */
     public static final int OUTPUT_SLOT = 3;
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+
+    /**
+     * The {@link ContainerData} for the block entity. Responsible for storing information about recipe progress and fuel
+     */
     private final ContainerData containerData;
+
+    /**
+     * The current level of the Forge
+     */
     private final int forgeLevel;
+
+    /**
+     * Contains the current progress towards completion of a recipe, and the amount of progress needed for recipe completion.
+     */
     private final int[] progress = new int[]{0, 100};
+
+    /**
+     * Contains the current heat fuel level and the maximum heat fuel that can be stored.
+     */
     private final int[] heatFuelLevel = new int[]{0, 100};
+
+    /**
+     * Contains the current freeze fuel level and the maximum freeze fuel that can be stored.
+     */
     private final int[] freezeFuelLevel = new int[]{0, 100};
 
+    /**
+     * Creates a new {@link AbstractForgeBlockEntity}
+     * @param forgeBe The {@link BlockEntityType} of the {@link AbstractForgeBlockEntity}
+     * @param blockPos The {@link BlockPos} of the block
+     * @param blockState The {@link BlockState} of the block
+     * @param forgeLevel The level of the Forge
+     */
     public AbstractForgeBlockEntity(BlockEntityType<? extends AbstractForgeBlockEntity> forgeBe, BlockPos blockPos, BlockState blockState, int forgeLevel)
     {
-        super(forgeBe, blockPos, blockState);
-        this.forgeLevel = forgeLevel;
-        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0];
-        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1];
-        this.containerData = new ContainerData() {
+        super(forgeBe, blockPos, blockState); // Call parent constructor
+        this.forgeLevel = forgeLevel; // Indicate the forge level
+        this.heatFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[0]; // Set the max heat fuel capacity
+        this.freezeFuelLevel[1] = ForgeRecipe.FORGE_LEVEL_MAX_FUELS.get(forgeLevel)[1]; // Set the max freeze fuel capacity
+        this.containerData = new ContainerData() // Create new ContainerData
+        {
+            /**
+             * Gets a value stored in the container data. This could be value indicating recipe progress, fuel amounts, etc.
+             * @param index The index to get a value from
+             * @return A value about the block entity's container data
+             */
             @Override
-            public int get(int i) {
-                return switch (i)
+            public int get(int index)
+            {
+                return switch (index)
                 {
                     case 0 -> AbstractForgeBlockEntity.this.progress[0];
                     case 1 -> AbstractForgeBlockEntity.this.progress[1];
@@ -69,22 +126,33 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
                 };
             }
 
+            /**
+             * Sets value stored in the container data.
+             * @param index The index to set a value to
+             * @param value The value to assign in the container data
+             */
             @Override
-            public void set(int i, int i1) {
-                switch (i)
+            public void set(int index, int value)
+            {
+                switch (index)
                 {
-                    case 0 -> AbstractForgeBlockEntity.this.progress[0] = i1;
-                    case 1 -> AbstractForgeBlockEntity.this.progress[1] = i1;
-                    case 2 -> AbstractForgeBlockEntity.this.heatFuelLevel[0] = i1;
-                    case 3 -> AbstractForgeBlockEntity.this.heatFuelLevel[1] = i1;
-                    case 4 -> AbstractForgeBlockEntity.this.freezeFuelLevel[0] = i1;
-                    case 5 -> AbstractForgeBlockEntity.this.freezeFuelLevel[1] = i1;
+                    case 0 -> AbstractForgeBlockEntity.this.progress[0] = value;
+                    case 1 -> AbstractForgeBlockEntity.this.progress[1] = value;
+                    case 2 -> AbstractForgeBlockEntity.this.heatFuelLevel[0] = value;
+                    case 3 -> AbstractForgeBlockEntity.this.heatFuelLevel[1] = value;
+                    case 4 -> AbstractForgeBlockEntity.this.freezeFuelLevel[0] = value;
+                    case 5 -> AbstractForgeBlockEntity.this.freezeFuelLevel[1] = value;
                 }
             }
 
+            /**
+             *
+             * @return The amount of variables being stored in the container data
+             */
             @Override
-            public int getCount() {
-                return 6;
+            public int getCount()
+            {
+                return 6; // We are storing 6 variables in the block entity, so return 6
             }
         };
     }
@@ -123,31 +191,53 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
         Containers.dropContents(this.level, this.worldPosition, inv);
     }
 
+    /**
+     * The display name of the block entity. This is shown in the Forge's GUI
+     * @return A {@link Component} that defines the translation key for the display name to display in the inventory.
+     */
     @Override
     public Component getDisplayName() {
         return Component.translatable("block." + BurningMinesOfBelow.MODID + ".forge_level_" + this.forgeLevel);
     }
 
+    /**
+     * Create the {@link ForgeMenu} for the {@link Player} to use
+     * @param i The id of the inventory
+     * @param inventory The current inventory
+     * @param player The {@link Player} attempting to open the {@link ForgeMenu}
+     * @return Am {@link AbstractContainerMenu} of the {@link ForgeMenu}
+     */
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
         return new ForgeMenu(i, inventory, this, this.containerData);
     }
 
+    /**
+     * Saves data about the block entity.
+     * @param pTag The {@link CompoundTag} to save data to
+     */
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", this.itemStackHandler.serializeNBT());
+        pTag.put("inventory", this.itemStackHandler.serializeNBT()); // Save the items to the CompoundTag
+        // Save the recipe progress and fuel levels to the CompoundTag
         pTag.putInt("forge.progress", this.progress[0]);
         pTag.putInt("forge.heat_fuel_level", this.heatFuelLevel[0]);
         pTag.putInt("forge.freeze_fuel_level", this.freezeFuelLevel[0]);
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag); // Call superclass method to save all other necessary data
     }
 
+    /**
+     * Loads data about the block entity.
+     * @param pTag The {@link CompoundTag} to save data to
+     */
     @Override
     public void load(CompoundTag pTag) {
-        super.load(pTag);
+        super.load(pTag); // Call superclass method to load all other necessary data
+        // Set the items in the inventory
         this.itemStackHandler.deserializeNBT(pTag.getCompound("inventory"));
 
+        // Set the current progress to recipe completion and fuel levels to the value saved on the CompoundTag
         this.progress[0] = pTag.getInt("forge.progress");
         this.heatFuelLevel[0] = pTag.getInt("forge.heat_fuel_level");
         this.freezeFuelLevel[0] = pTag.getInt("forge.freeze_fuel_level");
@@ -167,26 +257,28 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
         boolean freezeFuelConsumed = false;
         Item returnItem = Items.AIR;
         int itemCount = 0;
-        if (this.heatFuelLevel[0] < this.heatFuelLevel[1])
+        if (this.heatFuelLevel[0] < this.heatFuelLevel[1]) // Is our current heat fuel less than the max fuel?
         {
-            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_HEAT_FUEL))
+            // Not at full fuel
+            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_HEAT_FUEL)) // Is there a heat fuel item in the fuel slot?
             {
-                int fuelAmount = BMOBItems.HEAT_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem());
+                int fuelAmount = BMOBItems.HEAT_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem()); // The fuel amount to add
                 this.heatFuelLevel[0] = Math.min(this.heatFuelLevel[1], this.heatFuelLevel[0] + fuelAmount); // Add fuel
                 returnItem = fuelItemStack.getItem(); // The item to return is assumed to be the fuel item
                 itemCount = fuelItemStack.getCount() - 1; // The new amount we want in the fuel slot
-                heatFuelConsumed = true;
+                heatFuelConsumed = true; // Fuel is consumed, return true
             }
         }
-        if (this.freezeFuelLevel[0] < this.freezeFuelLevel[1])
+        if (this.freezeFuelLevel[0] < this.freezeFuelLevel[1]) // Is our current freeze fuel less than the max fuel
         {
-            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_FREEZE_FUEL))
+            // Not at full fuel
+            if (this.itemStackHandler.getStackInSlot(FUEL_ITEM_INPUT_SLOT).is(BMOBTags.Items.FORGE_FREEZE_FUEL)) // Is there a freeze fuel item in the fuel slot?
             {
-                int fuelAmount = BMOBItems.FREEZE_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem());
+                int fuelAmount = BMOBItems.FREEZE_FUEL_ITEMS.getFuelAmount(fuelItemStack.getItem()); // The fuel amount to add
                 this.freezeFuelLevel[0] = Math.min(this.freezeFuelLevel[1], this.freezeFuelLevel[0] + fuelAmount); // Add fuel
                 returnItem = fuelItemStack.getItem(); // The item to return is assumed to be the fuel item
                 itemCount = fuelItemStack.getCount() - 1; // The new amount we want in the fuel slot
-                freezeFuelConsumed = true;
+                freezeFuelConsumed = true; // Fuel is consumed, return true
             }
         }
 
@@ -195,36 +287,39 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
             if (fuelItemStack.getItem() instanceof BucketItem) // If a fuel item that is a bucket is placed...
             {
                 this.itemStackHandler.setStackInSlot(FUEL_ITEM_INPUT_SLOT, new ItemStack(Items.BUCKET)); // Replace the item in the slot with an empty bucket
-            } else
+            } else // A bucket item was not placed
             {
+                // Are we out of the input item type?
+                // If we are, then air should be in the fuel slot now. Otherwise, the item type should still be the fuel item
                 if (itemCount <= 0)
                 {
+                    // Out of items
                     returnItem = Items.AIR; // Set the item to air if the consumed amount is 0 or less
                 }
-                ItemStack returnStack = new ItemStack(returnItem);
-                returnStack.setCount(itemCount);
-                this.itemStackHandler.setStackInSlot(FUEL_ITEM_INPUT_SLOT, returnStack);
+                ItemStack returnStack = new ItemStack(returnItem); // Create the item we want to return.
+                returnStack.setCount(itemCount); // Set the new count of the item
+                this.itemStackHandler.setStackInSlot(FUEL_ITEM_INPUT_SLOT, returnStack); // Set the item stack in the fuel slot to the new item stack
             }
         }
 
-        if (this.hasRecipeJson())
+        if (this.hasRecipeJson()) // Is a recipe present in the inventory?
         {
             Optional<ForgeRecipe> recipe = this.getCurrentRecipe();
-            if (recipe.isEmpty())
+            if (recipe.isEmpty()) // Make sure the recipe is not empty/null
             {
-                return; // Recipe is empty. End method
+                return; // No recipe present. End method
             }
             this.increaseForgingProgress(recipe.get());
             setChanged(level, blockPos, blockState);
 
-            if (this.hasProgressFinished())
+            if (this.hasProgressFinished()) // Is the recipe done?
             {
-                this.forgeItem(recipe.get());
-                this.resetForgeProgress();
+                this.forgeItem(recipe.get()); // Output the item
+                this.resetForgeProgress(); // Reset progress
             }
-        } else
+        } else // No recipe present
         {
-            this.resetForgeProgress();
+            this.resetForgeProgress(); // Reset progress
         }
     }
 
@@ -242,13 +337,15 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
      */
     private void forgeItem(ForgeRecipe recipe)
     {
+        // Get the result item
         ItemStack result = recipe.getResultItem(null);
 
+        // Remove items from the main slot and misc slot
         this.itemStackHandler.extractItem(MAIN_ITEM_INPUT_SLOT, 1, false);
         this.itemStackHandler.extractItem(MISC_ITEM_INPUT_SLOT, 1, false);
 
-        this.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
-                this.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
+        // Set the result item slot to have the result item
+        this.itemStackHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(), this.itemStackHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 
     /**
@@ -266,14 +363,14 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
      */
     private void increaseForgingProgress(ForgeRecipe recipe)
     {
-        progress[0]++;
+        progress[0]++; // Increment progress
         if (hasProgressFinished() && this.heatFuelLevel[0] >= recipe.getHeatFuelCost())
         {
-            this.heatFuelLevel[0] -= recipe.getHeatFuelCost();
+            this.heatFuelLevel[0] -= recipe.getHeatFuelCost(); // Deduct fuel amount based on the fuel cost
         }
         if (hasProgressFinished() && this.freezeFuelLevel[0] >= recipe.getFreezeFuelCost())
         {
-            this.freezeFuelLevel[0] -= recipe.getFreezeFuelCost();
+            this.freezeFuelLevel[0] -= recipe.getFreezeFuelCost(); // Deduct fuel amount base on the fuel cost
         }
     }
 
@@ -287,9 +384,9 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
 
         if (recipe.isEmpty())
         {
-            return false;
+            return false; // No recipe. Return false
         }
-        ItemStack result = recipe.get().getResultItem(null);
+        ItemStack result = recipe.get().getResultItem(null); // Get the result item
         boolean isReqLevel = this.forgeLevel >= recipe.get().getForgeLevel(); // Check that the Forge outputting the recipe is at the required level to do so
         boolean hasEnoughHeatFuel = this.heatFuelLevel[0] >= recipe.get().getHeatFuelCost(); // Check that there is enough heat fuel
         boolean hasEnoughFreezeFuel = this.freezeFuelLevel[0] >= recipe.get().getFreezeFuelCost(); // Check that there is enough freeze fuel

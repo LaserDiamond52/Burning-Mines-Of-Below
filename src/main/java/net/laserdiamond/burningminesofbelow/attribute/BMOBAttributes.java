@@ -12,6 +12,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+/**
+ * Responsibilities:
+ * <li>Create and register new attributes to the attribute registry of this mod</li>
+ */
 public class BMOBAttributes {
 
     /**
@@ -44,9 +48,9 @@ public class BMOBAttributes {
     @SuppressWarnings("unchecked")
     public static RegistryObject<Attribute> registerAttribute(String name, String localName, Supplier<Attribute> attributeSupplier)
     {
-        RegistryObject<Attribute> attributeRegistryObject = ATTRIBUTES.register("generic." + localName, attributeSupplier);
-        LanguageRegistry.instance(Language.EN_US).getAttributeNameRegistry().addEntry(name, attributeRegistryObject);
-        return attributeRegistryObject;
+        RegistryObject<Attribute> attributeRegistryObject = ATTRIBUTES.register("generic." + localName, attributeSupplier); // Create the registry object to return
+        LanguageRegistry.instance(Language.EN_US).getAttributeNameRegistry().addEntry(name, attributeRegistryObject); // Map the name to the registry object
+        return attributeRegistryObject; // Return the registry object
     }
 
     /**

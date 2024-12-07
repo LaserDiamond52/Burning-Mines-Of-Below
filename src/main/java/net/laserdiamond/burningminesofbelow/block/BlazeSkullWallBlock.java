@@ -6,13 +6,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class BlazeSkullWallBlock extends BMOBSkullBlockWall {
+/**
+ * Responsibilities:
+ * <li>Create and manage the wall block variant of the {@link BlazeSkullBlock}</li>
+ */
+public class BlazeSkullWallBlock extends BMOBWallSkullBlock {
 
     public BlazeSkullWallBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(BMOBSkullBlock.Types.BLAZE_SKULL, pProperties, tags);

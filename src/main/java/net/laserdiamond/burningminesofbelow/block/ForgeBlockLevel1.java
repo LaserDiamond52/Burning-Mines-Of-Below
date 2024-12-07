@@ -10,19 +10,29 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
+/**
+ * Responsibilities:
+ * <li>Create the Level 1 variant of the Forge Block</li>
+ */
 public class ForgeBlockLevel1 extends AbstractForgeBlock<ForgeBlockEntityLevel1> {
+
+    /**
+     * Creates a new Level 1 variant of the Forge Block
+     * @param pProperties The {@link net.minecraft.world.level.block.state.BlockBehaviour.Properties} of the block
+     * @param tags A {@link List} of {@link TagKey}s to apply to the block
+     */
     protected ForgeBlockLevel1(Properties pProperties, List<TagKey<Block>> tags) {
         super(pProperties, tags);
     }
 
     @Override
     protected BlockEntityType<ForgeBlockEntityLevel1> forgeBlockEntity() {
-        return BMOBBlockEntities.FORGE_LEVEL_1.get();
+        return BMOBBlockEntities.FORGE_LEVEL_1.get(); // Return the block entity
     }
 
     @Override
     protected ForgeBlockEntityLevel1 newForgeBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new ForgeBlockEntityLevel1(blockPos, blockState);
+        return new ForgeBlockEntityLevel1(blockPos, blockState); // Return a new instance of the respective block entity
     }
 
 

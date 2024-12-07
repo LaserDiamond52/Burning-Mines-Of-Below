@@ -5,6 +5,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 
 // TODO: Needs rework
+@Deprecated
 public interface IdleEntityAnimator<LE extends LivingEntity> extends EntityInterfaceBase<LE> {
 
     RandomSource random();

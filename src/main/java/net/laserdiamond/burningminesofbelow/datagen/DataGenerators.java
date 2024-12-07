@@ -33,6 +33,8 @@ public class DataGenerators {
         BMOBTagsProvider.Blocks blocksTagGenerator = generator.addProvider(event.includeServer(), new BMOBTagsProvider.Blocks(packOutput, lookUpProvider, fileHelper));
         generator.addProvider(event.includeServer(), new BMOBTagsProvider.Items(packOutput, lookUpProvider, blocksTagGenerator.contentsGetter(), fileHelper));
         generator.addProvider(event.includeServer(), new BMOBTagsProvider.Entities(packOutput, lookUpProvider, fileHelper));
+//        generator.addProvider(event.includeServer(), new BMOBTagsProvider.Biomes(packOutput, lookUpProvider, fileHelper));
+
         generator.addProvider(event.includeServer(), new BMOBWorldGenProvider(packOutput, lookUpProvider));
 
         generator.addProvider(event.includeClient(), new BMOBLanguageProvider(packOutput, Language.EN_US));

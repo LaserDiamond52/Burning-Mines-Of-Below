@@ -134,8 +134,7 @@ public class ForgeMenu extends AbstractContainerMenu {
 
     private boolean stillValid(Block block, Player player)
     {
-        return stillValid(ContainerLevelAccess.create(this.level, this.be.getBlockPos()), player,
-                block);
+        return stillValid(ContainerLevelAccess.create(this.level, this.be.getBlockPos()), player, block);
     }
 
     private void addPlayerInventory(Inventory inventory)

@@ -9,13 +9,12 @@ import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
-import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
 import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBSurfaceRules;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBTerrablender;
-import net.minecraft.resources.ResourceLocation;
+import net.laserdiamond.burningminesofbelow.worldgen.feature.BMOBFeature;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,8 +50,8 @@ public class BurningMinesOfBelow {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        this.createArmorConfigs();
-        this.registerEvents(modEventBus);
+        this.createArmorConfigs(); // Create files for armor configs
+        this.registerEvents(modEventBus); // Register events of this mod
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -76,7 +75,17 @@ public class BurningMinesOfBelow {
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
 
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.createSurfaceRules());
+
+        event.enqueueWork(() ->
+        {
+            // Register biomes
+            BMOBTerrablender.registerBiomeRegions();
+            // Create surface rules for out biomes
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MODID, BMOBSurfaceRules.createOverworldSurfaceRules());
+            SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.NETHER, MODID, BMOBSurfaceRules.createNetherSurfaceRules());
+
+        });
+
     }
 
     /**
@@ -85,6 +94,7 @@ public class BurningMinesOfBelow {
      */
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
+        // Loop through all items in the items registry and add them to the creative tab
         for (RegistryObject<Item> item : BMOBItems.ITEMS.getEntries())
         {
             BMOBCreativeTabs.addItemToTab(item, BMOBCreativeTabs.MAIN_TAB, event);
@@ -97,17 +107,16 @@ public class BurningMinesOfBelow {
      */
     private void registerEvents(IEventBus eventBus)
     {
-        BMOBAttributes.registerAttributes(eventBus);
-        BMOBItems.registerItems(eventBus);
-        BMOBBlocks.registerBlocks(eventBus);
-        BMOBBlockEntities.registerBlockEntities(eventBus);
-        BMOBEntities.registerEntities(eventBus);
-        BMOBRecipes.registerSerializers(eventBus);
-        BMOBCreativeTabs.registerCreativeTabs(eventBus);
-        BMOBMenuTypes.registerMenuTypes(eventBus);
-        BMOBRecipes.registerSerializers(eventBus);
-        BMOBEffects.registerEffects(eventBus);
-        BMOBTerrablender.registerBiomes();
+        BMOBAttributes.registerAttributes(eventBus); // Register mod attributes
+        BMOBItems.registerItems(eventBus); // Register mod items
+        BMOBBlocks.registerBlocks(eventBus); // Register mod blocks
+        BMOBBlockEntities.registerBlockEntities(eventBus); // Register block entities
+        BMOBEntities.registerEntities(eventBus); // Register entities
+        BMOBRecipes.registerSerializers(eventBus); // Register recipe types
+        BMOBCreativeTabs.registerCreativeTabs(eventBus); // Register creative tabs
+        BMOBMenuTypes.registerMenuTypes(eventBus); // Register menu types
+        BMOBEffects.registerEffects(eventBus); // Register mob effects
+        BMOBFeature.registerFeatures(eventBus); // Register features
     }
 
     /**
@@ -115,6 +124,7 @@ public class BurningMinesOfBelow {
      */
     private void createArmorConfigs()
     {
+        // Loop through all armor materials and create a config file for them
         for (BMOBArmorMaterials materials : BMOBArmorMaterials.values())
         {
             new ArmorConfig(materials).createFile();

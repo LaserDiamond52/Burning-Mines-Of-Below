@@ -5,19 +5,16 @@ import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
-import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,6 +24,10 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Responsibilities:
+ * <li>Create and register blocks to the block registry of this mod</li>
+ */
 public class BMOBBlocks {
 
     /**
@@ -52,7 +53,7 @@ public class BMOBBlocks {
     /**
      * Frozen Netherrack block
      */
-    public static final RegistryObject<Block> FROZEN_NETHERRACK = registerBlock("Frozen Netherrack", "frozen_netherrack", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL)));
+    public static final RegistryObject<Block> FROZEN_NETHERRACK = registerBlock("Frozen Netherrack", "frozen_netherrack", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.NEEDS_STONE_TOOL, BMOBTags.Blocks.COCYTUS_ICE_SPIKE_BASE_BLOCK, BlockTags.BASE_STONE_NETHER, BMOBTags.Blocks.FROZEN_NETHERRACK_ORE_REPLACEABLE)));
 
     /**
      * Magnite Stone block
@@ -102,12 +103,12 @@ public class BMOBBlocks {
     /**
      * Frozen Soul Sand block
      */
-    public static final RegistryObject<Block> FROZEN_SOUL_SAND = registerBlock("Frozen Soul Sand", "frozen_soul_sand", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND).speedFactor(0.4F), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_SOUL_SAND = registerBlock("Frozen Soul Sand", "frozen_soul_sand", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND).speedFactor(0.4F), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, BlockTags.SOUL_SPEED_BLOCKS,Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK, BMOBTags.Blocks.COCYTUS_ICE_SPIKE_BASE_BLOCK)));
 
     /**
      * Frozen Soul Soil block
      */
-    public static final RegistryObject<Block> FROZEN_SOUL_SOIL = registerBlock("Frozen Soul Soil", "frozen_soul_soil", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SOIL), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_SOUL_SOIL = registerBlock("Frozen Soul Soil", "frozen_soul_soil", () -> new BMOBBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SOIL), List.of(BlockTags.SOUL_FIRE_BASE_BLOCKS, BlockTags.SOUL_SPEED_BLOCKS,Tags.Blocks.NEEDS_WOOD_TOOL, BlockTags.MINEABLE_WITH_SHOVEL, BMOBTags.Blocks.FREEZING_REAPER_BASE_BLOCK, BMOBTags.Blocks.COCYTUS_ICE_SPIKE_BASE_BLOCK)));
 
     /**
      * Blaze block

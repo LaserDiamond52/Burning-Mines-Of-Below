@@ -20,12 +20,28 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-
+/**
+ * Responsibilities:
+ * <li>Create and manage a Blaze Skull block</li>
+ * <li>Allow this block to summon a {@link KingInferniusEntity} when placed on the appropriate block pattern</li>
+ */
 public class BlazeSkullBlock extends BMOBSkullBlock implements SummoningBlock<KingInferniusEntity, BMOBSkullBlockEntity> {
 
+    /**
+     * The {@link BlockPattern} to create to summon the {@link KingInferniusEntity}
+     */
     private static BlockPattern kingInferniusSummonPattern;
+
+    /**
+     * The base {@link BlockPattern} for summoning the {@link KingInferniusEntity}
+     */
     private static BlockPattern kingInferniusBasePattern;
 
+    /**
+     * Creates a new {@link BlazeSkullBlock}
+     * @param pProperties The {@link net.minecraft.world.level.block.state.BlockBehaviour.Properties} of the block
+     * @param tags A {@link List} of {@link TagKey}s to apply to the block
+     */
     public BlazeSkullBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(Types.BLAZE_SKULL, pProperties, tags);
     }

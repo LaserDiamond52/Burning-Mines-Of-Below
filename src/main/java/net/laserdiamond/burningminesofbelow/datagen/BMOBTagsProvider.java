@@ -7,8 +7,10 @@ import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.laserdiamond.burningminesofbelow.item.ForgeFuelItem;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
+import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBBiomes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagKey;
@@ -121,10 +123,27 @@ public class BMOBTagsProvider {
         }
 
         @Override
-        protected void addTags(HolderLookup.Provider pProvider) {
-            super.addTags(pProvider);
+        protected void addTags(HolderLookup.Provider pProvider)
+        {
+//            super.addTags(pProvider);
 
             // TODO: add tags here
+        }
+    }
+
+    public static class Biomes extends BiomeTagsProvider
+    {
+
+        public Biomes(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper)
+        {
+            super(packOutput, provider, BurningMinesOfBelow.MODID, existingFileHelper);
+        }
+
+        @Override
+        protected void addTags(HolderLookup.Provider pProvider)
+        {
+            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_TUNDRA);
+            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_WASTELAND);
         }
     }
 

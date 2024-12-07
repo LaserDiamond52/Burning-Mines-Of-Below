@@ -16,20 +16,18 @@ import java.util.function.Consumer;
  */
 public abstract class AbstractOverworldOverwriteRegion extends AbstractRegion {
 
-    public AbstractOverworldOverwriteRegion(ResourceLocation name, int weight) {
+    public AbstractOverworldOverwriteRegion(ResourceLocation name, int weight)
+    {
         super(name, RegionType.OVERWORLD, weight);
-        // TODO: Create Magnite Caves using this as the superclass
     }
 
     @Override
-    public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+    public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper)
+    {
         this.addModifiedVanillaOverworldBiomes(mapper, modifiedVanillaOverworldBuilder ->
         {
             modifiedVanillaOverworldBuilder.replaceBiome(targetBiome(), biome());
-
-            final VanillaParameterOverlayBuilder builder = new VanillaParameterOverlayBuilder();
-
-            createBiome(builder, biome(), temperature(), humidity(), continentalness(), erosion(), depth(), weirdness());
+            super.addBiomes(registry, mapper);
         });
     }
 

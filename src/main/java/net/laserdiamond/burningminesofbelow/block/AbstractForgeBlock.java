@@ -34,9 +34,21 @@ import java.util.List;
  */
 public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> extends BaseEntityBlock implements Taggable<Block> {
 
+    /**
+     * The bounding box dimensions for the block
+     */
     public static final VoxelShape SHAPE = Block.box(0,0,0,16,16,16);
+
+    /**
+     * {@link List} of tags that can be applied to the block
+     */
     private final List<TagKey<Block>> tags;
 
+    /**
+     * Creates a new {@link AbstractForgeBlock}
+     * @param pProperties The {@link net.minecraft.world.level.block.state.BlockBehaviour.Properties} of the block
+     * @param tags A {@link List} of {@link TagKey}s to apply to the block
+     */
     protected AbstractForgeBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(pProperties);
         this.tags = new ArrayList<>(tags);
@@ -57,6 +69,12 @@ public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> ext
      */
     protected abstract F newForgeBlockEntity(BlockPos blockPos, BlockState blockState);
 
+    /**
+     * Returns a new object instance of the Forge block entity
+     * @param blockPos The position of the block
+     * @param blockState The {@link BlockState} of the block
+     * @return A new object instance of the Forge block entity
+     */
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
@@ -68,6 +86,14 @@ public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> ext
         return this.tags;
     }
 
+    /**
+     * Gets the bounding box shape of the block
+     * @param pState The {@link BlockState} of the block
+     * @param pLevel The {@link Level} the block is on
+     * @param pPos The {@link BlockPos} of the block
+     * @param pContext The {@link CollisionContext}
+     * @return The {@link VoxelShape} that determines the bounding box shape for the block
+     */
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
@@ -78,45 +104,76 @@ public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> ext
         return RenderShape.MODEL;
     }
 
+    /**
+     * Drops any items stored inside the block when broken
+     * @param pState The {@link BlockState} of the block
+     * @param pLevel The {@link Level} of the block
+     * @param pPos The {@link BlockPos} of the block
+     * @param pNewState The updated {@link BlockState} of the block
+     * @param pMovedByPiston Whether the block was moved by a piston
+     */
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
 
-        if (pState.getBlock() != pNewState.getBlock())
+        if (pState.getBlock() != pNewState.getBlock()) // Are the current and new block states the same (was it destroyed?)
         {
-            BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity)
+            BlockEntity be = pLevel.getBlockEntity(pPos); // Get the block entity at the current position
+            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity) // Is the block entity an AbstractForgeBlockEntity
             {
-                forgeBlockEntity.drops();
+                forgeBlockEntity.drops(); // Drop the items inside the block
             }
         }
 
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston); // Run the superclass method
     }
 
+    /**
+     * Displays the Forge GUI when a player interacts with the block by right-clicking
+     * @param pState The current {@link BlockState} of the block
+     * @param pLevel The {@link Level} the block is on
+     * @param pPos The {@link BlockPos} of the block
+     * @param pPlayer The {@link Player} interacting with the block
+     * @param pHand The {@link InteractionHand} of the player interacting with the block
+     * @param pHit The {@link BlockHitResult} of the interaction
+     * @return Success if on the client. Returns Consume on the server.
+     * @see InteractionResult
+     * @throws IllegalStateException If the block entity of the block is not a subclass of {@link AbstractForgeBlockEntity}
+     */
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) throws IllegalStateException
     {
-        if (!pLevel.isClientSide)
+        if (!pLevel.isClientSide) // Run this only on the server
         {
-            BlockEntity be = pLevel.getBlockEntity(pPos);
-            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity)
+            BlockEntity be = pLevel.getBlockEntity(pPos); // Get the block entity at the current position
+            if (be instanceof AbstractForgeBlockEntity forgeBlockEntity) // Ensure it is an instance of the AbstractForgeBlockEntity. Cannot use Generic Type
             {
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), forgeBlockEntity, pPos);
+                // Our AbstractForgeBlockEntity is-a MenuProvider, and contains the method for creating the menu we want to open
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), forgeBlockEntity, pPos); // Open the Screen
             } else
             {
+                // Block Entity isn't an AbstractForgeBlockEntity. Can't get the container provider, so we throw an exception to indicate something is wrong.
                 throw new IllegalStateException("Could not use block entity: Container provider is missing!");
             }
         }
-        return InteractionResult.sidedSuccess(pLevel.isClientSide);
+        return InteractionResult.sidedSuccess(pLevel.isClientSide); // Return the InteractionResult of the event
     }
 
+    /**
+     * Runs the ticker for the block. Responsible for the Forge block's ability to run its crafting process
+     * @param pLevel The {@link Level} of the block
+     * @param pState The {@link BlockState} of the block
+     * @param pBlockEntityType The {@link BlockEntityType} of the {@link BlockEntity}
+     * @return The {@link BlockEntityTicker} for the block. Returns null if on the client.
+     * @param <T> The {@link BlockEntity} type
+     */
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide)
         {
-            return null;
+            return null; // On the client. Return null
         }
+        // The ticker should only be running on the server
         return createTickerHelper(pBlockEntityType, this.forgeBlockEntity(), ((level, blockPos, blockState, blockEntity) -> blockEntity.tick(level, blockPos, blockState)));
     }
 }

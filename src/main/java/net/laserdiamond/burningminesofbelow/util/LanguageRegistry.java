@@ -1,12 +1,14 @@
 package net.laserdiamond.burningminesofbelow.util;
 
 import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,7 +19,6 @@ import java.util.HashMap;
  * <p>
  * This class cannot be instantiated outside of this class. There should only be one instance of it per {@link Language} in order to avoid conflict (Singleton design pattern)
  * </p>
- * @param <E> The {@link Entity} class used for
  */
 public class LanguageRegistry<E extends Entity> {
 
