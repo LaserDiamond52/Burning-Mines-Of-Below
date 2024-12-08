@@ -18,28 +18,6 @@ public final class CyroniteArmorItem extends BMOBArmorItem implements ForgeCraft
     }
 
     @Override
-    protected ItemAttribute[] damageOutputAmounts() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025)
-                };
-    }
-
-    @Override
-    protected ItemAttribute[] freezeIntervalAmount() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05)
-                };
-    }
-
-    @Override
     public Item mainItem() {
         return switch (this.type)
         {

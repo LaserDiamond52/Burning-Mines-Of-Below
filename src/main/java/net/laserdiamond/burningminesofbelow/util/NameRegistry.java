@@ -1,22 +1,23 @@
 package net.laserdiamond.burningminesofbelow.util;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
 
 /**
  * Class used to help map names to new objects and features of this mod
- * @param <T> The {@link RegistryObject} type
+ * @param <T> The object type that will have a name mapped to it
  */
 public class NameRegistry<T> {
 
     /**
      * The {@link HashMap} containing all the {@link RegistryObject}s and their names
      */
-    private final HashMap<T, String> registryMap; // Can be multiple instances of this registryMap
+    private final HashMap<T, String> registryMap; // There should be one instance of this map per object (not class)
 
+    /**
+     * Creates a new {@link NameRegistry}
+     */
     protected NameRegistry()
     {
         this.registryMap = new HashMap<>(); // Create the HashMap to map the Name to the RegistryObject

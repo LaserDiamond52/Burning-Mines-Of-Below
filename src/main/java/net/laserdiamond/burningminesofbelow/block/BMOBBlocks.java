@@ -149,7 +149,6 @@ public class BMOBBlocks {
      * @return A {@link RegistryObject} representing the newly created {@link Block}
      * @param <T> The {@link Block} type
      */
-    @SuppressWarnings("unchecked")
     private static <T extends Block> RegistryObject<Block> registerBlock(String name, String localName, Supplier<T> blockSupplier)
     {
         RegistryObject<Block> block = BLOCKS.register(localName, blockSupplier);
@@ -179,7 +178,6 @@ public class BMOBBlocks {
      * @return A {@link RegistryObject} representing the newly created {@link SkullBlock}
      * @param <T> The {@link SkullBlock} type
      */
-    @SuppressWarnings("unchecked")
     private static <T extends SkullBlock> RegistryObject<Block> registerHeadBlock(String name, String localName, Supplier<T> blockSupplier)
     {
         RegistryObject<Block> block = BLOCKS.register(localName, blockSupplier);

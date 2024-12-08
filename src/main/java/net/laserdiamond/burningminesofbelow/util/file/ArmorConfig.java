@@ -8,30 +8,33 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorItem;
 
 /**
- * Config class for storing the stats of armor sets
+ * Config class for storing the stats of armor sets in a Json file
  */
 public final class ArmorConfig extends JsonConfig {
 
+    /**
+     * The {@link BMOBArmorMaterials} that will have a config file made for it
+     */
     private final BMOBArmorMaterials armorMaterial;
 
     /**
      * Creates a Json file to store the armor set values
      * @param armorMaterial The armor material of this mod
      */
-    public ArmorConfig(BMOBArmorMaterials armorMaterial) {
+    public ArmorConfig(BMOBArmorMaterials armorMaterial)
+    {
         super(armorMaterial.getName().replace(BurningMinesOfBelow.MODID + ":", ""));
         this.armorMaterial = armorMaterial;
 
-        this.jsonObject.addProperty("toughness", this.armorMaterial.getToughness());
-        this.jsonObject.addProperty("knockback_resistance", this.armorMaterial.getKnockbackResistance());
+        this.toJsonNotNull(this.jsonObject, "toughness", this.armorMaterial.getToughness());
+        this.toJsonNotNull(this.jsonObject, "knockback_resistance", this.armorMaterial.getKnockbackResistance());
 
         for (ArmorItem.Type type : ArmorItem.Type.values())
         {
-            if (this.jsonObject.getAsJsonObject(type.getName()) == null)
-            {
-                this.jsonObject.add(type.getName(), armorObjectJson(type));
-            }
+            this.toJsonNotNull(this.jsonObject, type.getName(), armorObjectJson(type));
         }
+
+        this.writeJsonToFile(); // Write the json object to the file
     }
 
     @Override
@@ -52,12 +55,12 @@ public final class ArmorConfig extends JsonConfig {
             armorObj = new JsonObject();
         }
 
-        armorObj.addProperty("armor", this.armorMaterial.getDefenseForType(type));
-        armorObj.add("speed", this.attributeToJsonObj(this.armorMaterial.getSpeedForType(type)));
-        armorObj.add("damage", this.attributeToJsonObj(this.armorMaterial.getDamageForType(type)));
-        armorObj.add("heat_resistance", this.attributeToJsonObj(this.armorMaterial.getHeatResistanceAmountForType(type)));
-        armorObj.add("freeze_resistance", this.attributeToJsonObj(this.armorMaterial.getFreezeResistanceAmountForType(type)));
-        armorObj.add("refined_mineral_chance", this.attributeToJsonObj(this.armorMaterial.getRefinedMineralChanceAmountForType(type)));
+        this.toJsonNotNull(armorObj, "armor", this.armorMaterial.getDefenseForType(type));
+        this.toJsonNotNull(armorObj, "speed", this.attributeToJsonObj(this.armorMaterial.getSpeedForType(type)));
+        this.toJsonNotNull(armorObj, "damage", this.attributeToJsonObj(this.armorMaterial.getDamageForType(type)));
+        this.toJsonNotNull(armorObj, "heat_resistance", this.attributeToJsonObj(this.armorMaterial.getHeatResistanceAmountForType(type)));
+        this.toJsonNotNull(armorObj, "freeze_resistance", this.attributeToJsonObj(this.armorMaterial.getFreezeResistanceAmountForType(type)));
+        this.toJsonNotNull(armorObj, "refined_mineral_chance", this.attributeToJsonObj(this.armorMaterial.getRefinedMineralChanceAmountForType(type)));
 
         return armorObj;
     }
@@ -77,7 +80,7 @@ public final class ArmorConfig extends JsonConfig {
     }
 
     /**
-     * {@link JsonObject} that can contain the operation value and stat value of the {@link AttributeModifier} to be applied to the armor piece
+     * Creates a {@link JsonObject} that can contain the operation value and stat value of the {@link AttributeModifier} to be applied to the armor piece
      * @param itemAttribute The {@link AttributeModifier} Attribute properties to apply to the Attribute on the armor piece
      * @return A {@link JsonObject} containing the operation and value of the {@link AttributeModifier} for the armor piece stat
      */

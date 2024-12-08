@@ -47,6 +47,8 @@ public final class KingInferniusFireBreathAttackGoal extends AbstractDurationAtt
         mob.getLookControl().setLookAt(target);
         mob.getLookControl().tick();
 
+        final float damage = KingInferniusEntity.CONFIG.fireBreathDamage();
+
         if (this.attackTimer % 2 == 0) // Play fire charge use sound every 2 ticks
         {
             serverLevel.playSound(null, mob.getOnPos(), SoundEvents.FIRECHARGE_USE, SoundSource.HOSTILE, 100F, 1F);
@@ -62,8 +64,8 @@ public final class KingInferniusFireBreathAttackGoal extends AbstractDurationAtt
                 .setStepIncrement(0.5) // Step increment of the Ray cast
                 .onEntityHitFunction(livingEntity -> // Whenever we hit an entity, lets damage them and add to their fire ticks
                 {
-                    livingEntity.hurt(livingEntity.damageSources().mobAttack(mob), 2.5F);
-                    livingEntity.setSecondsOnFire((livingEntity.getRemainingFireTicks() * 20) * KingInferniusEntity.FIRE_DURATION_TICKS);
+                    livingEntity.hurt(livingEntity.damageSources().mobAttack(mob), damage); // damage entity
+                    livingEntity.setSecondsOnFire((livingEntity.getRemainingFireTicks() * 20) * KingInferniusEntity.CONFIG.attackFireDuration()); // set entity on fire
                     return livingEntity;
                 })
                 // Fire our ray casts

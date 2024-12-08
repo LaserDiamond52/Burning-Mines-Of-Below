@@ -1,10 +1,13 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.entity.ai.AttackSetUp;
 import net.laserdiamond.burningminesofbelow.entity.ai.kinginfernius.KingInferniusFireBreathAttackGoal;
 import net.laserdiamond.burningminesofbelow.entity.ai.kinginfernius.KingInferniusHeatWaveGoal;
 import net.laserdiamond.burningminesofbelow.entity.ai.kinginfernius.KingInferniusMeleeAttackGoal;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.KingInferniusConfig;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -30,10 +33,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEntity> implements MultiAttackingEntity<KingInferniusEntity.Attack, KingInferniusEntity> {
 
-    /**
-     * Amount of time in ticks entities hit by attacks from King Infernius will be set on fire for
-     */
-    public static final int FIRE_DURATION_TICKS = 600;
+    public static final KingInferniusConfig CONFIG = ((KingInferniusConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.KING_INFERNIUS.getId()));
 
     public static final EntityDataAccessor<Boolean> MELEE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> FIRE_BREATH_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
@@ -41,20 +41,17 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
     public static final EntityDataAccessor<Boolean> SOLAR_FLARE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
 
     public final int[] attackTimeouts;
-//    private final AnimationState crownAnimationState;
 
     public KingInferniusEntity(EntityType<? extends KingInferniusEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
-//        this.crownAnimationState = new AnimationState();
-        this.setHealth(this.getMaxHealth());
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
     }
 
     @Override
     public boolean doHurtTarget(Entity pEntity) {
-        pEntity.setSecondsOnFire((pEntity.getRemainingFireTicks() * 20) + FIRE_DURATION_TICKS);
+        pEntity.setSecondsOnFire((pEntity.getRemainingFireTicks() * 20) + CONFIG.attackFireDuration());
         return super.doHurtTarget(pEntity);
     }
 
@@ -83,10 +80,6 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
     public int[] attackTimeouts() {
         return this.attackTimeouts;
     }
-
-//    public AnimationState getCrownAnimationState() {
-//        return crownAnimationState;
-//    }
 
     @Override
     protected void registerGoals()
@@ -140,12 +133,6 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
         this.entityData.define(SOLAR_FLARE_ATTACKING, false);
     }
 
-//    @Override
-//    public void onAddedToWorld() {
-//        super.onAddedToWorld();
-//       this.crownAnimationState.start(this.tickCount); // Start crown animation
-//    }
-
     @Override
     public void setUpAnimationStates() {
         super.setUpAnimationStates();
@@ -175,16 +162,6 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
     @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.WITHER_SKELETON_STEP;
-    }
-
-    public static AttributeSupplier.Builder createAttributes()
-    {
-        return Mob.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 650D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 7D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.15D)
-                .add(Attributes.FOLLOW_RANGE, 100D);
     }
 
     public enum Attack implements AttackSetUp

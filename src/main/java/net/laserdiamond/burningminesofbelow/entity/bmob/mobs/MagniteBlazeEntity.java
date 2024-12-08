@@ -1,7 +1,10 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.entity.ai.magniteblaze.MagniteBlazeAttackGoal;
 import net.laserdiamond.burningminesofbelow.entity.ai.magniteblaze.MagniteBlazeSupportBlazesGoal;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.MagniteBlazeConfig;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +25,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<MagniteBlazeEntity> {
+
+    public static final MagniteBlazeConfig CONFIG = (MagniteBlazeConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.MAGNITE_BLAZE.getId());
 
     public static final EntityDataAccessor<Boolean> FIRE_WAVE_ATTACKING = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> SUPPORTING_BLAZES = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);

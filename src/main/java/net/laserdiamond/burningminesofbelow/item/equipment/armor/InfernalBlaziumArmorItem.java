@@ -17,39 +17,6 @@ public final class InfernalBlaziumArmorItem extends BMOBArmorItem implements For
     }
 
     @Override
-    protected ItemAttribute[] damageOutputAmounts() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.05)
-                };
-    }
-
-    @Override
-    protected ItemAttribute[] heatIntervalAmount() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.075),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.075),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.075),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.075)
-                };
-    }
-
-    @Override
-    protected ItemAttribute[] speedAmount() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025),
-                        new ItemAttribute(AttributeModifier.Operation.MULTIPLY_BASE, 0.025)
-                };
-    }
-
-    @Override
     public Item mainItem() {
         return switch (this.type)
         {

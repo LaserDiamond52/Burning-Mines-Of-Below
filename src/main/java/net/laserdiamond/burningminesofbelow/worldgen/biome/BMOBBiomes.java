@@ -47,15 +47,8 @@ public class BMOBBiomes {
 
         BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
 
-        // Cant go first
-
         BiomeDefaultFeatures.addAncientDebris(builder);
         addCocytusBiomeFeatures(builder);
-//        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, BMOBPlacedFeatures.COCYTUS_CEILING_ICE);
-//        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, BMOBPlacedFeatures.COCYTUS_ICE_SPIKES_KEY);
-//        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, BMOBPlacedFeatures.NETHER_CYRONITE_ORE_PLACED_KEY);
-//        builder.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, BMOBPlacedFeatures.SOUL_FIRE_KEY);
-
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)

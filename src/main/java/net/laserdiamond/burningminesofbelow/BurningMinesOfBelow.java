@@ -11,10 +11,15 @@ import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
 import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
+import net.laserdiamond.burningminesofbelow.util.file.mob.AbstractMobConfig;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBSurfaceRules;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBTerrablender;
 import net.laserdiamond.burningminesofbelow.worldgen.feature.BMOBFeature;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,7 +55,6 @@ public class BurningMinesOfBelow {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        this.createArmorConfigs(); // Create files for armor configs
         this.registerEvents(modEventBus); // Register events of this mod
 
         // Register ourselves for server and other game events we are interested in
@@ -74,7 +78,6 @@ public class BurningMinesOfBelow {
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
-
 
         event.enqueueWork(() ->
         {
@@ -117,17 +120,5 @@ public class BurningMinesOfBelow {
         BMOBMenuTypes.registerMenuTypes(eventBus); // Register menu types
         BMOBEffects.registerEffects(eventBus); // Register mob effects
         BMOBFeature.registerFeatures(eventBus); // Register features
-    }
-
-    /**
-     * Creates all the armor json config files of this mod
-     */
-    private void createArmorConfigs()
-    {
-        // Loop through all armor materials and create a config file for them
-        for (BMOBArmorMaterials materials : BMOBArmorMaterials.values())
-        {
-            new ArmorConfig(materials).createFile();
-        }
     }
 }

@@ -25,7 +25,6 @@ import java.util.UUID;
 
 public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 {
-    // TODO: abstract method for storing armor config?
     private final List<TagKey<Item>> tags;
     protected List<MobEffectInstance> effectInstances;
 
@@ -36,11 +35,8 @@ public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 
         this.tags.addAll(BMOBTags.Items.armorTags(pType));
 
-        // TODO: Add file here
         ArmorConfig armorConfig = new ArmorConfig(pMaterial);
-        //armorConfig.createFile();
 
-        int slot = pType.ordinal();
         UUID uuid = BMOBArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
         int armor = armorConfig.getArmor(pType);
         float toughness = armorConfig.getToughness();

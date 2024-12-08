@@ -18,17 +18,6 @@ public final class DiamoniteArmorItem extends BMOBArmorItem implements ForgeCraf
     }
 
     @Override
-    protected ItemAttribute[] refinedMineralChanceAmount() {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 2.5),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 2.5),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 2.5),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 2.5)
-                };
-    }
-
-    @Override
     public Item mainItem() {
         return switch (this.type)
         {

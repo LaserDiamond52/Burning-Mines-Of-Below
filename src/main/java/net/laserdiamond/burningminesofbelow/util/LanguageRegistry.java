@@ -2,6 +2,7 @@ package net.laserdiamond.burningminesofbelow.util;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,24 +21,20 @@ import java.util.HashMap;
  * This class cannot be instantiated outside of this class. There should only be one instance of it per {@link Language} in order to avoid conflict (Singleton design pattern)
  * </p>
  */
-public class LanguageRegistry<E extends Entity> {
+public class LanguageRegistry {
 
-    private final Language lang;
     private final NameRegistry<RegistryObject<Item>> itemNameRegistry;
     private final NameRegistry<RegistryObject<Block>> blockNameRegistry;
     private final NameRegistry<RegistryObject<Attribute>> attributeNameRegistry;
     private final NameRegistry<RegistryObject<CreativeModeTab>> creativeModeTabNameRegistry;
     private final NameRegistry<KeyMapping> keyMappingNameRegistry;
     private final NameRegistry<RegistryObject<MobEffect>> mobEffectNameRegistry;
-    private final NameRegistry<RegistryObject<EntityType<? extends Entity>>> entityNameRegistry;
+    private final NameRegistry<ResourceLocation> entityNameRegistry;
 
-    // TODO: Add other name registries here
+    private static final HashMap<Language, LanguageRegistry> LANGUAGE_REGISTRIES = new HashMap<>(); // HashMap of all the Languages and their registries
 
-    private static final HashMap<Language, LanguageRegistry<?>> LANGUAGE_REGISTRIES = new HashMap<>(); // HashMap of all the Languages and their registries
-
-    private LanguageRegistry(Language lang)
+    private LanguageRegistry()
     {
-        this.lang = lang;
         this.itemNameRegistry = new NameRegistry<>();
         this.blockNameRegistry = new NameRegistry<>();
         this.attributeNameRegistry = new NameRegistry<>();
@@ -56,13 +53,9 @@ public class LanguageRegistry<E extends Entity> {
     {
         if (LANGUAGE_REGISTRIES.get(lang) == null || !LANGUAGE_REGISTRIES.containsKey(lang))
         {
-            LANGUAGE_REGISTRIES.put(lang, new LanguageRegistry<>(lang)); // Create new language registry if one does not already exist
+            LANGUAGE_REGISTRIES.put(lang, new LanguageRegistry()); // Create new language registry if one does not already exist
         }
         return LANGUAGE_REGISTRIES.get(lang); // Return the language registry
-    }
-
-    public Language getLang() {
-        return lang;
     }
 
     public NameRegistry<RegistryObject<Item>> getItemNameRegistry() {
@@ -89,7 +82,7 @@ public class LanguageRegistry<E extends Entity> {
         return mobEffectNameRegistry;
     }
 
-    public NameRegistry<RegistryObject<EntityType<? extends Entity>>> getEntityNameRegistry() {
+    public NameRegistry<ResourceLocation> getEntityNameRegistry() {
         return entityNameRegistry;
     }
 }

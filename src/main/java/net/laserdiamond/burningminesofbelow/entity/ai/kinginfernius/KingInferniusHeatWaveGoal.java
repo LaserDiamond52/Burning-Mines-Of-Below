@@ -35,7 +35,7 @@ public final class KingInferniusHeatWaveGoal extends AbstractDurationAttackGoal<
 
         float angle = 0F; // The initial launch angle
         final float angleDiff = 30F; // The rotation amount between each ray cast on the yaw
-        final float initialDamage = 40F; // The initial damage the ray cast will inflict if an entity is hit
+        final float initialDamage = KingInferniusEntity.CONFIG.heatWaveDamage(); // The initial damage the ray cast will inflict if an entity is hit
 
         // TODO: While this works, it may be better to...
         // Create a ray cast that fires in a circle, where the given start position is the center (radius can be specified)
@@ -64,6 +64,7 @@ public final class KingInferniusHeatWaveGoal extends AbstractDurationAttackGoal<
                     damage = (damage * 2) / 3; // Do 2/3s of the damage if the entity is blocking
                 }
                 livingEntity.hurt(livingEntity.damageSources().mobAttack(mob), damage); // Damage the entity for some amount, depending on if we hit blocks or if the entity is shielding.
+                livingEntity.setSecondsOnFire((livingEntity.getRemainingFireTicks() * 20) + KingInferniusEntity.CONFIG.attackFireDuration()); // Set the entity on fire
                 return livingEntity;
             });
 

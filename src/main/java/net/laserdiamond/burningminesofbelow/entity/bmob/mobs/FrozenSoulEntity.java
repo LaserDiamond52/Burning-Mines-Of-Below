@@ -1,5 +1,8 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.FrozenSoulConfig;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> implements AttackingEntity<FrozenSoulEntity> {
 
+    public static final FrozenSoulConfig CONFIG = (FrozenSoulConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FROZEN_SOUL.getId());
 
     public FrozenSoulEntity(EntityType<? extends FrozenSoulEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);

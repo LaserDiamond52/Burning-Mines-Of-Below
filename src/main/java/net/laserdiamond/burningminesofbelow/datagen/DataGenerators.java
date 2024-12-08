@@ -2,6 +2,8 @@ package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.util.Language;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.AbstractMobConfig;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

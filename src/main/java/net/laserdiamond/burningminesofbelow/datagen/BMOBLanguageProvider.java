@@ -22,7 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class BMOBLanguageProvider extends LanguageProvider {
 
-    private final LanguageRegistry<?> languageRegistry;
+    private final LanguageRegistry languageRegistry;
 
     public BMOBLanguageProvider(PackOutput output, Language lang) {
         super(output, BurningMinesOfBelow.MODID, lang.getName());
@@ -82,10 +82,10 @@ public class BMOBLanguageProvider extends LanguageProvider {
      */
     private void addEntityTranslations()
     {
-        NameRegistry<RegistryObject<EntityType<? extends Entity>>> entityNameRegistry = this.languageRegistry.getEntityNameRegistry();
-        for (RegistryObject<EntityType<? extends Entity>> entity : entityNameRegistry.getRegistryMap().keySet())
+        NameRegistry<ResourceLocation> entityNameRegistry = this.languageRegistry.getEntityNameRegistry();
+        for (ResourceLocation entity : entityNameRegistry.getRegistryMap().keySet())
         {
-            this.add(entity.get(), entityNameRegistry.getRegistryMap().get(entity));
+            this.add("entity." + entity.toString().replace(":", "."), entityNameRegistry.getRegistryMap().get(entity));
         }
     }
 

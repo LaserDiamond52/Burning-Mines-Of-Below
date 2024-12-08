@@ -45,7 +45,6 @@ public class BMOBAttributes {
      * @param attributeSupplier The {@link Supplier} for the attribute
      * @return A {@link RegistryObject} representing the newly created {@link Attribute}
      */
-    @SuppressWarnings("unchecked")
     public static RegistryObject<Attribute> registerAttribute(String name, String localName, Supplier<Attribute> attributeSupplier)
     {
         RegistryObject<Attribute> attributeRegistryObject = ATTRIBUTES.register("generic." + localName, attributeSupplier); // Create the registry object to return

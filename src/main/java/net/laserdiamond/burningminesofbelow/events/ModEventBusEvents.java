@@ -7,12 +7,19 @@ import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FreezingReaperEntit
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FrozenSoulEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.KingInferniusEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.AbstractMobConfig;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -23,10 +30,41 @@ public class ModEventBusEvents
     public static void registerEntityAttributes(EntityAttributeCreationEvent event)
     {
         // TODO: Creation of Attributes for entities go here
-        event.put(BMOBEntities.MAGNITE_BLAZE.get(), MagniteBlazeEntity.createAttributes().build());
-        event.put(BMOBEntities.KING_INFERNIUS.get(), KingInferniusEntity.createAttributes().build());
-        event.put(BMOBEntities.FROZEN_SOUL.get(), FrozenSoulEntity.createAttributes().build());
-        event.put(BMOBEntities.FREEZING_REAPER.get(), FreezingReaperEntity.createAttributes().build());
+        // Entities must have a config class associated with them!
+
+        registerEntityAttribute(event, BMOBEntities.MAGNITE_BLAZE);
+        registerEntityAttribute(event, BMOBEntities.KING_INFERNIUS);
+        registerEntityAttribute(event, BMOBEntities.FROZEN_SOUL);
+        registerEntityAttribute(event, BMOBEntities.FREEZING_REAPER);
+    }
+
+    /**
+     * Registers all {@link net.minecraft.world.entity.ai.attributes.Attribute}s to the entity, as specified by the {@link AbstractMobConfig} registered to the entity.
+     * @param event The {@link EntityAttributeCreationEvent}
+     * @param entityTypeRegistryObject The {@link EntityType} {@link RegistryObject}
+     * @param <L> The {@link LivingEntity} type of the {@link EntityType}
+     */
+    private static <L extends LivingEntity> void registerEntityAttribute(EntityAttributeCreationEvent event, RegistryObject<EntityType<L>> entityTypeRegistryObject)
+    {
+        event.put(entityTypeRegistryObject.get(), createAttributes(entityTypeRegistryObject).build());
+    }
+
+    /**
+     * Creates the set of {@link net.minecraft.world.entity.ai.attributes.Attribute}s to be applied to the {@link LivingEntity}
+     * @param entityTypeRegistryObject The {@link EntityType} {@link RegistryObject} to create attributes for. An {@link AbstractMobConfig} must be registered to it
+     * @return The {@link AttributeSupplier.Builder} for the entity's attributes
+     * @param <L> The {@link LivingEntity} type of the {@link EntityType}
+     */
+    private static <L extends LivingEntity> AttributeSupplier.Builder createAttributes(RegistryObject<EntityType<L>> entityTypeRegistryObject)
+    {
+        AbstractMobConfig config = MobConfigRegistry.getRegistryMap().get(entityTypeRegistryObject.getId());
+        return Mob.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, config.getAttributeValue(Attributes.MAX_HEALTH))
+                .add(Attributes.MOVEMENT_SPEED, config.getAttributeValue(Attributes.MOVEMENT_SPEED))
+                .add(Attributes.ATTACK_DAMAGE, config.getAttributeValue(Attributes.ATTACK_DAMAGE))
+                .add(Attributes.ATTACK_KNOCKBACK, config.getAttributeValue(Attributes.ATTACK_KNOCKBACK))
+                .add(Attributes.FOLLOW_RANGE, config.getAttributeValue(Attributes.FOLLOW_RANGE))
+                .add(Attributes.ARMOR, config.getAttributeValue(Attributes.ARMOR));
     }
 
     @SubscribeEvent

@@ -1,8 +1,11 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.entity.ai.AttackSetUp;
 import net.laserdiamond.burningminesofbelow.entity.ai.freezingreaper.FreezingReaperMeleeAttackGoal;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
+import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.util.file.mob.FreezingReaperConfig;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,10 +14,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -29,6 +29,8 @@ import net.minecraft.world.level.Level;
 
 public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEntity> implements MultiAttackingEntity<FreezingReaperEntity.Attack, FreezingReaperEntity> {
 
+    public static final FreezingReaperConfig CONFIG = (FreezingReaperConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FREEZING_REAPER.getId());
+
     public static final EntityDataAccessor<Boolean> MELEE_ATTACKING = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> ICE_BARRAGE = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Boolean> SUDDEN_BLIZZARD = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
@@ -38,8 +40,13 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     public FreezingReaperEntity(EntityType<? extends FreezingReaperEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
-        // TODO: Create Scythe item for mob to hold
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.CYRONITE_SCYTHE.get()));
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity pEntity) {
+        pEntity.setTicksFrozen(pEntity.getTicksFrozen() + CONFIG.attackFreezeDuration());
+        return super.doHurtTarget(pEntity);
     }
 
     @Override
@@ -110,16 +117,6 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.WITHER_DEATH;
-    }
-
-    public static AttributeSupplier.Builder createAttributes()
-    {
-        return Mob.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 500D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .add(Attributes.ATTACK_DAMAGE, 10D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.17D)
-                .add(Attributes.FOLLOW_RANGE, 100D);
     }
 
     public enum Attack implements AttackSetUp
