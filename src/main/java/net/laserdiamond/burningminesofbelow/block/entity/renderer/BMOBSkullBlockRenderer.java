@@ -22,9 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Class used to help add new {@link SkullBlock}s to the Vanilla {@link SkullBlockRenderer}
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Utility class used to help add new {@link SkullBlock}s to the Vanilla {@link CustomHeadLayer} skull models</li>
+ * @author Allen Malo
  */
 public class BMOBSkullBlockRenderer {
+
+    /**
+     * Constructor is private because we only want to use the static methods in this class
+     */
+    private BMOBSkullBlockRenderer() {}
 
     /**
      * Adds the {@link SkullBlock.Type} to all necessary renderers

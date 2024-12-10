@@ -6,6 +6,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used as a base for mobs that require melee attack goals</li>
+ * <li>Allows the subclass to define how, when, and why a melee attack should happen</li>
+ * @author Allen Malo
+ */
 public abstract class AbstractMeleeAttackGoal<PM extends PathfinderMob & AttackingEntity<PM>> extends MeleeAttackGoal implements DelayedAnimatedAttack {
 
     protected final PM mob;

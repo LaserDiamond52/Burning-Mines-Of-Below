@@ -70,11 +70,7 @@ public abstract class AbstractMobConfig extends JsonConfig {
      */
     protected JsonObject createAttributesJson()
     {
-        JsonObject attributeObj = this.jsonObject.getAsJsonObject("attributes");
-        if (attributeObj == null)
-        {
-            attributeObj = new JsonObject();
-        }
+        JsonObject attributeObj = this.createJsonNotNull(this.jsonObject.getAsJsonObject("attributes"));
 
         this.toJsonNotNull(attributeObj, this.getAttributeKey(Attributes.MAX_HEALTH), this.health);
         this.toJsonNotNull(attributeObj, this.getAttributeKey(Attributes.MOVEMENT_SPEED), this.movementSpeed);

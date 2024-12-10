@@ -64,7 +64,7 @@ public class KingInferniusConfig extends AbstractMobConfig {
      */
     public int attackFireDuration()
     {
-        int ret = this.jsonObject.getAsJsonObject("attack_fire_duration").getAsInt();
+        int ret = this.jsonObject.get("attack_fire_duration").getAsInt();
         if (ret < 0)
         {
             return this.defaultAttackFireDuration();
@@ -86,7 +86,7 @@ public class KingInferniusConfig extends AbstractMobConfig {
      */
     public float fireBreathDamage()
     {
-        float ret = this.jsonObject.getAsJsonObject("fire_breath_damage").getAsFloat();
+        float ret = this.jsonObject.get("fire_breath_damage").getAsFloat();
         if (ret <= 0)
         {
             return this.defaultFireBreathDamage();
@@ -108,7 +108,7 @@ public class KingInferniusConfig extends AbstractMobConfig {
      */
     public float heatWaveDamage()
     {
-        float ret = this.jsonObject.getAsJsonObject("heat_wave_damage").getAsFloat();
+        float ret = this.jsonObject.get("heat_wave_damage").getAsFloat();
         if (ret <= 0)
         {
             return this.defaultHeatWaveDamage();

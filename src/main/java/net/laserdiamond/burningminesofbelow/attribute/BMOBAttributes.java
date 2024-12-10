@@ -13,8 +13,10 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 /**
- * Responsibilities:
- * <li>Create and register new attributes to the attribute registry of this mod</li>
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and register new attributes to the mod's attribute registry</li>
+ * @author Allen Malo
  */
 public class BMOBAttributes {
 

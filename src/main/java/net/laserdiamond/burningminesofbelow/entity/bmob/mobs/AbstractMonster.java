@@ -14,6 +14,14 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Base class for any mob of this mod</li>
+ * <li>Defines how the idle and walk animations play out in-game</li>
+ * <li>Defines any other common properties that mobs of this mod may share</li>
+ * @author Allen Malo
+ */
 public abstract class AbstractMonster<M extends Monster> extends Monster {
 
     protected final AnimationState idleAnimationState;
@@ -29,17 +37,7 @@ public abstract class AbstractMonster<M extends Monster> extends Monster {
         return idleAnimationState;
     }
 
-    public void setUpAnimationStates()
-    {
-//        if (this.idleTimeout <= 0)
-//        {
-//            this.idleTimeout = this.random.nextInt(40) + 80;
-//            this.idleAnimationState.start(this.tickCount);
-//        } else
-//        {
-//            this.idleTimeout--;
-//        }
-    }
+    public void setUpAnimationStates() {}
 
     @Override
     protected void registerGoals()

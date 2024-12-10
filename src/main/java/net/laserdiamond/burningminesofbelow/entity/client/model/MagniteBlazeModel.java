@@ -13,6 +13,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the shape and {@link LayerDefinition} of the {@link MagniteBlazeEntity}</li>
+ * <li>Sets up the animations associated with the entity's model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
+ * @author Allen Malo
+ */
 public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBlazeEntity> {
 
 	private final ModelPart magnite_blaze;
@@ -88,6 +95,13 @@ public final class MagniteBlazeModel extends AbstractHierarchicalModel<MagniteBl
 		return this.head;
 	}
 
+	/**
+	 * <p>Version/date: 12/9/24</p>
+	 * <p>Responsibilities of class:</p>
+	 * <li>Contains all the animations for the {@link MagniteBlazeEntity}</li>
+	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only work function properly with the {@link MagniteBlazeModel}. The animations are not needed outside the enclosing class</li>
+	 * @author Allen Malo
+	 */
 	public static class Animations
 	{
 		/**

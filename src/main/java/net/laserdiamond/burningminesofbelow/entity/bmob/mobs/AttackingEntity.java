@@ -5,7 +5,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.Entity;
 
 /**
- * Interface used to help set up animations for entities with attacks
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to help start and stop attack animations for entities within their attack goals, and determine if the entity is performing said attack</li>
+ * <li>This class should be inherited by the entity's class, as the {@link EntityDataAccessor} is needed in the abstract attack goals classes</li>
+ * @author Allen Malo
  */
 public interface AttackingEntity<E extends Entity> extends EntityInterfaceBase<E> {
 

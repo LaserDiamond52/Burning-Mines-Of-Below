@@ -76,7 +76,7 @@ public class Cyrobolt extends AbstractArrow {
             if (this.isOnFire())
             {
                 level.playSound(null, this.blockPosition(), SoundEvents.LAVA_EXTINGUISH, SoundSource.AMBIENT, 100, 1);
-                this.discard(); // Cyroshard should not be able to be set on fire. Discard entity if so
+                this.discard(); // Cyrobolt should not be able to be set on fire. Discard entity if so
             }
         }
 

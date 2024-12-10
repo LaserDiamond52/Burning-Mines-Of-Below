@@ -31,7 +31,7 @@ public final class ArmorConfig extends JsonConfig {
 
         for (ArmorItem.Type type : ArmorItem.Type.values())
         {
-            this.toJsonNotNull(this.jsonObject, type.getName(), armorObjectJson(type));
+            this.toJsonNotNull(this.jsonObject, type.getName(), this.armorObjectJson(type));
         }
 
         this.writeJsonToFile(); // Write the json object to the file
@@ -49,11 +49,7 @@ public final class ArmorConfig extends JsonConfig {
      */
     private JsonObject armorObjectJson(ArmorItem.Type type)
     {
-        JsonObject armorObj = this.jsonObject.getAsJsonObject(type.getName());
-        if (armorObj == null)
-        {
-            armorObj = new JsonObject();
-        }
+        JsonObject armorObj = this.createJsonNotNull(this.jsonObject.getAsJsonObject(type.getName()));
 
         this.toJsonNotNull(armorObj, "armor", this.armorMaterial.getDefenseForType(type));
         this.toJsonNotNull(armorObj, "speed", this.attributeToJsonObj(this.armorMaterial.getSpeedForType(type)));

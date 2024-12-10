@@ -5,13 +5,14 @@ import net.laserdiamond.burningminesofbelow.entity.ai.AttackSetUp;
 import net.minecraft.world.entity.Entity;
 
 /**
- * Interface used to help set up and manage entities with multiple attack animations.
- * The entity class in for the mob must have an interface that is a subclass of the {@link AttackSetUp} interface.
- * This interface also inherits the {@link AttackingEntity} interface.
- * @param <AE> The {@link AttackSetUp} interface. This class must also be an {@link Enum}
- * @param <E> The {@link Entity} class of the mob. Must also be a subclass of the {@link AttackingEntity} interface
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to help set up and manage entities with multiple attack animations. The entities for the mob must have an {@link Enum} that is a subclass of the {@link AttackSetUp} interface</li>
+ * @author Allen Malo
+ * @param <AE> The {@link AttackSetUp} {@link Enum}.
+ * @param <E> The {@link Entity} class of the mob.
  */
-public interface MultiAttackingEntity<AE extends Enum<?> & AttackSetUp, E extends Entity & AttackingEntity<E>> extends AttackingEntity<E> {
+public interface MultiAttackingEntity<AE extends Enum<?> & AttackSetUp, E extends Entity> extends AttackingEntity<E> {
 
     /**
      * The attack timeouts for each attack
@@ -64,18 +65,18 @@ public interface MultiAttackingEntity<AE extends Enum<?> & AttackSetUp, E extend
      */
     default void setUpAttackAnimationStates(AE attack)
     {
-        if (this.entity().isAttacking(attack.getEntityDataAccessor()) && this.attackTimeouts()[attack.ordinal()] <= 0)
+        if (this.isAttacking(attack.getEntityDataAccessor()) && this.getAttackTimeout(attack) <= 0) // Check if the entity is attacking and the timeout is less than or equal to 0
         {
-            this.attackTimeouts()[attack.ordinal()] = attack.getAnimationDuration();
-            attack.getAnimationState().start(this.entity().tickCount);
+            this.attackTimeouts()[attack.ordinal()] = attack.getAnimationDuration(); // Entity is attacking, set the timeout to the animation duration
+            attack.getAnimationState().start(this.entity().tickCount); // start the animation
         } else
         {
-            this.attackTimeouts()[attack.ordinal()]--;
+            this.attackTimeouts()[attack.ordinal()]--; // Reduce the timeout by 1
         }
 
-        if (!this.entity().isAttacking(attack.getEntityDataAccessor()))
+        if (!this.isAttacking(attack.getEntityDataAccessor())) // Is the entity not attacking?
         {
-            attack.getAnimationState().stop();
+            attack.getAnimationState().stop(); // Stop the animation. Entity is no longer performing the attack
         }
     }
 }

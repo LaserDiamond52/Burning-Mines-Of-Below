@@ -3,7 +3,10 @@ package net.laserdiamond.burningminesofbelow.entity;
 import net.minecraft.world.entity.Entity;
 
 /**
- * Base interface for helping with other interfaces that involve the use of an {@link Entity} object.
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Act as a root interface for subclass interfaces that require an {@link Entity} object for their functionality</li>
+ * @author Allen Malo
  * @param <E> The {@link Entity} class
  */
 public interface EntityInterfaceBase<E extends Entity> {

@@ -1,4 +1,4 @@
-package net.laserdiamond.burningminesofbelow.util;
+package net.laserdiamond.burningminesofbelow.entity;
 
 import net.laserdiamond.burningminesofbelow.util.file.mob.AbstractMobConfig;
 import net.minecraft.resources.ResourceLocation;
@@ -8,9 +8,11 @@ import net.minecraft.world.entity.Mob;
 import java.util.HashMap;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Map the {@link ResourceLocation}s of a mob to a Mob Config that can help control their stats from a Json file</li>
- * <li>{@link ResourceLocation}s are used instead of the {@link EntityType} because attempting to access the {@link EntityType} before the mod entity registry registers the entities, an exception is thrown.</li>
+ * <li>{@link ResourceLocation}s are used instead of the {@link EntityType} because attempting to access the {@link EntityType} before the mod entity registry registers the entities throws an exception.</li>
+ * @author Allen Malo
  * @param <MC> The {@link AbstractMobConfig} type
  */
 public class MobConfigRegistry<MC extends AbstractMobConfig> {

@@ -9,13 +9,20 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.network.NetworkEvent;
 
+import java.util.function.Function;
+
 public class FreezeC2SPacket extends BMOBPacket {
 
-    public FreezeC2SPacket()
-    {}
+    private int heat;
+
+    public FreezeC2SPacket(int heat)
+    {
+        this.heat = heat;
+    }
 
     public FreezeC2SPacket(FriendlyByteBuf buf)
     {}
@@ -29,58 +36,13 @@ public class FreezeC2SPacket extends BMOBPacket {
             return; // Player is null. Do not continue
         }
 
-        player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(playerHeat -> {
+        PlayerHeat.removeHeat(player, this.heat);
 
-            if (player.isCreative() || player.isSpectator())
-            {
-                BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
-                return; // Player should not be affected by freezing if they are in creative/spectator mode
-            }
-
-            int coolPoints = 0;
-            boolean canFreeze = false;
-
-            final BlockPos playerBlockPos = new BlockPos((int) player.position().x, (int) player.position().y, (int) player.position().z);
-            final ServerLevel level = player.serverLevel();
-
-            if (player.position().y >= PlayerHeat.Y_LEVEL_HEAT)
-            {
-                if (playerHeat.getHeat() > PlayerHeat.SAFE_HEAT)
-                {
-                    coolPoints++;
-                }
-                if (player.position().y >= PlayerHeat.Y_LEVEL_FREEZE)
-                {
-                    coolPoints++;
-                    canFreeze = true;
-                }
-            }
-
-            if (player.isInWater())
-            {
-                coolPoints++;
-            }
-
-            if (player.isInPowderSnow)
-            {
-                coolPoints++;
-                canFreeze = true;
-            }
-
-            for (TagKey<Biome> biomeTagKey : PlayerHeat.coldBiomes())
-            {
-                if (level.getBiome(playerBlockPos).containsTag(biomeTagKey))
-                {
-                    coolPoints++;
-                    canFreeze = true;
-                    break;
-                }
-            }
-
-            // TODO: Player should lose heat if they are in the cocytus tundra
-
-            playerHeat.removeHeat(coolPoints, canFreeze);
-            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
-        });
+//        player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(playerHeat -> {
+//
+//
+//            playerHeat.removeHeat(this.heat);
+//            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
+//        });
     }
 }

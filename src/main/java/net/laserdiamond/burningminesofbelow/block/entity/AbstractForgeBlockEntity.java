@@ -34,9 +34,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 /**
- * An abstract class for the Forge Block Entity.
- * <p>Responsibilities:</p>
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Create and run major functionality of the Forge Block</li>
+ * <li>Acts as a base class for creating Forge Blocks</li>
+ * @author Allen Malo
  */
 public abstract class AbstractForgeBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -64,6 +66,11 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
      * the inventory index for the recipe output slot.
      */
     public static final int OUTPUT_SLOT = 3;
+
+    // TODO: Comment here
+    /**
+     * The {@link LazyOptional} {@link IItemHandler}.
+     */
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     /**
@@ -411,7 +418,7 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
     /**
      * Determines if the Forge is capable of outputting an item into the output slot.
      * @param item The item present in the output slot
-     * @return True if the output slot is either empty, or if the item in the output slot is stackable with the crafting result of the previously completed {@link ForgeRecipe}
+     * @return True if the output slot is either empty, or if the item in the output slot is stackable with the crafting result of the previously completed {@link ForgeRecipe}, and doesn't exceed said item's maximum stack size.
      */
     private boolean canInsertItemIntoOutputSlot(Item item)
     {

@@ -7,9 +7,15 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 
+
 /**
- * Abstract attack goal for living entities. This is a very basic attack goal that runs an attack on a fixed interval
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Acts as a base attack goal for mobs that performs an attack on a fixed interval</li>
+ * <li>Also used as a base for other attack goal types</li>
+ * @author Allen Malo
  * @param <M> The {@link Mob} class
+ * @see AbstractAnimatedAttackGoal
  */
 public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> extends Goal implements DataAccessorAttack {
 

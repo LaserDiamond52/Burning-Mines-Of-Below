@@ -8,6 +8,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the basic characteristics and functionality for Small Fireballs of this mod</li>
+ * <li>Act as a base class for Small Fireballs of this mod</li>
+ * @author Allen Malo
+ */
 public class BMOBSmallFireBall extends SmallFireball {
 
     public BMOBSmallFireBall(Level pLevel, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ) {

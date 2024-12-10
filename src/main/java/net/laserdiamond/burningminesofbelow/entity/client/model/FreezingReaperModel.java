@@ -14,6 +14,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.HumanoidArm;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the shape and {@link LayerDefinition} of the {@link FreezingReaperEntity}</li>
+ * <li>Sets up the animations associated with the model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
+ * @author Allen Malo
+ */
 public class FreezingReaperModel extends AbstractHierarchicalArmedModel<FreezingReaperEntity> {
 
 	private final ModelPart freezing_reaper;
@@ -74,10 +81,10 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 
 		PartDefinition body = freezing_reaper.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, -24.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 32).addBox(-4.0F, -12.0F, -2.0F, 8.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -12.0F, 0.0F));
 
 		PartDefinition head = torso.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 16).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-				.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, -24.0F, 0.0F));
+				.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new CubeDeformation(0.5F)), PartPose.offset(0.0F, -12.0F, 0.0F));
 
 		PartDefinition spikes = head.addOrReplaceChild("spikes", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
@@ -99,7 +106,7 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 		PartDefinition spike_6_head = spikes.addOrReplaceChild("spike_6_head", CubeListBuilder.create().texOffs(48, 4).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(48, 0).addBox(-0.5F, -6.0F, -0.5F, 1.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -30.0F, 2.0F, -0.9599F, 0.0F, 0.5236F));
 
-		PartDefinition right_arm = torso.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(16, 48).addBox(-4.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, -22.0F, 0.0F));
+		PartDefinition right_arm = torso.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(16, 48).addBox(-4.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, -10.0F, 0.0F));
 
 		PartDefinition right_arm_spikes = right_arm.addOrReplaceChild("right_arm_spikes", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 0.0F));
 
@@ -112,7 +119,7 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 		PartDefinition spike_3_right = right_arm_spikes.addOrReplaceChild("spike_3_right", CubeListBuilder.create().texOffs(48, 4).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
 				.texOffs(48, 0).addBox(-0.5F, -6.0F, -0.5F, 1.0F, 3.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.0F, -1.0F, 0.0F, -0.9163F, 0.0F, -0.3491F));
 
-		PartDefinition left_arm = torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0).addBox(0.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -22.0F, 0.0F));
+		PartDefinition left_arm = torso.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(32, 0).addBox(0.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -10.0F, 0.0F));
 
 		PartDefinition left_arm_spikes = left_arm.addOrReplaceChild("left_arm_spikes", CubeListBuilder.create(), PartPose.offset(0.0F, 0.5F, 0.0F));
 
@@ -140,6 +147,8 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 		AnimationUtils.bobArms(this.right_arm, this.left_arm, ageInTicks);
 
 		this.animate(FreezingReaperEntity.Attack.MELEE.getAnimationState(), Animations.FREEZING_REAPER_MELEE_ATTACK, ageInTicks, 1.0F);
+		this.animate(FreezingReaperEntity.Attack.CYROBOLT_BLAST.getAnimationState(), Animations.FREEZING_REAPER_CYROBOLT_BLAST, ageInTicks);
+		this.animate(FreezingReaperEntity.Attack.SUDDEN_BLIZZARD.getAnimationState(), Animations.FREEZING_REAPER_SUDDEN_BLIZZARD, ageInTicks);
 	}
 
 	@Override
@@ -157,6 +166,13 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 		return this.freezing_reaper;
 	}
 
+	/**
+	 * <p>Version/date: 12/9/24</p>
+	 * <p>Responsibilities of class:</p>
+	 * <li>Contains all animations for the {@link FreezingReaperEntity}</li>
+	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link FreezingReaperModel}. The animations are not needed outside the enclosing class</li>
+	 * @author Allen Malo
+	 */
 	private static class Animations
 	{
 		/**
@@ -191,5 +207,95 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 						new Keyframe(1.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
 				))
 				.build();
+
+		/**
+		 * Cyroblast Attack animation for Freezing Reaper
+		 */
+		public static final AnimationDefinition FREEZING_REAPER_CYROBOLT_BLAST = AnimationDefinition.Builder.withLength(2f).looping()
+				.addAnimation("torso",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.25f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, 12.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.75f, KeyframeAnimations.degreeVec(0f, -7.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 12.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.25f, KeyframeAnimations.degreeVec(0f, -7.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.5f, KeyframeAnimations.degreeVec(0f, 12.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.75f, KeyframeAnimations.degreeVec(0f, -7.5f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(2f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR)))
+				.addAnimation("right_arm",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.25f, KeyframeAnimations.degreeVec(-75f, -40f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.5f, KeyframeAnimations.degreeVec(-75f, 50f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.75f, KeyframeAnimations.degreeVec(-75f, -40f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(-75f, 50f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.25f, KeyframeAnimations.degreeVec(-75f, -40f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.5f, KeyframeAnimations.degreeVec(-75f, 50f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1.75f, KeyframeAnimations.degreeVec(-75f, -40f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(2f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR))).build();
+
+		/**
+		 * Sudden Blizzard attack animation for Freezing Reaper
+		 */
+		public static final AnimationDefinition FREEZING_REAPER_SUDDEN_BLIZZARD = AnimationDefinition.Builder.withLength(1f).looping()
+				.addAnimation("torso",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.375f, KeyframeAnimations.degreeVec(-22.5f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.75f, KeyframeAnimations.degreeVec(27.5f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR)))
+				.addAnimation("head",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.375f, KeyframeAnimations.degreeVec(-32.5f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR)))
+				.addAnimation("right_arm",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.375f, KeyframeAnimations.degreeVec(-137.5f, 0f, 45f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.75f, KeyframeAnimations.degreeVec(-75f, -50f, 45f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR)))
+				.addAnimation("left_arm",
+						new AnimationChannel(AnimationChannel.Targets.ROTATION,
+								new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.375f, KeyframeAnimations.degreeVec(-137.5f, 0f, -45f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(0.75f, KeyframeAnimations.degreeVec(-75f, 50f, -45f),
+										AnimationChannel.Interpolations.LINEAR),
+								new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+										AnimationChannel.Interpolations.LINEAR))).build();
 	}
+
+
 }

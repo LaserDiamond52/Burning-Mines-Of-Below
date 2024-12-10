@@ -6,8 +6,11 @@ public class MagniteBlazeConfig extends AbstractMobConfig {
     /**
      * Creates a new {@link MagniteBlazeConfig}
      */
-    public MagniteBlazeConfig() {
+    public MagniteBlazeConfig()
+    {
         super("magnite_blaze");
+
+
     }
 
     @Override

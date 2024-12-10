@@ -11,8 +11,13 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable<CompoundTag>
-{
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and manage the capability for a {@link net.minecraft.world.entity.player.Player} to have heat saved to them</li>
+ * @author Allen Malo
+ */
+public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 
     public static Capability<PlayerHeat> PLAYER_HEAT = CapabilityManager.get(new CapabilityToken<>() {});
 

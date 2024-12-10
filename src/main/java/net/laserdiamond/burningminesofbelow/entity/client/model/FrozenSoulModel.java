@@ -4,6 +4,12 @@ import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FrozenSoulEntity;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.geom.ModelPart;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Sets up the animations associated with the model for use with the {@link FrozenSoulEntity}</li>
+ * @author Allen Malo
+ */
 public final class FrozenSoulModel extends AbstractHumanoidModel<FrozenSoulEntity> {
 
     public FrozenSoulModel(ModelPart pRoot) {

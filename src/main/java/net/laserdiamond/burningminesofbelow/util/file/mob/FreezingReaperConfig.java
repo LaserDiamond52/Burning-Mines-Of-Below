@@ -1,7 +1,8 @@
 package net.laserdiamond.burningminesofbelow.util.file.mob;
 
-public class FreezingReaperConfig extends AbstractMobConfig {
+import com.google.gson.JsonObject;
 
+public class FreezingReaperConfig extends AbstractMobConfig {
 
     /**
      * Creates a new {@link FreezingReaperConfig}
@@ -11,9 +12,22 @@ public class FreezingReaperConfig extends AbstractMobConfig {
 
         int attackFreezeDuration = Math.max(0, this.defaultAttackFreezeDuration());
         float cyroBlastDamage = Math.max(0, this.defaultCyroBlastDamage());
+        float suddenBlizzardDamage = Math.max(0, this.defaultSuddenBlizzardDamage());
+        float suddenBlizzardBlastRange = Math.max(0, this.defaultSuddenBlizzardBlastRange());
+        float suddenBlizzardExplosionPower = Math.max(0, this.defaultSuddenBlizzardExplosionPower());
 
         this.toJsonNotNull(this.jsonObject, "attack_freeze_duration", attackFreezeDuration);
-        this.toJsonNotNull(this.jsonObject, "cyro_blast_damage", cyroBlastDamage);
+
+        JsonObject cyroBlastObj = this.createJsonNotNull(this.jsonObject.getAsJsonObject("cyrobolt_blast"));
+        this.toJsonNotNull(cyroBlastObj, "damage", cyroBlastDamage);
+
+        JsonObject suddenBlizzardObj = this.createJsonNotNull(this.jsonObject.getAsJsonObject("sudden_blizzard"));
+        this.toJsonNotNull(suddenBlizzardObj, "damage", suddenBlizzardDamage);
+        this.toJsonNotNull(suddenBlizzardObj, "blast_range", suddenBlizzardBlastRange);
+        this.toJsonNotNull(suddenBlizzardObj, "explosion_power", suddenBlizzardExplosionPower);
+
+        this.toJsonNotNull(this.jsonObject, "cyrobolt_blast", cyroBlastObj);
+        this.toJsonNotNull(this.jsonObject, "sudden_blizzard", suddenBlizzardObj);
 
         this.writeJsonToFile();
     }
@@ -64,7 +78,7 @@ public class FreezingReaperConfig extends AbstractMobConfig {
      */
     public int attackFreezeDuration()
     {
-        int ret = this.jsonObject.getAsJsonObject("attack_freeze_duration").getAsInt();
+        int ret = this.jsonObject.get("attack_freeze_duration").getAsInt();
         if (ret < 0)
         {
             return this.defaultAttackFreezeDuration();
@@ -88,10 +102,82 @@ public class FreezingReaperConfig extends AbstractMobConfig {
      */
     public float cyroBlastDamage()
     {
-        float ret = this.jsonObject.getAsJsonObject("cyro_blast_damage").getAsFloat();
+        float ret = this.jsonObject.getAsJsonObject("cyrobolt_blast").get("damage").getAsFloat();
         if (ret < 0)
         {
             return this.defaultCyroBlastDamage();
+        }
+        return ret;
+    }
+
+    /**
+     *
+     * @return The default damage the Freezing Reaper's Sudden Blizzard attack will inflict
+     */
+    public float defaultSuddenBlizzardDamage()
+    {
+        return 30;
+    }
+
+    /**
+     *
+     * @return The damage the Freezing Reaper's Sudden Blizzard attack will inflict from the json file.
+     * Returns the default amount if the value stored in the file is less than 0
+     */
+    public float suddenBlizzardDamage()
+    {
+        float ret = this.jsonObject.getAsJsonObject("sudden_blizzard").get("damage").getAsInt();
+        if (ret < 0)
+        {
+            return this.defaultSuddenBlizzardDamage();
+        }
+        return ret;
+    }
+
+    /**
+     *
+     * @return The default blast range of the Freezing Reaper's Sudden Blizzard attack
+     */
+    public int defaultSuddenBlizzardBlastRange()
+    {
+        return 15;
+    }
+
+    /**
+     *
+     * @return The blast range of the Freezing Reaper's Sudden Blizzard attack from the json file.
+     * Returns the default amount if the value stored in the file is equal to or less than 0.
+     */
+    public int suddenBlizzardBlastRange()
+    {
+        int ret = this.jsonObject.getAsJsonObject("sudden_blizzard").get("blast_range").getAsInt();
+        if (ret <= 0)
+        {
+            return this.defaultSuddenBlizzardBlastRange();
+        }
+        return ret;
+    }
+
+    /**
+     *
+     * @return The default explosion power of the Freezing Reaper's Sudden Blizzard attack.
+     */
+    public float defaultSuddenBlizzardExplosionPower()
+    {
+        return 2.5F;
+    }
+
+    /**
+     *
+     * @return The explosion power of the Freezing Reaper's Sudden Blizzard attack from the json file.
+     * Returns the default amount if the value stored in the file is equal to or less than 0.
+     */
+    public float suddenBlizzardExplosionPower()
+    {
+        float ret = this.jsonObject.getAsJsonObject("sudden_blizzard").get("explosion_power").getAsFloat();
+        if (ret <= 0)
+        {
+            return this.defaultSuddenBlizzardExplosionPower();
         }
         return ret;
     }

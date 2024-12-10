@@ -52,7 +52,7 @@ public class BMOBMath {
      */
     public static double getDistance(Entity entity, Entity target)
     {
-        if (entity.level().dimension() != entity.level().dimension())
+        if (entity.level().dimension() != target.level().dimension())
         {
             return Integer.MAX_VALUE;
         }

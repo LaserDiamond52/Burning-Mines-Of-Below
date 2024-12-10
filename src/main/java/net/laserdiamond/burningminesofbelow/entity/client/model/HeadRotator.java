@@ -7,7 +7,10 @@ import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Interface used to help create head rotation for the entity
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to help create head rotation for the entity</li>
+ * @author Allen Malo
  * @param <E> The {@link Entity} type
  */
 public interface HeadRotator<E extends Entity> extends HeadedModel {

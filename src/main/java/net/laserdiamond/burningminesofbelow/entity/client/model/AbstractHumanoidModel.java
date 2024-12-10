@@ -10,6 +10,14 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.LivingEntity;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the shape and {@link LayerDefinition} of a humanoid mob with this mod</li>
+ * <li>Sets up the animations associated with the model</li>
+ * @author Allen Malo
+ * @param <LE> The {@link LivingEntity} type
+ */
 public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends HumanoidModel<LE> {
 
     protected final ModelPart leftSleeve;
@@ -29,7 +37,6 @@ public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends Hum
 
     public static LayerDefinition createBodyLayer()
     {
-        // TODO: Consider re-making model and parenting sleeves, pants, and jacket with their underlying parts
         MeshDefinition humanoidModel = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partDefinition = humanoidModel.getRoot();
 

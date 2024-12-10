@@ -9,7 +9,11 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.world.entity.Mob;
 
 /**
- * Renderer used for rendering Humanoid mobs of this mod. This includes a {@link HumanoidArmorLayer}, allowing armor to be rendered on the {@link Mob}
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Renderer used for rendering Humanoid mobs of this mod.</li>
+ * <li>Includes a {@link HumanoidArmorLayer}, allowing armor to be rendered on the {@link Mob}</li>
+ * @author Allen Malo
  * @param <M> The {@link Mob} class
  * @param <HM> The {@link HumanoidModel} of the {@link Mob}
  */

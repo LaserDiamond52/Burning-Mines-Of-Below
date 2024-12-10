@@ -20,15 +20,19 @@ public class BMOBRecipeProvider extends RecipeProvider implements IConditionBuil
         super(pOutput);
     }
 
+    /**
+     * Creates all the recipes
+     * @param consumer the {@link FinishedRecipe} {@link Consumer}
+     */
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
 
-        for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries())
+        for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries()) // Loop through all items in the registry
         {
             Item item = itemRegistryObject.get();
             if (item instanceof ForgeCraftable forgeCraftable)
             {
-                forgeRecipe(forgeCraftable.mainItem(), forgeCraftable.miscItems(), item, forgeCraftable.resultCount(), forgeCraftable.heatFuelCost(), forgeCraftable.freezeFuelCost(), forgeCraftable.forgeCraftingLevel(), consumer);
+                this.forgeRecipe(forgeCraftable.mainItem(), forgeCraftable.miscItems(), item, forgeCraftable.resultCount(), forgeCraftable.heatFuelCost(), forgeCraftable.freezeFuelCost(), forgeCraftable.forgeCraftingLevel(), consumer);
             }
         }
     }
@@ -44,7 +48,7 @@ public class BMOBRecipeProvider extends RecipeProvider implements IConditionBuil
      * @param forgeLevel The minimum Forge level required to start the recipe
      * @param finishedRecipeConsumer The {@link Consumer} for the {@link FinishedRecipe}
      */
-    private static void forgeRecipe(Item mainItem, Ingredient miscItems, Item resultItem, int resultItemCount, int heatFuelCost, int freezeFuelCost, int forgeLevel, Consumer<FinishedRecipe> finishedRecipeConsumer)
+    private void forgeRecipe(Item mainItem, Ingredient miscItems, Item resultItem, int resultItemCount, int heatFuelCost, int freezeFuelCost, int forgeLevel, Consumer<FinishedRecipe> finishedRecipeConsumer)
     {
         resultItemCount = Math.max(1, Math.min(resultItemCount, resultItem.getMaxStackSize(resultItem.getDefaultInstance())));
         ForgeRecipeBuilder.createRecipe(Ingredient.of(mainItem), miscItems, resultItem, resultItemCount, heatFuelCost, freezeFuelCost, forgeLevel)

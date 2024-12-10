@@ -4,14 +4,12 @@ import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.AttackingEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.player.Player;
 
 /**
  * Abstract class used to help create attack goals for {@link Mob}s that perform an attack over a duration of time. This class can also be used to create delayed attacks by simply setting the start and end times to be equal.
  * @param <M> The {@link Mob} class. Said class must also be an inheritor of the {@link AttackingEntity} interface.
  */
-public abstract class AbstractDurationAttackGoal<M extends Mob & AttackingEntity<M>> extends AbstractAttackGoal<M> implements DelayedAnimatedAttack {
+public abstract class AbstractAnimatedAttackGoal<M extends Mob & AttackingEntity<M>> extends AbstractAttackGoal<M> implements DelayedAnimatedAttack {
 
     protected final int attackStartTime;
     protected final int attackEndTime;
@@ -19,7 +17,7 @@ public abstract class AbstractDurationAttackGoal<M extends Mob & AttackingEntity
     protected int ticksUntilNextAttack;
     protected boolean hasAttackEnded;
 
-    public AbstractDurationAttackGoal(M mob)
+    public AbstractAnimatedAttackGoal(M mob)
     {
         super(mob);
         this.attackStartTime = this.attackDelay();
@@ -47,7 +45,6 @@ public abstract class AbstractDurationAttackGoal<M extends Mob & AttackingEntity
     protected void onAttackAnimationStart()
     {
         this.mob.setAttacking(attackDataAccessor(), true);
-
     }
 
     /**
@@ -129,7 +126,8 @@ public abstract class AbstractDurationAttackGoal<M extends Mob & AttackingEntity
     }
 
     @Override
-    public int ticksUntilNextAttack() {
+    public int ticksUntilNextAttack()
+    {
         return this.animationDuration;
     }
 

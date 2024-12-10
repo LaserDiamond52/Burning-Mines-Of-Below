@@ -8,18 +8,11 @@ import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBCreativeTabs;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
-import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
 import net.laserdiamond.burningminesofbelow.recipe.BMOBRecipes;
 import net.laserdiamond.burningminesofbelow.screen.BMOBMenuTypes;
-import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
-import net.laserdiamond.burningminesofbelow.util.file.ArmorConfig;
-import net.laserdiamond.burningminesofbelow.util.file.mob.AbstractMobConfig;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBSurfaceRules;
 import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBTerrablender;
 import net.laserdiamond.burningminesofbelow.worldgen.feature.BMOBFeature;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +29,14 @@ import org.slf4j.Logger;
 import terrablender.api.SurfaceRuleManager;
 
 // The value here should match an entry in the META-INF/mods.toml file
+
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers all assets and features of this mod under the different registries</li>
+ * <li>Contains the Mod ID of this mod, which helps the registries know the namespace to register their objects under</li>
+ * @author Allen Malo
+ */
 @Mod(BurningMinesOfBelow.MODID)
 public class BurningMinesOfBelow {
 

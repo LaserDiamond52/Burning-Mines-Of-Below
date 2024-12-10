@@ -14,6 +14,12 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Base class for any mobs that should have a boss bar displayed on the player's screen, or be a boss mob</li>
+ * @author Allen Malo
+ */
 public abstract class AbstractBossMob<M extends Monster> extends AbstractMonster<M> {
 
     protected final ServerBossEvent bossEvent;

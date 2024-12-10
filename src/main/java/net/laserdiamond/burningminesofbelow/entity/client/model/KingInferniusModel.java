@@ -16,6 +16,13 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.HumanoidArm;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the shape and {@link LayerDefinition} of the {@link KingInferniusEntity}</li>
+ * <li>Sets up the animations associated with the entity's model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
+ * @author Allen Malo
+ */
 public final class KingInferniusModel extends AbstractHierarchicalArmedModel<KingInferniusEntity> {
 
 	private final ModelPart king_infernius;
@@ -155,6 +162,13 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 		return humanoidArm == HumanoidArm.LEFT ? this.left_arm : this.right_arm;
 	}
 
+	/**
+	 * <p>Version/date: 12/9/24</p>
+	 * <p>Responsibilities of class:</p>
+	 * <li>Contains all the animations for the {@link KingInferniusEntity}</li>
+	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link KingInferniusModel}. The animations are not needed outside the enclosing class</li>
+	 * @author Allen Malo
+	 */
 	private static class Animations
 	{
 		/**

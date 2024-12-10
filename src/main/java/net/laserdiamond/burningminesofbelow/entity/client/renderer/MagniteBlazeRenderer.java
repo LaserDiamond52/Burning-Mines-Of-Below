@@ -15,11 +15,17 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ForgeRenderTypes;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Render the {@link MagniteBlazeModel} onto the {@link MagniteBlazeEntity}</li>
+ * <li>Specifies the texture to render on the {@link MagniteBlazeModel}</li>
+ * @author Allen Malo
+ */
 public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, MagniteBlazeModel> {
 
     public MagniteBlazeRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new MagniteBlazeModel(pContext.bakeLayer(BMOBModelLayers.MAGNITE_BLAZE)), 0.75F);
-        //this.addLayer(new MagniteBlazeShieldRenderer(this));
     }
 
     @Override
@@ -27,7 +33,7 @@ public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, 
         return new ResourceLocation(BurningMinesOfBelow.MODID, "textures/entity/magnite_blaze.png");
     }
 
-    // TODO: Renderer
+    // TODO: Renderer?
     // The amount of shields rendered should be dependent on how much health the Magnite Blaze has
     // 5/5 - 4/5 -> All shields (North)
     // 4/5 - 3/5 -> Three shields (West)

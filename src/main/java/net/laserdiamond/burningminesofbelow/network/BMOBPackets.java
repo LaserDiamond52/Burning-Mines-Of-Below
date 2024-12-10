@@ -48,7 +48,7 @@ public class BMOBPackets {
         registerPacket(HeatC2SPacket.class, HeatC2SPacket::new, NetworkDirection.PLAY_TO_SERVER); // This packet can add heat
         registerPacket(FreezeC2SPacket.class, FreezeC2SPacket::new, NetworkDirection.PLAY_TO_SERVER); // This packet can remove heat (freeze)
 
-        // Packet for syncing the client heat with the server heat
+        // Packet for syncing the server heat with client heat
         // Only one is needed, since we are just setting a value
         registerPacket(HeatS2CPacket.class, HeatS2CPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     }

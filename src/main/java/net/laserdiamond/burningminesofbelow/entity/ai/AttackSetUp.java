@@ -4,7 +4,10 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.world.entity.AnimationState;
 
 /**
- * Interface used to help set up enums for storing data for mob/entities that will have multiple attacks
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to help set up inner enum classes for storing variables for mobs/entities that will have multiple attacks with animations</li>
+ * @author Allen Malo
  */
 public interface AttackSetUp {
 

@@ -2,21 +2,23 @@ package net.laserdiamond.burningminesofbelow.datagen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
+import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.item.ForgeCraftable;
 import net.laserdiamond.burningminesofbelow.item.ForgeFuelItem;
 import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Taggable;
-import net.laserdiamond.burningminesofbelow.worldgen.biome.BMOBBiomes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -33,6 +35,7 @@ public class BMOBTagsProvider {
             super(output, lookupProvider, blockTagGenerator, BurningMinesOfBelow.MODID, existingFileHelper);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         protected void addTags(HolderLookup.Provider provider)
         {
@@ -99,6 +102,7 @@ public class BMOBTagsProvider {
             super(output, lookupProvider, BurningMinesOfBelow.MODID, existingFileHelper);
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         protected void addTags(HolderLookup.Provider provider)
         {
@@ -125,9 +129,19 @@ public class BMOBTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider pProvider)
         {
-//            super.addTags(pProvider);
+            this.tag(Tags.EntityTypes.BOSSES).add(BMOBEntities.KING_INFERNIUS.get());
+            this.tag(Tags.EntityTypes.BOSSES).add(BMOBEntities.FREEZING_REAPER.get());
 
-            // TODO: add tags here
+            this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(BMOBEntities.KING_INFERNIUS.get());
+            this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(BMOBEntities.FREEZING_REAPER.get());
+            this.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(BMOBEntities.MAGNITE_BLAZE.get());
+
+            this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(BMOBEntities.KING_INFERNIUS.get());
+            this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(BMOBEntities.FREEZING_REAPER.get());
+
+            this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(BMOBEntities.MAGNITE_BLAZE.get());
+
+            this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(BMOBEntities.CYROBOLT.get());
         }
     }
 
@@ -142,8 +156,8 @@ public class BMOBTagsProvider {
         @Override
         protected void addTags(HolderLookup.Provider pProvider)
         {
-            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_TUNDRA);
-            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_WASTELAND);
+//            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_TUNDRA);
+//            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_WASTELAND);
         }
     }
 

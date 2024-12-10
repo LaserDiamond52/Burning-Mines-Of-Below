@@ -35,7 +35,7 @@ public class BMOBItems {
      * Blaze Flames item
      */
     public static final RegistryObject<Item> BLAZE_FLAMES = registerItem("Blaze Flames", "blaze_flames",
-            () -> new BMOBItem(new Item.Properties(), List.of())
+            () -> new BMOBItem(new Item.Properties().fireResistant(), List.of())
             {
                 @Override
                 public int heatFuel() {
@@ -47,7 +47,7 @@ public class BMOBItems {
      * Blazium Ingot item
      */
     public static final RegistryObject<Item> BLAZIUM_INGOT = registerItem("Blazium Ingot", "blazium_ingot",
-            () -> new ForgeCraftableMiscItem(new Item.Properties(), List.of(BMOBTags.Items.FORGE_MISC_INGREDIENT)) {
+            () -> new ForgeCraftableMiscItem(new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MISC_INGREDIENT)) {
                 @Override
                 public Item mainItem() {
                     return Items.NETHERITE_INGOT;
@@ -77,7 +77,7 @@ public class BMOBItems {
     /**
      * Infernal Flame item
      */
-    public static final RegistryObject<Item> INFERNAL_FLAME = registerItem("Infernal Flame", "infernal_flame", () -> new BMOBItem(new Item.Properties(), List.of()));
+    public static final RegistryObject<Item> INFERNAL_FLAME = registerItem("Infernal Flame", "infernal_flame", () -> new BMOBItem(new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Infernal Flame Ingot item
@@ -224,49 +224,49 @@ public class BMOBItems {
      * Blazium Helmet item
      */
     public static final RegistryObject<Item> BLAZIUM_HELMET = registerItem("Blazium Helmet", "blazium_helmet",
-            () -> new BlaziumArmorItem(ArmorItem.Type.HELMET, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new BlaziumArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Blazium Chestplate item
      */
     public static final RegistryObject<Item> BLAZIUM_CHESTPLATE = registerItem("Blazium Chestplate", "blazium_chestplate",
-            () -> new BlaziumArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new BlaziumArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Blazium Leggings item
      */
     public static final RegistryObject<Item> BLAZIUM_LEGGINGS = registerItem("Blazium Leggings", "blazium_leggings",
-            () -> new BlaziumArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new BlaziumArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Blazium Boots item
      */
     public static final RegistryObject<Item> BLAZIUM_BOOTS = registerItem("Blazium Boots", "blazium_boots",
-            () -> new BlaziumArmorItem(ArmorItem.Type.BOOTS, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new BlaziumArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Helmet item
      */
     public static final RegistryObject<Item> CYRONITE_HELMET = registerItem("Cyronite Helmet", "cyronite_helmet",
-            () -> new CyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new CyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Chestplate item
      */
     public static final RegistryObject<Item> CYRONITE_CHESTPLATE = registerItem("Cyronite Chestplate", "cyronite_chestplate",
-            () -> new CyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new CyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Leggings item
      */
     public static final RegistryObject<Item> CYRONITE_LEGGINGS = registerItem("Cyronite Leggings", "cyronite_leggings",
-            () -> new CyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new CyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Boots item
      */
     public static final RegistryObject<Item> CYRONITE_BOOTS = registerItem("Cyronite Boots", "cyronite_boots",
-            () -> new CyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+            () -> new CyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Diamonite Helmet item
@@ -296,49 +296,49 @@ public class BMOBItems {
      * Infernal Blazium Helmet item
      */
     public static final RegistryObject<Item> INFERNAL_BLAZIUM_HELMET = registerItem("Infernal Blazium Helmet", "infernal_blazium_helmet",
-            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.HELMET, new Item.Properties(), List.of()));
+            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Infernal Blazium Chestplate item
      */
     public static final RegistryObject<Item> INFERNAL_BLAZIUM_CHESTPLATE = registerItem("Infernal Blazium Chestplate", "infernal_blazium_chestplate",
-            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties(), List.of()));
+            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Infernal Blazium Leggings item
      */
     public static final RegistryObject<Item> INFERNAL_BLAZIUM_LEGGINGS = registerItem("Infernal Blazium Leggings", "infernal_blazium_leggings",
-            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties(), List.of()));
+            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Infernal Blazium Boots item
      */
     public static final RegistryObject<Item> INFERNAL_BLAZIUM_BOOTS = registerItem("Infernal Blazium Boots", "infernal_blazium_boots",
-            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.BOOTS, new Item.Properties(), List.of()));
+            () -> new InfernalBlaziumArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Helmet item
      */
     public static final RegistryObject<Item> FRIGID_CYRONITE_HELMET = registerItem("Frigid Cyronite Helmet", "frigid_cyronite_helmet",
-            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties(), List.of()));
+            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Chestplate item
      */
     public static final RegistryObject<Item> FRIGID_CYRONITE_CHESTPLATE = registerItem("Frigid Cyronite Chestplate", "frigid_cyronite_chestplate",
-            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties(), List.of()));
+            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Leggings item
      */
     public static final RegistryObject<Item> FRIGID_CYRONITE_LEGGINGS = registerItem("Frigid Cyronite Leggings", "frigid_cyronite_leggings",
-            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties(), List.of()));
+            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Boots item
      */
     public static final RegistryObject<Item> FRIGID_CYRONITE_BOOTS = registerItem("Frigid Cyronite Boots", "frigid_cyronite_boots",
-            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties(), List.of()));
+            () -> new FrigidCyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Refined Diamonite Helmet item
@@ -374,13 +374,13 @@ public class BMOBItems {
      * Cyronite Sword item
      */
     public static final RegistryObject<Item> CYRONITE_SWORD = registerItem("Cyronite Sword", "cyronite_sword",
-            () -> new CyroniteSwordItem(1, -2.4F, new Item.Properties(), List.of()));
+            () -> new CyroniteSwordItem(1, -2.4F, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Cyronite Scythe item
      */
     public static final RegistryObject<Item> CYRONITE_SCYTHE = registerItem("Cyronite Scythe", "cyronite_scythe",
-            () -> new CyroniteScytheItem(1, -3F, new Item.Properties(), List.of()));
+            () -> new CyroniteScytheItem(1, -3F, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Diamonite Sword item
@@ -711,7 +711,6 @@ public class BMOBItems {
      * @param itemSupplier The item supplier
      * @return A {@link RegistryObject} representing the newly created {@link Item}
      */
-    @SuppressWarnings("unchecked")
     private static RegistryObject<Item> registerItem(String name, String localName, Supplier<Item> itemSupplier)
     {
         RegistryObject<Item> registryItem = ITEMS.register(localName, itemSupplier);

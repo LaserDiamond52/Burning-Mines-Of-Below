@@ -72,7 +72,7 @@ public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem
             return;
         }
 
-        BlaziumFireBallAbility.INSTANCE.setAbilityActive(player, true);
+        BlaziumFireBallAbility.INSTANCE.setAbilityActive(player, true); // Ability is now active
 
     }
 
@@ -90,7 +90,10 @@ public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem
     }
 
     /**
-     *
+     * Responsibilities:
+     * <li>Manage the Blazium Sword's fireball ability</li>
+     * <li>Help determine when the ability is active</li>
+     * <li>Keep count of the amount of fireballs launched</li>
      */
     public static class BlaziumFireBallAbility
     {
@@ -113,8 +116,17 @@ public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem
          */
         public static final int ABILITY_DURATION = (MAX_FIRE_BALLS - 1) * FIRE_BALL_LAUNCH_INTERVAL;
 
+        /**
+         * The instance of the {@link BlaziumFireBallAbility} class.
+         * There should only be one instance of this class, since we want
+         * to access the same fields/methods each time we access an object
+         * instance of this class.
+         */
         public static final BlaziumFireBallAbility INSTANCE = new BlaziumFireBallAbility();
 
+        /**
+         * Creates a new {@link BlaziumFireBallAbility}
+         */
         private BlaziumFireBallAbility()
         {
             this.abilityActiveMap = new HashMap<>();

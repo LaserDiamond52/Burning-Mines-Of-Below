@@ -17,6 +17,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Rendering the {@link KingInferniusModel} onto the {@link KingInferniusEntity}</li>
+ * <li>Specifies the texture to render on the {@link KingInferniusModel}</li>
+ * @author Allen Malo
+ */
 public final class KingInferniusRenderer extends MobRenderer<KingInferniusEntity, KingInferniusModel> {
 
     private static final float SCALE = 1.5F;
@@ -36,6 +43,13 @@ public final class KingInferniusRenderer extends MobRenderer<KingInferniusEntity
         pPoseStack.scale(SCALE, SCALE, SCALE);
     }
 
+    /**
+     * <p>Version/date: 12/9/24</p>
+     * <p>Responsibilities of class:</p>
+     * <li>Rendering items in the {@link KingInferniusEntity}'s hands</li>
+     * <li>Declared as a private static inner class because this render layer is specific to the {@link KingInferniusEntity}</li>
+     * @author Allen Malo
+     */
     private static class KingInferniusItemInHandLayer extends ItemInHandLayer<KingInferniusEntity, KingInferniusModel>
     {
         public KingInferniusItemInHandLayer(RenderLayerParent<KingInferniusEntity, KingInferniusModel> pRenderer, ItemInHandRenderer pItemInHandRenderer) {

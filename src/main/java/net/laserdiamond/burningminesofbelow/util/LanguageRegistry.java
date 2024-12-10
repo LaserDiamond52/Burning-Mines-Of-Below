@@ -18,7 +18,7 @@ import java.util.HashMap;
 /**
  * Class that is used to help manage the names and languages for different assets of this mod
  * <p>
- * This class cannot be instantiated outside of this class. There should only be one instance of it per {@link Language} in order to avoid conflict (Singleton design pattern)
+ * This class cannot be instantiated outside of this class. There should only be one instance of it per {@link Language} in order to avoid conflict.
  * </p>
  */
 public class LanguageRegistry {
@@ -33,6 +33,9 @@ public class LanguageRegistry {
 
     private static final HashMap<Language, LanguageRegistry> LANGUAGE_REGISTRIES = new HashMap<>(); // HashMap of all the Languages and their registries
 
+    /**
+     * Creates a new {@link LanguageRegistry}
+     */
     private LanguageRegistry()
     {
         this.itemNameRegistry = new NameRegistry<>();
@@ -47,11 +50,12 @@ public class LanguageRegistry {
     /**
      * Gets the instance of the {@link LanguageRegistry}
      * @param lang The {@link Language} of the registry
-     * @return The instance of the {@link LanguageRegistry} for the desired {@link Language}
+     * @return The instance of the {@link LanguageRegistry} for the desired {@link Language}.
+     * If no {@link LanguageRegistry} is present for the {@link Language}, a new one will be made
      */
     public static LanguageRegistry instance(Language lang)
     {
-        if (LANGUAGE_REGISTRIES.get(lang) == null || !LANGUAGE_REGISTRIES.containsKey(lang))
+        if (LANGUAGE_REGISTRIES.get(lang) == null || !LANGUAGE_REGISTRIES.containsKey(lang)) // Is there a language registry for the language requested?
         {
             LANGUAGE_REGISTRIES.put(lang, new LanguageRegistry()); // Create new language registry if one does not already exist
         }

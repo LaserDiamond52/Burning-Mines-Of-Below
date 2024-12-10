@@ -1,14 +1,13 @@
 package net.laserdiamond.burningminesofbelow.util.file;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 
 import java.io.*;
 
 /**
- * Json config file class for storing information about assets of this mod
+ * Json config file class for storing information about assets of this mod.
+ * Acts as the superclass of all Config classes for this program
  */
 public abstract class JsonConfig {
 
@@ -31,7 +30,8 @@ public abstract class JsonConfig {
      * Creates a new Json config file
      * @param fileName The name of the file
      */
-    public JsonConfig(String fileName) {
+    public JsonConfig(String fileName)
+    {
         this.fileName = fileName;
         this.file = new File(modFilePath() + fileName + ".json");
 
@@ -39,11 +39,7 @@ public abstract class JsonConfig {
 
         try (BufferedReader br = new BufferedReader(new FileReader(this.file))) // Try-with-resources to close BufferedReader regardless of exceptions being thrown
         {
-            this.jsonObject = new Gson().fromJson(br, JsonObject.class); // Get existing json object from file
-            if (this.jsonObject == null)
-            {
-                this.jsonObject = new JsonObject(); // Json object doesn't exist. Create new one
-            }
+            this.jsonObject = this.createJsonNotNull(new Gson().fromJson(br, JsonObject.class)); // Get existing json object from file
 
         } catch (IOException e)
         {
@@ -84,7 +80,7 @@ public abstract class JsonConfig {
             if (this.file.createNewFile())
             {
                 BurningMinesOfBelow.LOGGER.info("Created File: " + this.fileName); // File was created
-                fileWriter.write(this.jsonObject.toString()); // Write the json object to the file
+                fileWriter.write(this.jsonObjectPrettyPrint(this.jsonObject)); // Write the json object to the file
                 return true;
             } else
             {
@@ -107,7 +103,7 @@ public abstract class JsonConfig {
     {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.file))) // Use try-with-resources to make sure Buffered Writer closes
         {
-            bw.write(this.jsonObject.toString()); // Write the json object to the file
+            bw.write(this.jsonObjectPrettyPrint(this.jsonObject)); // Write the json object to the file in pretty print
             return true; // Success! Return true
         } catch (IOException e) // Catch IOException
         {
@@ -126,12 +122,12 @@ public abstract class JsonConfig {
      */
     public boolean toJsonNotNull(JsonObject jsonObject, String key, double value)
     {
-        if (jsonObject.get(key) == null)
+        if (jsonObject.get(key) == null) // Is there something at the path?
         {
-            jsonObject.addProperty(key, value);
-            return true;
+            jsonObject.addProperty(key, value); // Assign the path the value
+            return true; // Added! Return true
         }
-        return false;
+        return false; // Nothing added. Return false
     }
 
     /**
@@ -143,12 +139,12 @@ public abstract class JsonConfig {
      */
     public boolean toJsonNotNull(JsonObject jsonObject, String key, float value)
     {
-        if (jsonObject.get(key) == null)
+        if (jsonObject.get(key) == null) // Is there something at the path?
         {
-            jsonObject.addProperty(key, value);
-            return true;
+            jsonObject.addProperty(key, value); // Assign the path the value
+            return true; // Added! Return true
         }
-        return false;
+        return false; // Nothing added. Return false
     }
 
 
@@ -161,12 +157,39 @@ public abstract class JsonConfig {
      */
     public boolean toJsonNotNull(JsonObject jsonObject, String key, JsonElement jsonElement)
     {
-        if (jsonObject.get(key) == null)
+        if (jsonObject.get(key) == null) // Is there something at the path?
         {
-            jsonObject.add(key, jsonElement);
-            return true;
+            jsonObject.add(key, jsonElement); // Assign the path the json element
+            return true; // Added! Return true
         }
-        return false;
+        return false; // Nothing added. Return false
+    }
+
+    /**
+     * Creates a new {@link JsonObject} if the given is null.
+     * This method should be called before writing to the {@link JsonObject}
+     * @param jsonObject The {@link JsonObject} to instantiate, if null
+     * @return A new {@link JsonObject} if the given is null. Returns itself if not null
+     */
+    public JsonObject createJsonNotNull(JsonObject jsonObject)
+    {
+        if (jsonObject == null) // Is the json object null?
+        {
+            jsonObject = new JsonObject(); // Assign a new instance
+        }
+        return jsonObject; // Return itself (or the new instance if null)
+    }
+
+    /**
+     * Formats the {@link JsonObject}'s {@code toString()} method into pretty-print, making it more readable.
+     * @param object The {@link JsonObject} to create pretty-print for
+     * @return The {@link String} of the {@link JsonObject} in pretty-print format.
+     */
+    public String jsonObjectPrettyPrint(JsonObject object)
+    {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonElement prettyJson = JsonParser.parseString(object.toString());
+        return gson.toJson(prettyJson);
     }
 
 }

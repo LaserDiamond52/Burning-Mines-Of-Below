@@ -5,6 +5,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -42,6 +43,19 @@ public class RayCast<E extends Entity, ER, BSR> {
     private Function<BlockState, BSR> blockStateHitFunction;
     private ER entityHitReturnObj;
     private BSR blockStateHitReturnObj;
+    private BlockPos currentBlockPos;
+
+    /**
+     * Creates an Axis Aligned Bounding Box centered at the position of the {@link LivingEntity} in the shape of a cube
+     * @param center The {@link LivingEntity} to center the box around
+     * @param range The range of the bounding box. This is half the base, width, and height of the box.
+     * @return A new {@link AABB} in the shape of a cube, centered at the position of the {@link LivingEntity}
+     * @see AABB
+     */
+    public static AABB createBBLivingEntity(LivingEntity center, int range)
+    {
+        return new AABB(new BlockPos(center.getBlockX() - range, center.getBlockY() - range, center.getBlockZ() - range), new BlockPos(center.getBlockX() + range, center.getBlockY() + range, center.getBlockZ() + range));
+    }
 
     private RayCast(ServerLevel serverLevel, Vec3 startPos, Predicate<E> entityFilter, Class<E> entityClazz, List<Class<? extends Block>> blockClazzes)
     {
@@ -62,6 +76,7 @@ public class RayCast<E extends Entity, ER, BSR> {
         this.blockStateHitFunction = null;
         this.entityHitReturnObj = null;
         this.blockStateHitReturnObj = null;
+        this.currentBlockPos = null;
     }
 
     public static <EN extends Entity, EHR, BHR> RayCast<EN, EHR, BHR> createRayCast(ServerLevel serverLevel, Vec3 startPos, Predicate<EN> entityFilter, Class<EN> entityClazz, List<Class<? extends Block>> blockClazzes)
@@ -247,6 +262,9 @@ public class RayCast<E extends Entity, ER, BSR> {
      */
     private void rayCast(Vec3 rayCastVec, double distance)
     {
+        this.currentBlockPos = null; // Reset current block position
+
+        // Clear out lists if they aren't empty and persistence is false
         if (!this.hitEntities.isEmpty() && !this.hitEntitiesPersistence)
         {
             this.hitEntities.clear();
@@ -256,18 +274,19 @@ public class RayCast<E extends Entity, ER, BSR> {
             this.hitBlockStates.clear();
         }
 
-        for (double i = 0; i < distance; i += stepIncrement)
+        // Create loop to increment ray cast by steps
+        for (double i = 0; i < distance; i += this.stepIncrement)
         {
-            Vec3 rayCast = startPos.add(rayCastVec.scale(i));
+            Vec3 rayCast = this.startPos.add(rayCastVec.scale(i));
             AABB aabb = new AABB(rayCast, rayCast);
 
-            BlockPos blockPos = new BlockPos((int) rayCast.x, (int) rayCast.y, (int) rayCast.z);
-            BlockState blockState = serverLevel.getBlockState(blockPos);
+            this.currentBlockPos = new BlockPos((int) rayCast.x, (int) rayCast.y, (int) rayCast.z); // Assign our current block position
+            BlockState blockState = this.serverLevel.getBlockState(this.currentBlockPos);
             Block hitBlock = blockState.getBlock();
 
-            if (!blockClazzes.contains(hitBlock.getClass())) // Is the block black-listed?
+            if (!this.blockClazzes.contains(hitBlock.getClass())) // Is the block black-listed?
             { // Not black-listed, continue
-                if (!hitBlockStates.contains(blockState))
+                if (!this.hitBlockStates.contains(blockState))
                 {
                     this.hitBlockStates.add(blockState); // Add to the list of hit blocks
                     if (this.blockStateHitFunction != null) // Only run the function if it is not null
@@ -277,15 +296,15 @@ public class RayCast<E extends Entity, ER, BSR> {
                 }
             }
 
-            if (blockState.isSolid() && !pierceBlocks)
+            if (blockState.isSolid() && !this.pierceBlocks)
             {
                 return; // Pierce blocks is false and the blockState hit is solid
             }
 
-            for (E e : serverLevel.getEntitiesOfClass(entityClazz, aabb, this.entityFilter)) // Loop through all entities that intersect with the ray cast bounding box
+            for (E e : this.serverLevel.getEntitiesOfClass(this.entityClazz, aabb, this.entityFilter)) // Loop through all entities that intersect with the ray cast bounding box
             {
                 AABB entityBB = e.getBoundingBox(); // entity bounding box
-                if (entityBB.intersects(aabb) && !hitEntities.contains(e)) // Ensure that the entity's bounding box intersects with the ray cast bounding box, and that we haven't already hit this entity
+                if (entityBB.intersects(aabb) && !this.hitEntities.contains(e)) // Ensure that the entity's bounding box intersects with the ray cast bounding box, and that we haven't already hit this entity
                 {
                     this.hitEntities.add(e); // Add to our list of hit entities
 
@@ -294,7 +313,7 @@ public class RayCast<E extends Entity, ER, BSR> {
                         this.entityHitReturnObj = this.entityHitFunction.apply(e); // run the function
                     }
 
-                    if (!pierceEntities)
+                    if (!this.pierceEntities)
                     {
                         return; // Pierce entities is false and entity was hit
                     }
@@ -303,7 +322,7 @@ public class RayCast<E extends Entity, ER, BSR> {
 
             if (!this.particles.isEmpty()) // Are there any particles to display?
             {
-                this.particles.forEach(particleType -> serverLevel.sendParticles(particleType, rayCast.x, rayCast.y, rayCast.z, 1, 0.0, 0.0, 0.0, 0.0)); // Display particles
+                this.particles.forEach(particleType -> this.serverLevel.sendParticles(particleType, rayCast.x, rayCast.y, rayCast.z, 1, 0.0, 0.0, 0.0, 0.0)); // Display particles
             }
         }
     }
@@ -328,6 +347,17 @@ public class RayCast<E extends Entity, ER, BSR> {
     {
         this.blockStateHitFunction = function;
         return this;
+    }
+
+    /**
+     *
+     * @return The current {@link BlockPos} in the {@link RayCast}.
+     * Returns null if the {@link RayCast} has not been fired.
+     * Returns the furthest {@link BlockPos} reached by a {@link RayCast} if called after being fired.
+     */
+    public BlockPos getCurrentBlockPos()
+    {
+        return currentBlockPos;
     }
 
     /**

@@ -4,6 +4,10 @@ import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * Responsibilities:
+ * <li>Contains all the model layers for entities and any other assets that require model layers</li>
+ */
 public class BMOBModelLayers {
 
     /**
@@ -52,7 +56,7 @@ public class BMOBModelLayers {
      * @param path The resource location for the texture. For mobs, their local name is used.
      * @return A {@link ModelLayerLocation} for use in this mod
      */
-    public static ModelLayerLocation createBasicModelLayer(String path)
+    private static ModelLayerLocation createBasicModelLayer(String path)
     {
         return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "main");
     }
@@ -62,7 +66,7 @@ public class BMOBModelLayers {
      * @param path The resource location for the texture. Typically, the local name of the mob is used here.
      * @return A {@link ModelLayerLocation} for use with the {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
      */
-    public static ModelLayerLocation createInnerArmorLayer(String path)
+    private static ModelLayerLocation createInnerArmorLayer(String path)
     {
         return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "inner_armor");
     }
@@ -72,7 +76,7 @@ public class BMOBModelLayers {
      * @param path The resource location for the texture. Typically, the local name of the mob is used here.
      * @return A {@link ModelLayerLocation} for used with the {@link net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer}
      */
-    public static ModelLayerLocation createOuterArmorLayer(String path)
+    private static ModelLayerLocation createOuterArmorLayer(String path)
     {
         return new ModelLayerLocation(new ResourceLocation(BurningMinesOfBelow.MODID, path), "outer_armor");
     }

@@ -11,6 +11,13 @@ import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Rendering the {@link FrozenSoulModel} onto the {@link FrozenSoulEntity}</li>
+ * <li>Specifies the texture to render on the {@link FrozenSoulModel}</li>
+ * @author Allen Malo
+ */
 public final class FrozenSoulRenderer extends AbstractHumanoidRenderer<FrozenSoulEntity, FrozenSoulModel> {
 
     public FrozenSoulRenderer(EntityRendererProvider.Context pContext) {

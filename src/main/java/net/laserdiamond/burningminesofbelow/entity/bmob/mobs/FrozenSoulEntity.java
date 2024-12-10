@@ -1,19 +1,14 @@
 package net.laserdiamond.burningminesofbelow.entity.bmob.mobs;
 
 import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
-import net.laserdiamond.burningminesofbelow.util.MobConfigRegistry;
+import net.laserdiamond.burningminesofbelow.entity.MobConfigRegistry;
 import net.laserdiamond.burningminesofbelow.util.file.mob.FrozenSoulConfig;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -22,11 +17,16 @@ import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidType;
-import org.jetbrains.annotations.Nullable;
 
+/**
+ * <p>Version/date: 12/9/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines how the Frozen Soul will behave in-game, and how the entity will respond to the environment around it</li>
+ * @author Allen Malo
+ */
 public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> implements AttackingEntity<FrozenSoulEntity> {
 
-    public static final FrozenSoulConfig CONFIG = (FrozenSoulConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FROZEN_SOUL.getId());
+    private static final FrozenSoulConfig CONFIG = (FrozenSoulConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FROZEN_SOUL.getId());
 
     public FrozenSoulEntity(EntityType<? extends FrozenSoulEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -110,15 +110,5 @@ public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> im
     public MobType getMobType()
     {
         return MobType.UNDEAD; // This should be an undead mob. The Smite enchantment will deal more damage to it
-    }
-
-    public static AttributeSupplier.Builder createAttributes()
-    {
-        return AbstractBossMob.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 20D)
-                .add(Attributes.MOVEMENT_SPEED, 0.15D)
-                .add(Attributes.ATTACK_DAMAGE, 3D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
-                .add(Attributes.FOLLOW_RANGE, 50D);
     }
 }

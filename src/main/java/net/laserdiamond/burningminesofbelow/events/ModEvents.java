@@ -6,7 +6,6 @@ import net.laserdiamond.burningminesofbelow.block.RefinedOreBlock;
 import net.laserdiamond.burningminesofbelow.block.VanillaRefinedOreBlock;
 import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.BlaziumFireBall;
-import net.laserdiamond.burningminesofbelow.heat.HeatModifier;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeat;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeatProvider;
 import net.laserdiamond.burningminesofbelow.item.equipment.tools.BlaziumSwordItem;
@@ -100,52 +99,20 @@ public class ModEvents
                     return; // Player's heat should not change if they are in creative/spectator
                 }
 
-                final int heatInterval = (int) getAttributeValue(player.getAttribute(BMOBAttributes.PLAYER_HEAT_INTERVAL.get()), "Heat Interval");
+                // Apply heat up/cool down effects to the player
+                PlayerHeat.heatUpPlayerBiome(player, heat);
+                PlayerHeat.coolDownPlayerBiome(player, heat);
+                PlayerHeat.heatUpPlayerOnFire(player, heat);
+                PlayerHeat.coolDownPlayerFreezing(player, heat);
+                PlayerHeat.heatUpPlayerNether(player, heat);
+                PlayerHeat.heatUpPlayerElevation(player, heat);
+                PlayerHeat.coolDownPlayerElevation(player, heat);
 
-                if (playerTicks % heatInterval == 0) // Time to heat up
-                {
-                    HeatModifier heatModifier = heatUpPlayer(player, heat);
-                    heat.addHeat(heatModifier.value(), heatModifier.canBypass());
-
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), (ServerPlayer) player);
-                }
-
-                final int freezeInterval = (int) getAttributeValue(player.getAttribute(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get()), "Freeze Interval");
-
-                if (playerTicks % freezeInterval == 0) // Time to cool down
-                {
-                    HeatModifier coolModifier = coolDownPlayer(player, heat);
-                    heat.removeHeat(coolModifier.value(), coolModifier.canBypass());
-
-                    BMOBPackets.sendToPlayer(new HeatS2CPacket(heat.getHeat(), player), ((ServerPlayer) player));
-                }
-
-                final int heatStrokeInterval = 20;
-                if (playerTicks % heatStrokeInterval == 0) // Give player heatstroke effects
-                {
-                    giveHeatStroke(player, heat);
-                }
-
-                final int heatExhaustionInterval = 100;
-                if (playerTicks % heatExhaustionInterval == 0) // Give player heat exhaustion effects
-                {
-                    giveHeatExhaustion(player, heat);
-                }
-
-                final int frostbiteInterval = 20;
-                if (playerTicks % frostbiteInterval == 0) // Give player frostbite effects
-                {
-                    giveFrostbite(player, heat);
-                }
-
-                final int hypothermiaInterval = 100;
-                if (playerTicks % hypothermiaInterval == 0) // Give player hypothermia effects
-                {
-                    giveHypothermia(player, heat);
-                }
-
-                // TODO:
-                // - Player should rapidly gain heat if they are on fire or in lava
+                // Apply heat stroke/heat exhaustion effects to the player
+                PlayerHeat.giveHeatStroke(player, heat);
+                PlayerHeat.giveHeatExhaustion(player, heat);
+                PlayerHeat.giveFrostbite(player, heat);
+                PlayerHeat.giveHypothermia(player, heat);
 
             });
 
@@ -183,184 +150,6 @@ public class ModEvents
             }
 
 
-        }
-    }
-
-    /**
-     * Gets the {@link Attribute}'s value from the {@link AttributeInstance}
-     * @param attributeInstance The {@link AttributeInstance} to get a value from
-     * @param attributeName The name of the attribute
-     * @return The value stored in the attribute. Throws an {@link IllegalStateException} if the {@link AttributeInstance} is null
-     */
-    private static double getAttributeValue(AttributeInstance attributeInstance, String attributeName)
-    {
-        if (attributeInstance == null)
-        {
-            throw new IllegalStateException("!!! Player DOES NOT HAVE " + attributeName.toUpperCase() + " ATTRIBUTE !!!");
-        }
-        return attributeInstance.getValue();
-    }
-
-    /**
-     * Helper method for heating up the player
-     * @param player The player to heat up
-     * @param playerHeat The player's heat data
-     * @return A {@link HeatModifier} that contains the amount of heat to add and whether it should bypass the safe zone
-     */
-    private static HeatModifier heatUpPlayer(Player player, PlayerHeat playerHeat)
-    {
-        int heatPoints = 0;
-        boolean canOverheat = false;
-
-        final BlockPos playerBlockPos = new BlockPos((int) player.position().x, (int) player.position().y, (int) player.position().z);
-        final Level level = player.level();
-
-        if (player.position().y <= PlayerHeat.Y_LEVEL_FREEZE) // Check if player is within a valid y-level to gain heat
-        {
-            if (playerHeat.getHeat() < PlayerHeat.SAFE_HEAT) // Accumulate heat if the player is too cold
-            {
-                heatPoints++;
-            }
-            if (player.position().y <= PlayerHeat.Y_LEVEL_HEAT) // Accumulate heat if the player is under y-level
-            {
-                heatPoints++;
-                canOverheat = true; // Player can overheat from this
-            }
-        }
-
-        if (player.isOnFire() || player.isInLava()) // Check if player is on fire/in lava
-        {
-            if (!player.fireImmune()) // Player shouldn't accumulate heat from this if they have fire resistance
-            {
-                heatPoints++;
-                canOverheat = true; // Add heat; Player can overheat from this
-            }
-        }
-
-        for (TagKey<Biome> biomeTagKey : PlayerHeat.hotBiomes())
-        {
-            if (level.getBiome(playerBlockPos).containsTag(biomeTagKey))
-            {
-                heatPoints++;
-                break;
-            }
-        }
-
-        if (level.dimension() == Level.NETHER)
-        {
-            // TODO: Player shouldn't gain heat if in the Cocytus Tundra
-            heatPoints++;
-        }
-
-        return new HeatModifier(heatPoints, canOverheat);
-    }
-
-    /**
-     * Helper method for cooling down the player
-     * @param player The player to cool down
-     * @param playerHeat The player's heat data
-     * @return A {@link HeatModifier} that contains the amount of heat to remove and whether it should bypass the safe zone
-     */
-    private static HeatModifier coolDownPlayer(Player player, PlayerHeat playerHeat)
-    {
-        int coolPoints = 0;
-        boolean canFreeze = false;
-
-        final BlockPos playerBlockPos = new BlockPos((int) player.position().x, (int) player.position().y, (int) player.position().z);
-        final Level level = player.level();
-
-        if (player.position().y >= PlayerHeat.Y_LEVEL_HEAT)
-        {
-            if (playerHeat.getHeat() > PlayerHeat.SAFE_HEAT)
-            {
-                coolPoints++;
-            }
-            if (player.position().y >= PlayerHeat.Y_LEVEL_FREEZE)
-            {
-                coolPoints++;
-                canFreeze = true;
-            }
-        }
-
-        if (player.isInPowderSnow)
-        {
-            coolPoints++;
-            canFreeze = true;
-        }
-
-        for (TagKey<Biome> biomeTagKey : PlayerHeat.coldBiomes())
-        {
-            if (level.getBiome(playerBlockPos).containsTag(biomeTagKey))
-            {
-                coolPoints++;
-                canFreeze = true;
-                break;
-            }
-        }
-
-        return new HeatModifier(coolPoints, canFreeze);
-    }
-
-    /**
-     * Gives the player the debuffs for heat stroke
-     * @param player The player receiving the effects
-     * @param playerHeat The player's heat data
-     */
-    private static void giveHeatStroke(Player player, PlayerHeat playerHeat)
-    {
-        if (PlayerHeat.isHot(playerHeat.getHeat()))
-        {
-            player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 240));
-        }
-    }
-
-    /**
-     * Gives the player Heat Exhaustion
-     * @param player The player receiving heat exhaustion
-     * @param playerHeat The player's heat data
-     */
-    private static void giveHeatExhaustion(Player player, PlayerHeat playerHeat)
-    {
-        if (PlayerHeat.isHeatExhaustion(playerHeat.getHeat()))
-        {
-            player.addEffect(new MobEffectInstance(BMOBEffects.HEAT_EXHAUSTION.get(), 240));
-        }
-
-        if (player.hasEffect(BMOBEffects.HEAT_EXHAUSTION.get()))
-        {
-            player.hurt(player.damageSources().dryOut(), (float) (player.getMaxHealth() * 0.3));
-        }
-    }
-
-    /**
-     * Gives the player the debuffs for frostbite
-     * @param player The player receiving the effects
-     * @param playerHeat The player's heat data
-     */
-    private static void giveFrostbite(Player player, PlayerHeat playerHeat)
-    {
-        if (PlayerHeat.isFrostBite(playerHeat.getHeat()))
-        {
-            player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 240));
-            player.setTicksFrozen(200);
-        }
-    }
-
-    /**
-     * Gives the player Hypothermia
-     * @param player The player receiving Hypothermia
-     * @param playerHeat The player's heat data
-     */
-    private static void giveHypothermia(Player player, PlayerHeat playerHeat)
-    {
-        if (PlayerHeat.isHypothermia(playerHeat.getHeat()))
-        {
-            player.addEffect(new MobEffectInstance(BMOBEffects.HYPOTHERMIA.get(), 240));
-        }
-
-        if (player.hasEffect(BMOBEffects.HYPOTHERMIA.get()))
-        {
-            player.hurt(player.damageSources().freeze(), (float) (player.getMaxHealth() * 0.3));
         }
     }
 
