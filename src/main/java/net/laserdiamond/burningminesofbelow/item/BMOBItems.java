@@ -1,7 +1,6 @@
 package net.laserdiamond.burningminesofbelow.item;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.block.BMOBBlock;
 import net.laserdiamond.burningminesofbelow.block.BMOBBlocks;
 import net.laserdiamond.burningminesofbelow.item.equipment.armor.*;
 import net.laserdiamond.burningminesofbelow.item.equipment.tools.*;
@@ -9,7 +8,6 @@ import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -137,7 +135,7 @@ public class BMOBItems {
     /**
      * Cyronite Shard item
      */
-    public static final RegistryObject<Item> CYRONITE_SHARD = registerItem("Cyronite Shard", "cyronite_shard",
+    public static final RegistryObject<Item> CRYONITE_SHARD = registerItem("Cryonite Shard", "cryonite_shard",
             () -> new ForgeCraftableMiscItem(new Item.Properties(), List.of(BMOBTags.Items.FORGE_MISC_INGREDIENT)) {
         @Override
         public Item mainItem() {
@@ -174,11 +172,11 @@ public class BMOBItems {
     /**
      * Frigid Cyronite Crystal item
      */
-    public static final RegistryObject<Item> FRIGID_CYRONITE_CRYSTAL = registerItem("Frigid Cyronite Crystal", "frigid_cyronite_crystal",
+    public static final RegistryObject<Item> FRIGID_CRYONITE_CRYSTAL = registerItem("Frigid Cryonite Crystal", "frigid_cryonite_crystal",
             () -> new ForgeCraftableMiscItem(new Item.Properties(), List.of(BMOBTags.Items.FORGE_MISC_INGREDIENT)) {
                 @Override
                 public Item mainItem() {
-                    return CYRONITE_SHARD.get();
+                    return CRYONITE_SHARD.get();
                 }
 
                 @Override
@@ -253,26 +251,26 @@ public class BMOBItems {
     /**
      * Cyronite Helmet item
      */
-    public static final RegistryObject<Item> CYRONITE_HELMET = registerItem("Cyronite Helmet", "cyronite_helmet",
-            () -> new CyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+    public static final RegistryObject<Item> CRYONITE_HELMET = registerItem("Cryonite Helmet", "cryonite_helmet",
+            () -> new CryoniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Chestplate item
      */
-    public static final RegistryObject<Item> CYRONITE_CHESTPLATE = registerItem("Cyronite Chestplate", "cyronite_chestplate",
-            () -> new CyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+    public static final RegistryObject<Item> CRYONITE_CHESTPLATE = registerItem("Cryonite Chestplate", "cryonite_chestplate",
+            () -> new CryoniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Leggings item
      */
-    public static final RegistryObject<Item> CYRONITE_LEGGINGS = registerItem("Cyronite Leggings", "cyronite_leggings",
-            () -> new CyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+    public static final RegistryObject<Item> CRYONITE_LEGGINGS = registerItem("Cryonite Leggings", "cryonite_leggings",
+            () -> new CryoniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Cyronite Boots item
      */
-    public static final RegistryObject<Item> CYRONITE_BOOTS = registerItem("Cyronite Boots", "cyronite_boots",
-            () -> new CyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
+    public static final RegistryObject<Item> CYRONITE_BOOTS = registerItem("Cryonite Boots", "cryonite_boots",
+            () -> new CryoniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of(BMOBTags.Items.FORGE_MAIN_INGREDIENT)));
 
     /**
      * Diamonite Helmet item
@@ -325,25 +323,25 @@ public class BMOBItems {
     /**
      * Frigid Cyronite Helmet item
      */
-    public static final RegistryObject<Item> FRIGID_CYRONITE_HELMET = registerItem("Frigid Cyronite Helmet", "frigid_cyronite_helmet",
+    public static final RegistryObject<Item> FRIGID_CRYONITE_HELMET = registerItem("Frigid Cryonite Helmet", "frigid_cryonite_helmet",
             () -> new FrigidCyroniteArmorItem(ArmorItem.Type.HELMET, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Chestplate item
      */
-    public static final RegistryObject<Item> FRIGID_CYRONITE_CHESTPLATE = registerItem("Frigid Cyronite Chestplate", "frigid_cyronite_chestplate",
+    public static final RegistryObject<Item> FRIGID_CRYONITE_CHESTPLATE = registerItem("Frigid Cryonite Chestplate", "frigid_cryonite_chestplate",
             () -> new FrigidCyroniteArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Leggings item
      */
-    public static final RegistryObject<Item> FRIGID_CYRONITE_LEGGINGS = registerItem("Frigid Cyronite Leggings", "frigid_cyronite_leggings",
+    public static final RegistryObject<Item> FRIGID_CRYONITE_LEGGINGS = registerItem("Frigid Cryonite Leggings", "frigid_cryonite_leggings",
             () -> new FrigidCyroniteArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Frigid Cyronite Boots item
      */
-    public static final RegistryObject<Item> FRIGID_CYRONITE_BOOTS = registerItem("Frigid Cyronite Boots", "frigid_cyronite_boots",
+    public static final RegistryObject<Item> FRIGID_CRYONITE_BOOTS = registerItem("Frigid Cryonite Boots", "frigid_cryonite_boots",
             () -> new FrigidCyroniteArmorItem(ArmorItem.Type.BOOTS, new Item.Properties().fireResistant(), List.of()));
 
     /**
@@ -379,14 +377,14 @@ public class BMOBItems {
     /**
      * Cyronite Sword item
      */
-    public static final RegistryObject<Item> CYRONITE_SWORD = registerItem("Cyronite Sword", "cyronite_sword",
-            () -> new CyroniteSwordItem(1, -2.4F, new Item.Properties().fireResistant(), List.of()));
+    public static final RegistryObject<Item> CRYONITE_SWORD = registerItem("Cryonite Sword", "cryonite_sword",
+            () -> new CryoniteSwordItem(1, -2.4F, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Cyronite Scythe item
      */
-    public static final RegistryObject<Item> CYRONITE_SCYTHE = registerItem("Cyronite Scythe", "cyronite_scythe",
-            () -> new CyroniteScytheItem(1, -3F, new Item.Properties().fireResistant(), List.of()));
+    public static final RegistryObject<Item> CRYONITE_SCYTHE = registerItem("Cryonite Scythe", "cryonite_scythe",
+            () -> new CryoniteScytheItem(1, -3F, new Item.Properties().fireResistant(), List.of()));
 
     /**
      * Diamonite Sword item

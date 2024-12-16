@@ -5,11 +5,10 @@ import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FreezingReaperEntit
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FrozenSoulEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.KingInferniusEntity;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.MagniteBlazeEntity;
-import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cyrobolt;
+import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cryobolt;
 import net.laserdiamond.burningminesofbelow.util.Language;
 import net.laserdiamond.burningminesofbelow.util.LanguageRegistry;
 import net.laserdiamond.burningminesofbelow.util.file.mob.*;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -19,7 +18,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -36,10 +34,10 @@ public class BMOBEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BurningMinesOfBelow.MODID);
 
     /**
-     * The Cyrobolt projectile
+     * The Cryobolt projectile
      */
-    public static RegistryObject<EntityType<Cyrobolt>> CYROBOLT = registerEntity("Cyrobolt", "cyrobolt",
-            () -> EntityType.Builder.<Cyrobolt>of(Cyrobolt::new, MobCategory.MISC).sized(0.5F, 0.5F).build("cyrobolt"));
+    public static RegistryObject<EntityType<Cryobolt>> CYROBOLT = registerEntity("Cryobolt", "cyrobolt",
+            () -> EntityType.Builder.<Cryobolt>of(Cryobolt::new, MobCategory.MISC).sized(0.5F, 0.5F).build("cyrobolt"));
 
     /**
      * Magnite Blaze mob

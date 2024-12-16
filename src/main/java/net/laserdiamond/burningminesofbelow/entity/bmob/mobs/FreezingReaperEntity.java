@@ -4,7 +4,7 @@ import net.laserdiamond.burningminesofbelow.entity.BMOBEntities;
 import net.laserdiamond.burningminesofbelow.entity.ai.AbstractAnimatedAttackGoal;
 import net.laserdiamond.burningminesofbelow.entity.ai.AbstractMeleeAttackGoal;
 import net.laserdiamond.burningminesofbelow.entity.ai.AttackSetUp;
-import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cyrobolt;
+import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.Cryobolt;
 import net.laserdiamond.burningminesofbelow.item.BMOBItems;
 import net.laserdiamond.burningminesofbelow.entity.MobConfigRegistry;
 import net.laserdiamond.burningminesofbelow.util.RayCast;
@@ -51,9 +51,9 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     public static final EntityDataAccessor<Boolean> MELEE_ATTACKING = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
 
     /**
-     * The {@link EntityDataAccessor} for the Cyrobolt Blast attack
+     * The {@link EntityDataAccessor} for the Cryobolt Blast attack
      */
-    public static final EntityDataAccessor<Boolean> CYROBOLT_BLAST = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Boolean> CRYOBOLT_BLAST = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
 
     /**
      * The {@link EntityDataAccessor} for the Sudden Blizzard attack
@@ -73,7 +73,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     public FreezingReaperEntity(EntityType<? extends FreezingReaperEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.CYRONITE_SCYTHE.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.CRYONITE_SCYTHE.get()));
     }
 
     /**
@@ -112,7 +112,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         super.registerGoals();
 
         this.goalSelector.addGoal(1, new FreezingReaperMeleeAttackGoal(this, 1.0, true));
-        this.goalSelector.addGoal(1, new FreezingReaperCyroboltBlastAttackGoal(this));
+        this.goalSelector.addGoal(1, new FreezingReaperCryoboltBlastAttackGoal(this));
         this.goalSelector.addGoal(1, new FreezingReaperSuddenBlizzardAttackGoal(this));
 
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0));
@@ -129,7 +129,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         super.defineSynchedData();
         // Define synced data for attacks
         this.entityData.define(MELEE_ATTACKING, false);
-        this.entityData.define(CYROBOLT_BLAST, false);
+        this.entityData.define(CRYOBOLT_BLAST, false);
         this.entityData.define(SUDDEN_BLIZZARD, false);
     }
 
@@ -139,7 +139,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
 
         // Set up animation states for all attacks
         this.setUpAttackAnimationStates(Attack.MELEE);
-        this.setUpAttackAnimationStates(Attack.CYROBOLT_BLAST);
+        this.setUpAttackAnimationStates(Attack.CRYOBOLT_BLAST);
         this.setUpAttackAnimationStates(Attack.SUDDEN_BLIZZARD);
     }
 
@@ -170,7 +170,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     public enum Attack implements AttackSetUp
     {
         MELEE (new AnimationState(), 20, FreezingReaperEntity.MELEE_ATTACKING),
-        CYROBOLT_BLAST (new AnimationState(), 40, FreezingReaperEntity.CYROBOLT_BLAST),
+        CRYOBOLT_BLAST(new AnimationState(), 40, FreezingReaperEntity.CRYOBOLT_BLAST),
         SUDDEN_BLIZZARD (new AnimationState(), 20, FreezingReaperEntity.SUDDEN_BLIZZARD);
 
         private final AnimationState animationState; // Attack has-a AnimationState
@@ -256,30 +256,30 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
     /**
      * <p>Version/date: 12/9/24</p>
      * <p>Responsibilities of class:</p>
-     * <li>Defines how the {@link FreezingReaperEntity}'s Cyrobolt Blast attack goal should operate, as well as the animation associated with it</li>
+     * <li>Defines how the {@link FreezingReaperEntity}'s Cryobolt Blast attack goal should operate, as well as the animation associated with it</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity}</li>
-     * <li>A {@link FreezingReaperCyroboltBlastAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
+     * <li>A {@link FreezingReaperCryoboltBlastAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class FreezingReaperCyroboltBlastAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity> {
+    private static class FreezingReaperCryoboltBlastAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity> {
 
         /**
-         * Creates a new {@link FreezingReaperCyroboltBlastAttackGoal}
+         * Creates a new {@link FreezingReaperCryoboltBlastAttackGoal}
          * @param mob the {@link FreezingReaperEntity} performing the attack goal
          */
-        public FreezingReaperCyroboltBlastAttackGoal(FreezingReaperEntity mob)
+        public FreezingReaperCryoboltBlastAttackGoal(FreezingReaperEntity mob)
         {
             super(mob);
         }
 
         @Override
         protected int animationDuration() {
-            return Attack.CYROBOLT_BLAST.getAnimationDuration();
+            return Attack.CRYOBOLT_BLAST.getAnimationDuration();
         }
 
         @Override
         protected int attackEndTime() {
-            return Attack.CYROBOLT_BLAST.getAnimationDuration() - 5;
+            return Attack.CRYOBOLT_BLAST.getAnimationDuration() - 5;
         }
 
         @Override
@@ -294,9 +294,9 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
                 float launchYaw = -20;
                 for (int i = 0; i < 5; i++)
                 {
-                    Cyrobolt cyrobolt = new Cyrobolt(mob, serverLevel, CONFIG.cyroBlastDamage(), CONFIG.attackFreezeDuration());
-                    cyrobolt.shootFromRotation(mob, mob.getXRot(), mob.getYRot() + launchYaw, 0.0F, 3.75F, 0.0F);
-                    serverLevel.addFreshEntity(cyrobolt);
+                    Cryobolt cryobolt = new Cryobolt(mob, serverLevel, CONFIG.cyroBlastDamage(), CONFIG.attackFreezeDuration());
+                    cryobolt.shootFromRotation(mob, mob.getXRot(), mob.getYRot() + launchYaw, 0.0F, 3.75F, 0.0F);
+                    serverLevel.addFreshEntity(cryobolt);
                     launchYaw += 10;
                 }
             }
@@ -309,12 +309,12 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
 
         @Override
         public void resetAttackAnimationTimeOut() {
-            this.mob.setAttackTimeout(Attack.CYROBOLT_BLAST, 0);
+            this.mob.setAttackTimeout(Attack.CRYOBOLT_BLAST, 0);
         }
 
         @Override
         public EntityDataAccessor<Boolean> attackDataAccessor() {
-            return CYROBOLT_BLAST;
+            return CRYOBOLT_BLAST;
         }
 
         @Override
@@ -322,7 +322,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         {
             final double distance = this.mob.distanceTo(target);
 
-            return (distance >= 7) || this.mob.isAttacking(CYROBOLT_BLAST);
+            return (distance >= 7) || this.mob.isAttacking(CRYOBOLT_BLAST);
         }
     }
 

@@ -23,6 +23,7 @@ import java.util.Set;
  * <li>Generates all loot tables for the blocks of this mod</li>
  * <li>A {@link BMOBBlockLootTables} is-a {@link BlockLootSubProvider}</li>
  * @author Allen Malo
+ * @see net.minecraft.data.loot.packs.VanillaBlockLoot
  */
 public class BMOBBlockLootTables extends BlockLootSubProvider {
 

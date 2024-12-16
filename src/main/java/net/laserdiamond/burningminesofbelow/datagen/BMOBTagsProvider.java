@@ -41,6 +41,7 @@ public class BMOBTagsProvider {
      * <li>Adds the {@link Item} {@link TagKey}s to the {@link Item}s</li>
      * <li>A {@link net.laserdiamond.burningminesofbelow.util.BMOBTags.Items} is-a {@link ItemTagsProvider}</li>
      * @author Allen Malo
+     * @see net.minecraft.data.tags.VanillaItemTagsProvider
      */
     public static class Items extends ItemTagsProvider
     {
@@ -128,6 +129,7 @@ public class BMOBTagsProvider {
      * <li>Adds the {@link Block} {@link TagKey}s to the {@link Block}</li>
      * <li>A {@link BMOBTags.Blocks} is-a {@link BlockTagsProvider}</li>
      * @author Allen Malo
+     * @see net.minecraft.data.tags.VanillaBlockTagsProvider
      */
     public static class Blocks extends BlockTagsProvider
     {
@@ -169,6 +171,7 @@ public class BMOBTagsProvider {
      * <li>Adds the {@link net.minecraft.world.entity.EntityType} tags to the {@link net.minecraft.world.entity.EntityType}</li>
      * <li>A {@link BMOBTags.Entities} is-a {@link EntityTypeTagsProvider}</li>
      * @author Allen Malo
+     * @see EntityTypeTagsProvider
      */
     public static class Entities extends EntityTypeTagsProvider
     {

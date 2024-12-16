@@ -23,7 +23,8 @@ public class BMOBLootTableProvider {
     public static LootTableProvider create(PackOutput output)
     {
         return new LootTableProvider(output, Set.of(), List.of(
-                new LootTableProvider.SubProviderEntry(BMOBBlockLootTables::new, LootContextParamSets.BLOCK)
+                new LootTableProvider.SubProviderEntry(BMOBBlockLootTables::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(BMOBEntityLootTables::new, LootContextParamSets.ENTITY)
         ));
     }
 }

@@ -50,6 +50,6 @@ public class BMOBToolTiers {
      */
     public static final Tier CYRONITE = TierSortingRegistry.registerTier(
             new ForgeTier(5, 2930, 9.0F, 7.0F, 13,
-                    BMOBTags.Blocks.NEEDS_CYRONITE_TOOL, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get(), BMOBItems.FRIGID_CYRONITE_CRYSTAL.get())),
+                    BMOBTags.Blocks.NEEDS_CYRONITE_TOOL, () -> Ingredient.of(BMOBItems.CRYONITE_SHARD.get(), BMOBItems.FRIGID_CRYONITE_CRYSTAL.get())),
             new ResourceLocation(BurningMinesOfBelow.MODID, "cyronite"), List.of(Tiers.NETHERITE), List.of());
 }

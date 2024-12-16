@@ -100,7 +100,7 @@ public class BMOBBlocks {
     /**
      * Cyronite Ore block
      */
-    public static final RegistryObject<Block> CYRONITE_ORE = registerBlock("Cyronite Ore", "cyronite_ore", () -> new BMOBMultiOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE), BMOBItems.CYRONITE_SHARD, 1, 3, UniformInt.of(9, 12), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_REFINED_DIAMONITE_TOOL)));
+    public static final RegistryObject<Block> CYRONITE_ORE = registerBlock("Cyronite Ore", "cyronite_ore", () -> new BMOBMultiOreBlock(BlockBehaviour.Properties.copy(Blocks.STONE), BMOBItems.CRYONITE_SHARD, 1, 3, UniformInt.of(9, 12), List.of(BlockTags.MINEABLE_WITH_PICKAXE, BMOBTags.Blocks.NEEDS_REFINED_DIAMONITE_TOOL)));
 
     /**
      * Frozen Soul Sand block

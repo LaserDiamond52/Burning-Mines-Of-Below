@@ -16,7 +16,6 @@ import net.laserdiamond.burningminesofbelow.screen.forge.ForgeScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.LayerDefinitions;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -51,7 +50,7 @@ public class ClientModEvents
     {
         MenuScreens.register(BMOBMenuTypes.FORGE_MENU.get(), ForgeScreen::new);
 
-        EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CyroboltRenderer::new);
+        EntityRenderers.register(BMOBEntities.CYROBOLT.get(), CryoboltRenderer::new);
         EntityRenderers.register(BMOBEntities.MAGNITE_BLAZE.get(), MagniteBlazeRenderer::new);
         EntityRenderers.register(BMOBEntities.KING_INFERNIUS.get(), KingInferniusRenderer::new);
         EntityRenderers.register(BMOBEntities.FROZEN_SOUL.get(), FrozenSoulRenderer::new);

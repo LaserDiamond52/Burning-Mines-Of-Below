@@ -158,7 +158,7 @@ public final class FreezingReaperModel extends AbstractHierarchicalArmedModel<Fr
 		AnimationUtils.bobArms(this.right_arm, this.left_arm, ageInTicks);
 
 		this.animate(FreezingReaperEntity.Attack.MELEE.getAnimationState(), Animations.FREEZING_REAPER_MELEE_ATTACK, ageInTicks, 1.0F);
-		this.animate(FreezingReaperEntity.Attack.CYROBOLT_BLAST.getAnimationState(), Animations.FREEZING_REAPER_CYROBOLT_BLAST, ageInTicks);
+		this.animate(FreezingReaperEntity.Attack.CRYOBOLT_BLAST.getAnimationState(), Animations.FREEZING_REAPER_CYROBOLT_BLAST, ageInTicks);
 		this.animate(FreezingReaperEntity.Attack.SUDDEN_BLIZZARD.getAnimationState(), Animations.FREEZING_REAPER_SUDDEN_BLIZZARD, ageInTicks);
 	}
 

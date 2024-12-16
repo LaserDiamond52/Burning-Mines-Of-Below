@@ -12,21 +12,21 @@ import java.util.List;
 /**
  * <p>Version/date: 12/16/24</p>
  * <p>Responsibilities of class:</p>
- * <li>Defines the properties of a {@link CyroniteArmorItem}</li>
- * <li>Defines the recipe ingredients for a {@link CyroniteArmorItem} from the Forge</li>
- * <li>A {@link CyroniteArmorItem} is-a {@link BMOBArmorItem}</li>
- * <li>A {@link CyroniteArmorItem} is-a {@link ForgeCraftable}</li>
+ * <li>Defines the properties of a {@link CryoniteArmorItem}</li>
+ * <li>Defines the recipe ingredients for a {@link CryoniteArmorItem} from the Forge</li>
+ * <li>A {@link CryoniteArmorItem} is-a {@link BMOBArmorItem}</li>
+ * <li>A {@link CryoniteArmorItem} is-a {@link ForgeCraftable}</li>
  * @author Allen Malo
  */
-public final class CyroniteArmorItem extends BMOBArmorItem implements ForgeCraftable {
+public final class CryoniteArmorItem extends BMOBArmorItem implements ForgeCraftable {
 
     /**
-     * Creates a new {@link CyroniteArmorItem}
+     * Creates a new {@link CryoniteArmorItem}
      * @param pType The armor piece type to create
      * @param pProperties The {@link Item.Properties} to give the item
      * @param tags A {@link List} of {@link TagKey}s to apply to the item
      */
-    public CyroniteArmorItem(Type pType, Properties pProperties, List<TagKey<Item>> tags) {
+    public CryoniteArmorItem(Type pType, Properties pProperties, List<TagKey<Item>> tags) {
         super(BMOBArmorMaterial.CYRONITE, pType, pProperties, tags);
     }
 
@@ -43,7 +43,7 @@ public final class CyroniteArmorItem extends BMOBArmorItem implements ForgeCraft
 
     @Override
     public Ingredient miscItems() {
-        return Ingredient.of(BMOBItems.CYRONITE_SHARD.get());
+        return Ingredient.of(BMOBItems.CRYONITE_SHARD.get());
     }
 
     @Override

@@ -77,7 +77,7 @@ public class BMOBItemModelProvider extends ItemModelProvider {
             } else if (item instanceof StandingAndWallBlockItem)
             {
                 this.skullBlockItem(itemRegistryObject); // Skull block items get the mob head model
-            } else
+            } else if (item instanceof BMOBItem)
             {
                 this.basicItem(itemRegistryObject.get()); // Every other item is just a basic item
             }

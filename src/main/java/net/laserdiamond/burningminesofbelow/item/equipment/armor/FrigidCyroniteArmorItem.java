@@ -33,16 +33,16 @@ public final class FrigidCyroniteArmorItem extends BMOBArmorItem implements Forg
     public Item mainItem() {
         return switch (this.type)
         {
-            case HELMET -> BMOBItems.CYRONITE_HELMET.get();
-            case CHESTPLATE -> BMOBItems.CYRONITE_CHESTPLATE.get();
-            case LEGGINGS -> BMOBItems.CYRONITE_LEGGINGS.get();
+            case HELMET -> BMOBItems.CRYONITE_HELMET.get();
+            case CHESTPLATE -> BMOBItems.CRYONITE_CHESTPLATE.get();
+            case LEGGINGS -> BMOBItems.CRYONITE_LEGGINGS.get();
             case BOOTS -> BMOBItems.CYRONITE_BOOTS.get();
         };
     }
 
     @Override
     public Ingredient miscItems() {
-        return Ingredient.of(BMOBItems.FRIGID_CYRONITE_CRYSTAL.get());
+        return Ingredient.of(BMOBItems.FRIGID_CRYONITE_CRYSTAL.get());
     }
 
     @Override

@@ -83,7 +83,7 @@ public enum BMOBArmorMaterial implements ArmorMaterial {
             BMOBArmorItem.createEmptyAttributes(),
             BMOBArmorItem.createConsistentAttributes(AttributeModifier.Operation.MULTIPLY_BASE, 0.05),
             BMOBArmorItem.createEmptyAttributes(),
-            15, SoundEvents.AMETHYST_BLOCK_CHIME, 2.25F, 0.05F, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get())),
+            15, SoundEvents.AMETHYST_BLOCK_CHIME, 2.25F, 0.05F, () -> Ingredient.of(BMOBItems.CRYONITE_SHARD.get())),
 
     /**
      * Frigid Cyronite armor material
@@ -94,7 +94,7 @@ public enum BMOBArmorMaterial implements ArmorMaterial {
             BMOBArmorItem.createEmptyAttributes(),
             BMOBArmorItem.createConsistentAttributes(AttributeModifier.Operation.MULTIPLY_BASE, 0.075),
             BMOBArmorItem.createEmptyAttributes(),
-            17, SoundEvents.AMETHYST_BLOCK_CHIME, 2F, 0.05F, () -> Ingredient.of(BMOBItems.CYRONITE_SHARD.get(), BMOBItems.FRIGID_CYRONITE_CRYSTAL.get())),
+            17, SoundEvents.AMETHYST_BLOCK_CHIME, 2F, 0.05F, () -> Ingredient.of(BMOBItems.CRYONITE_SHARD.get(), BMOBItems.FRIGID_CRYONITE_CRYSTAL.get())),
     ;
 
     private final String name; // A BMOBArmorMaterial has-a String
