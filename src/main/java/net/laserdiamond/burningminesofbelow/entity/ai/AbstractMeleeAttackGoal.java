@@ -14,6 +14,8 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
  * <li>An {@link AbstractMeleeAttackGoal} is-a {@link MeleeAttackGoal}</li>
  * <li>An {@link AbstractMeleeAttackGoal} is-a {@link DelayedAnimatedAttack}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class AbstractMeleeAttackGoal<PM extends PathfinderMob & AttackingEntity<PM>> extends MeleeAttackGoal implements DelayedAnimatedAttack {
 

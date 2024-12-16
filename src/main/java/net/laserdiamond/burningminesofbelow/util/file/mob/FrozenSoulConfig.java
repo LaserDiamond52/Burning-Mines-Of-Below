@@ -14,6 +14,11 @@ public class FrozenSoulConfig extends AbstractMobConfig {
      */
     public FrozenSoulConfig() {
         super("frozen_soul");
+        int freezeDuration = Math.max(0, this.defaultFreezeDuration());
+
+        this.toJsonNotNull(this.jsonObject, "freeze_duration", freezeDuration);
+
+        this.writeJsonToFile();
     }
 
     @Override
@@ -44,5 +49,20 @@ public class FrozenSoulConfig extends AbstractMobConfig {
     @Override
     public double defaultArmor() {
         return 0D;
+    }
+
+    public int defaultFreezeDuration()
+    {
+        return 200;
+    }
+
+    public int freezeDuration()
+    {
+        int ret = this.jsonObject.get("freeze_duration").getAsInt();
+        if (ret < 0)
+        {
+            return this.defaultFreezeDuration();
+        }
+        return ret;
     }
 }

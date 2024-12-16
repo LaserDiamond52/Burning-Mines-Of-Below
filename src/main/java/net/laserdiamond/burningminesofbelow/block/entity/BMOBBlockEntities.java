@@ -16,6 +16,8 @@ import java.util.function.Supplier;
  * <p>Responsibilities of class:</p>
  * <li>Create and register new {@link BlockEntityType}s to the mod's block entity registry</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBBlockEntities {
 

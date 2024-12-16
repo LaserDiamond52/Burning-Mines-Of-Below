@@ -17,6 +17,8 @@ import net.minecraft.world.entity.LivingEntity;
  * <li>An {@link AbstractHierarchicalArmedModel} is-a {@link ArmedModel}</li>
  * @author Allen Malo
  * @param <LE> The {@link LivingEntity} class
+ * @see ArmedModel
+ * @see HierarchicalModel
  */
 public abstract class AbstractHierarchicalArmedModel<LE extends LivingEntity> extends AbstractHierarchicalModel<LE> implements ArmedModel {
 

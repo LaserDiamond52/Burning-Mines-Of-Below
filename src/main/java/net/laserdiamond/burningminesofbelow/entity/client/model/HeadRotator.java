@@ -13,6 +13,9 @@ import org.jetbrains.annotations.NotNull;
  * <li>A {@link HeadRotator} is-a {@link HeadedModel}</li>
  * @author Allen Malo
  * @param <E> The {@link Entity} type
+ * @see HeadedModel
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public interface HeadRotator<E extends Entity> extends HeadedModel {
 

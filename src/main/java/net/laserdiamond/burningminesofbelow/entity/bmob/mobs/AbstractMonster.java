@@ -22,6 +22,8 @@ import javax.annotation.Nullable;
  * <li>Defines any other common properties that mobs of this mod may share</li>
  * <li>An {@link AbstractMonster} is-a {@link Monster}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class AbstractMonster<M extends Monster> extends Monster {
 

@@ -6,6 +6,8 @@ package net.laserdiamond.burningminesofbelow.entity.ai;
  * <li>Used by attack goal classes to determine when an attack should start/stop, and when an animation should start/stop</li>
  * <li>A {@link DelayedAnimatedAttack} is-a {@link DataAccessorAttack}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public interface DelayedAnimatedAttack extends DataAccessorAttack {
 

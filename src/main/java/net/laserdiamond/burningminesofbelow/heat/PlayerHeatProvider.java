@@ -18,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
  * <li>A {@link PlayerHeatProvider} is-a {@link ICapabilityProvider}</li>
  * <li>A {@link PlayerHeatProvider} is-a {@link INBTSerializable}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
  */
 public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 

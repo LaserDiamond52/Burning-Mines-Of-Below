@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
  * @author Allen Malo
  * @param <LE> The {@link LivingEntity} type that will be spawned
  * @param <BE> The {@link BlockEntity} type of the block being used to summon the entity
+ * @see net.minecraft.world.level.block.WitherSkullBlock
  */
 public interface SummoningBlock<LE extends LivingEntity, BE extends BlockEntity> {
 

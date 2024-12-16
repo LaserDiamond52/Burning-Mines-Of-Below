@@ -27,6 +27,8 @@ import java.util.*;
  * <li>A {@link BlaziumSwordItem} is-a {@link BMOBSwordItem}</li>
  * <li>A {@link BlaziumSwordItem} is-a {@link AbilityItem}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem {
 

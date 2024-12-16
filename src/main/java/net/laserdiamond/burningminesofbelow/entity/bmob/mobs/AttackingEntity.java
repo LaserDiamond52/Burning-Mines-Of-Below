@@ -10,6 +10,8 @@ import net.minecraft.world.entity.Entity;
  * <li>Used to help start and stop attack animations for entities within their attack goals, and determine if the entity is performing said attack</li>
  * <li>This class should be inherited by the entity's class, as the {@link EntityDataAccessor} is needed in the abstract attack goals classes</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public interface AttackingEntity<E extends Entity> extends EntityInterfaceBase<E> {
 

@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
  * <li>Base class for any mobs that should have a boss bar displayed on the player's screen, or be a boss mob</li>
  * <li>An {@link AbstractBossMob} is-a {@link AbstractMonster}</li>
  * @author Allen Malo
+ * @see net.minecraft.world.entity.boss.wither.WitherBoss
  */
 public abstract class AbstractBossMob<M extends Monster> extends AbstractMonster<M> {
 

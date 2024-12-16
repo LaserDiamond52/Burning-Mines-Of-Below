@@ -26,6 +26,8 @@ import java.util.stream.Stream;
  * <li>A {@link BMOBEntityLootTables} is-a {@link EntityLootSubProvider}</li>
  * @author Allen Malo
  * @see net.minecraft.data.loot.packs.VanillaEntityLoot
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBEntityLootTables extends EntityLootSubProvider {
 

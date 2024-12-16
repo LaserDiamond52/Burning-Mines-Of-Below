@@ -36,6 +36,8 @@ import terrablender.api.SurfaceRuleManager;
  * <li>Registers all assets and features of this mod under the different registries</li>
  * <li>Contains the Mod ID of this mod, which helps the registries know the namespace to register their objects under</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 @Mod(BurningMinesOfBelow.MODID)
 public class BurningMinesOfBelow {

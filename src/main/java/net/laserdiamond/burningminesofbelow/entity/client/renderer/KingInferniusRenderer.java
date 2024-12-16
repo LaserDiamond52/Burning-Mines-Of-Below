@@ -24,6 +24,8 @@ import net.minecraft.world.item.ItemStack;
  * <li>Specifies the texture to render on the {@link KingInferniusModel}</li>
  * <li>A {@link KingInferniusRenderer} is-a {@link MobRenderer}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public final class KingInferniusRenderer extends MobRenderer<KingInferniusEntity, KingInferniusModel> {
 

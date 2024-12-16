@@ -15,6 +15,8 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
  * <p>Responsibilities of class:</p>
  * <li>Draws the Heat Bar on the client's screen</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
  */
 public class HeatHUDOverlay {
 

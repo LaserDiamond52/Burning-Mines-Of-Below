@@ -12,6 +12,8 @@ import net.minecraftforge.registries.RegistryObject;
  * <p>Responsibilities of class:</p>
  * <li>Creates and registers new {@link RecipeSerializer}s to the mod's {@link RecipeSerializer} registry</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBRecipes {
 

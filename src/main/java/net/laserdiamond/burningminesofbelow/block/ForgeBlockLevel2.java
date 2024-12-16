@@ -16,6 +16,8 @@ import java.util.List;
  * <li>Create the Level 2 variant of the Forge Block</li>
  * <li>A {@link ForgeBlockLevel2} is-a {@link AbstractForgeBlock}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class ForgeBlockLevel2 extends AbstractForgeBlock<ForgeBlockEntityLevel2> {
 

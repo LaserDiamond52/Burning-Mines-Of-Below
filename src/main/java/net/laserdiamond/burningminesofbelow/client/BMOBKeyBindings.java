@@ -13,6 +13,8 @@ import net.minecraftforge.client.settings.KeyConflictContext;
  * <li>Contains all the key mappings of this mod</li>
  * <li>Registers all the key mappings of this mod</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
  */
 public final class BMOBKeyBindings {
 

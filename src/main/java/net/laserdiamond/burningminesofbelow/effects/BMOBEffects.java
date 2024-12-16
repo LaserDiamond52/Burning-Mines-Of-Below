@@ -31,20 +31,12 @@ public class BMOBEffects {
     /**
      * Heat Exhaustion effect
      */
-    public static final RegistryObject<MobEffect> HEAT_EXHAUSTION = registerEffect("Heat Exhaustion", "heat_exhaustion",
-            () -> new HeatExhaustionEffect(MobEffectCategory.HARMFUL, 16072975)
-                    .addAttributeModifier(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), "d9430dee-5ab7-42f4-81d3-40b8a5b00ac5", 100, AttributeModifier.Operation.ADDITION)
-                    .addAttributeModifier(Attributes.ATTACK_SPEED, "67967c98-72da-4ea7-ba06-da9232e57575", -0.10000000149011612, AttributeModifier.Operation.MULTIPLY_TOTAL)
-                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, "d5173698-edec-49af-9101-3488dbcd5868", -0.15000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final RegistryObject<MobEffect> HEAT_EXHAUSTION = registerEffect("Heat Exhaustion", "heat_exhaustion", () -> new HeatExhaustionEffect(MobEffectCategory.HARMFUL, 16072975).addAttributeModifier(BMOBAttributes.PLAYER_FREEZE_INTERVAL.get(), "d9430dee-5ab7-42f4-81d3-40b8a5b00ac5", 100, AttributeModifier.Operation.ADDITION));
 
     /**
      * Hypothermia effect
      */
-    public static final RegistryObject<MobEffect> HYPOTHERMIA = registerEffect("Hypothermia", "hypothermia",
-            () -> new HypothermiaEffect(MobEffectCategory.HARMFUL, 372727)
-                    .addAttributeModifier(BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), "d42fb526-c57a-4978-b5f7-47c2c6171b59", 100, AttributeModifier.Operation.ADDITION)
-                    .addAttributeModifier(Attributes.ATTACK_SPEED, "67967c98-72da-4ea7-ba06-da9232e57575", -0.10000000149011612, AttributeModifier.Operation.MULTIPLY_TOTAL)
-                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, "d5173698-edec-49af-9101-3488dbcd5868", -0.15000000596046448, AttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final RegistryObject<MobEffect> HYPOTHERMIA = registerEffect("Hypothermia", "hypothermia", () -> new HypothermiaEffect(MobEffectCategory.HARMFUL, 372727).addAttributeModifier(BMOBAttributes.PLAYER_HEAT_INTERVAL.get(), "1c66e7c0-3031-4ddd-b8c5-d9873b3fae64", 100, AttributeModifier.Operation.ADDITION));
 
     /**
      * Registers a new {@link MobEffect} under this mod's registry

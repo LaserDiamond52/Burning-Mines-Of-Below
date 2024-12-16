@@ -19,6 +19,7 @@ import java.util.function.Consumer;
  * <li>Helps with creating a {@link ForgeRecipe} for the {@link net.laserdiamond.burningminesofbelow.datagen.BMOBRecipeProvider} to create in data generation</li>
  * <li>A {@link ForgeRecipeBuilder} is-a {@link RecipeBuilder}</li>
  * @author Allen Malo
+ * @see net.minecraft.data.recipes.SimpleCookingRecipeBuilder
  */
 public class ForgeRecipeBuilder implements RecipeBuilder {
 
@@ -112,7 +113,6 @@ public class ForgeRecipeBuilder implements RecipeBuilder {
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation resourceLocation) {
         consumer.accept(new Result(resourceLocation, this));
     }
-
 
     /**
      * <p>Version/date: 12/16/24</p>

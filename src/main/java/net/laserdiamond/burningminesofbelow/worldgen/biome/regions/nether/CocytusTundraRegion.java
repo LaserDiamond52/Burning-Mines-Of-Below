@@ -16,6 +16,9 @@ import terrablender.api.RegionType;
  * <li>Manages the {@link CocytusTundraRegion}'s landscape parameters</li>
  * <li>A {@link CocytusTundraRegion} is-a {@link AbstractRegion}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
+ * <p>Glitchfiend; TerraBlender <a href="https://github.com/Glitchfiend/TerraBlender/wiki/Getting-started">...</a></p>
  */
 public final class CocytusTundraRegion extends AbstractRegion {
 

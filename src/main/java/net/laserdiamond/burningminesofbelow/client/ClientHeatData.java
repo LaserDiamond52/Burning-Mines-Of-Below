@@ -8,6 +8,8 @@ import net.minecraft.world.entity.player.Player;
  * <li>Manage a player's heat on the client</li>
  * <li>This class is mostly static because it is client-side. As such, there is only ever one player in this scenario</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
  */
 public class ClientHeatData {
 

@@ -13,6 +13,9 @@ import net.minecraft.world.level.levelgen.SurfaceRules;
  * <li>Contains the {@link SurfaceRules.RuleSource}s for creating the block make-up of the biomes</li>
  * <li>Applies the {@link SurfaceRules.RuleSource}s for the respective biomes</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
+ * <p>Glitchfiend; TerraBlender <a href="https://github.com/Glitchfiend/TerraBlender/wiki/Getting-started">...</a></p>
  */
 public class BMOBSurfaceRules {
 

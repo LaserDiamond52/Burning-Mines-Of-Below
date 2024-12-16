@@ -20,6 +20,8 @@ import net.minecraftforge.items.SlotItemHandler;
  * <li>Creates and runs the functionality of the Forge's inventory, allowing {@link Player}s to place and remove items from it</li>
  * <li>A {@link ForgeMenu} is-a {@link AbstractContainerMenu}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class ForgeMenu extends AbstractContainerMenu {
 

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Mob;
  * @author Allen Malo
  * @param <M> The {@link Mob} class
  * @param <HM> The {@link HumanoidModel} of the {@link Mob}
+ * @see HumanoidMobRenderer
  */
 public abstract class AbstractHumanoidRenderer<M extends Mob, HM extends HumanoidModel<M>> extends HumanoidMobRenderer<M, HM> {
 

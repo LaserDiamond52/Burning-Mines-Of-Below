@@ -19,6 +19,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
  * <li>Contains the {@link ResourceKey}s of the {@link Biome}s of this mod</li>
  * <li>Creates and maps the {@link Biome}'s features to the {@link Biome} itself</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBBiomes {
 

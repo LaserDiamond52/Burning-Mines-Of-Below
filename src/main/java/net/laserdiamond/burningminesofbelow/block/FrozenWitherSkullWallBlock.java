@@ -17,6 +17,7 @@ import java.util.List;
  * <li>Create and manage the wall block variant of the {@link FrozenWitherSkullBlock}</li>
  * <li>A {@link FrozenWitherSkullWallBlock} is-a {@link BMOBWallSkullBlock}</li>
  * @author Allen Malo
+ * @see net.minecraft.world.level.block.WitherWallSkullBlock
  */
 public class FrozenWitherSkullWallBlock extends BMOBWallSkullBlock {
 

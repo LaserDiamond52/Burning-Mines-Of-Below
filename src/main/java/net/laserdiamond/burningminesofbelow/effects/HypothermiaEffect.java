@@ -1,8 +1,6 @@
 package net.laserdiamond.burningminesofbelow.effects;
 
-import net.minecraft.world.effect.AttackDamageMobEffect;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,15 +34,5 @@ public class HypothermiaEffect extends AttackDamageMobEffect {
         // Milk doesn't cure hypothermia
         // As such, no item should be able to remove hypothermia from the affected entity
         return List.of();
-    }
-
-    /**
-     * Any additional effects that should be applied to the affected {@link LivingEntity}
-     * @param pLivingEntity The {@link LivingEntity} with the {@link MobEffect}
-     * @param pAmplifier the amplifier of the effect. This is how strong the effect is
-     */
-    @Override
-    public void applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        pLivingEntity.setTicksFrozen(200);
     }
 }

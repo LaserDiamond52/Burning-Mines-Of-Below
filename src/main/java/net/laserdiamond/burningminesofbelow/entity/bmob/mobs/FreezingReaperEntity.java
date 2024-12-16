@@ -37,6 +37,8 @@ import net.minecraft.world.level.Level;
  * <li>A {@link FreezingReaperEntity} is-a {@link AbstractBossMob}</li>
  * <li>A {@link FreezingReaperEntity} is-a {@link MultiAttackingEntity}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEntity> implements MultiAttackingEntity<FreezingReaperEntity.Attack, FreezingReaperEntity> {
 
@@ -212,6 +214,8 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity} </li>
      * <li>A {@link FreezingReaperMeleeAttackGoal} is-a {@link AbstractMeleeAttackGoal}</li>
      * @author Allen Malo
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      */
     private static class FreezingReaperMeleeAttackGoal extends AbstractMeleeAttackGoal<FreezingReaperEntity> {
 
@@ -259,6 +263,8 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <li>Defines how the {@link FreezingReaperEntity}'s Cryobolt Blast attack goal should operate, as well as the animation associated with it</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity}</li>
      * <li>A {@link FreezingReaperCryoboltBlastAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      * @author Allen Malo
      */
     private static class FreezingReaperCryoboltBlastAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity> {
@@ -333,6 +339,8 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity}</li>
      * <li>A {@link FreezingReaperSuddenBlizzardAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      */
     private static class FreezingReaperSuddenBlizzardAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity>
     {

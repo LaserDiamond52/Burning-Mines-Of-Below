@@ -20,6 +20,7 @@ import java.util.List;
  * <li>A {@link BMOBSkullBlock} is-a {@link SkullBlock}</li>
  * <li>A {@link BMOBSkullBlock} is-a {@link Taggable}</li>
  * @author Allen Malo
+ * @see SkullBlock
  */
 public class BMOBSkullBlock extends SkullBlock implements Taggable<Block> {
 

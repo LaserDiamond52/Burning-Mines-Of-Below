@@ -12,6 +12,8 @@ import net.minecraft.world.entity.Entity;
  * @author Allen Malo
  * @param <AE> The {@link AttackSetUp} {@link Enum}.
  * @param <E> The {@link Entity} class of the mob.
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public interface MultiAttackingEntity<AE extends Enum<?> & AttackSetUp, E extends Entity> extends AttackingEntity<E> {
 

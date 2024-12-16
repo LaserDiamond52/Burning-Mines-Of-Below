@@ -14,6 +14,8 @@ import net.minecraft.world.entity.Mob;
  * <li>A {@link AbstractAnimatedAttackGoal} is-a {@link DelayedAnimatedAttack}</li>
  * @author Allen Malo
  * @param <M> The {@link Mob} class. Said class must also be an inheritor of the {@link AttackingEntity} interface.
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class AbstractAnimatedAttackGoal<M extends Mob & AttackingEntity<M>> extends AbstractAttackGoal<M> implements DelayedAnimatedAttack {
 

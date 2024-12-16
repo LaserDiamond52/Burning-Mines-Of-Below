@@ -17,6 +17,7 @@ import java.util.List;
  * <li>Create and manage the wall block variant of the {@link BlazeSkullBlock}</li>
  * <li>A {@link BlazeSkullWallBlock} is-a {@link BMOBWallSkullBlock}</li>
  * @author Allen Malo
+ * @see net.minecraft.world.level.block.WitherWallSkullBlock
  */
 public class BlazeSkullWallBlock extends BMOBWallSkullBlock {
 

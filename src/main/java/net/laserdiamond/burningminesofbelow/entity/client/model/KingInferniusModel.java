@@ -1,4 +1,5 @@
-package net.laserdiamond.burningminesofbelow.entity.client.model;// Made with Blockbench 4.11.2
+package net.laserdiamond.burningminesofbelow.entity.client.model;
+// Made with Blockbench 4.11.2
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
@@ -22,6 +23,8 @@ import org.jetbrains.annotations.NotNull;
  * <li>Sets up the animations associated with the entity's model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
  * <li>A {@link KingInferniusModel} is-a {@link AbstractHierarchicalArmedModel}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public final class KingInferniusModel extends AbstractHierarchicalArmedModel<KingInferniusEntity> {
 
@@ -178,6 +181,9 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 	 * <li>Contains all the animations for the {@link KingInferniusEntity}</li>
 	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link KingInferniusModel}. The animations are not needed outside the encompassing class</li>
 	 * @author Allen Malo
+	 * @References:
+	 * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
+	 * <p>BlockBench</p>
 	 */
 	private static class Animations
 	{

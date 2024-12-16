@@ -19,6 +19,8 @@ import net.minecraftforge.fml.common.Mod;
  * <li>Registers and listens for client events on the Forge bus of this mod</li>
  * <li>Methods with the {@link SubscribeEvent} annotation are listening for events</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
  */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)

@@ -20,6 +20,8 @@ import net.minecraftforge.registries.ForgeRegistries;
  * <p>Responsibilities of class:</p>
  * <li>Contains the {@link ResourceKey}s of the {@link BiomeModifier}s for this mod</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBBiomeModifiers {
 

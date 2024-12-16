@@ -120,28 +120,22 @@ public class BMOBBlocks {
     /**
      * Frozen Wither Skull block
      */
-    public static final RegistryObject<Block> FROZEN_WITHER_SKULL = registerHeadBlock("Frozen Wither Skull", "frozen_wither_skull",
-            () -> new FrozenWitherSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_WITHER_SKULL = registerHeadBlock("Frozen Wither Skull", "frozen_wither_skull", () -> new FrozenWitherSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
 
     /**
      * Frozen Wither Skull Wall block
      */
-    public static final RegistryObject<Block> FROZEN_WITHER_SKULL_WALL = registerHeadBlockWall("frozen_wither_skull_wall",
-            () -> new FrozenWitherSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(FROZEN_WITHER_SKULL.get()),
-                    List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
+    public static final RegistryObject<Block> FROZEN_WITHER_SKULL_WALL = registerHeadBlockWall("frozen_wither_skull_wall", () -> new FrozenWitherSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(FROZEN_WITHER_SKULL.get()), List.of(BMOBTags.Blocks.FREEZING_REAPER_SUMMON_BLOCK)));
 
     /**
      * Blaze Skull block
      */
-    public static final RegistryObject<Block> BLAZE_SKULL = registerHeadBlock("Blaze Skull", "blaze_skull",
-            () -> new BlazeSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
+    public static final RegistryObject<Block> BLAZE_SKULL = registerHeadBlock("Blaze Skull", "blaze_skull", () -> new BlazeSkullBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_SKULL), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
 
     /**
      * Blaze Skull Wall block
      */
-    public static final RegistryObject<Block> BLAZE_SKULL_WALL = registerHeadBlockWall("blaze_skull_wall",
-            () -> new BlazeSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(BLAZE_SKULL.get()),
-                    List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
+    public static final RegistryObject<Block> BLAZE_SKULL_WALL = registerHeadBlockWall("blaze_skull_wall", () -> new BlazeSkullWallBlock(BlockBehaviour.Properties.copy(Blocks.WITHER_SKELETON_WALL_SKULL).dropsLike(BLAZE_SKULL.get()), List.of(BMOBTags.Blocks.KING_INFERNIUS_SUMMON_BLOCK)));
 
     /**
      * Registers a new block under this mod's registry

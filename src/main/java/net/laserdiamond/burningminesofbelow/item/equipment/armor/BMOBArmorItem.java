@@ -31,6 +31,8 @@ import java.util.UUID;
  * <li>A {@link BMOBArmorItem} is-a {@link ArmorItem}</li>
  * <li>A {@link BMOBArmorItem} is-a {@link Taggable}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 {

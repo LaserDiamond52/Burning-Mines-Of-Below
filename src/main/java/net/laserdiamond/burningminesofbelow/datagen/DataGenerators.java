@@ -19,6 +19,8 @@ import java.util.concurrent.CompletableFuture;
  * <li>This class automatically registers any methods with the {@link SubscribeEvent} annotation to the mod's EventBus</li>
  * <li>Event methods are annotated with the {@link SubscribeEvent} annotation so that they are registered and ready to listen for their designated event</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

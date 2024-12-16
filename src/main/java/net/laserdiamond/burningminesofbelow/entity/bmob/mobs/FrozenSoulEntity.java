@@ -25,6 +25,8 @@ import net.minecraftforge.fluids.FluidType;
  * <li>A {@link FrozenSoulEntity} is-a {@link AbstractMonster}</li>
  * <li>A {@link FrozenSoulEntity} is-a {@link AttackingEntity}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> implements AttackingEntity<FrozenSoulEntity> {
 
@@ -40,6 +42,17 @@ public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> im
      */
     public FrozenSoulEntity(EntityType<? extends FrozenSoulEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+    }
+
+    /**
+     * Called when the {@link FrozenSoulEntity} hurts an {@link Entity}
+     * @param pEntity The {@link Entity} being hurt
+     * @return True if the {@link Entity} was hurt, false otherwise
+     */
+    @Override
+    public boolean doHurtTarget(Entity pEntity) {
+        pEntity.setTicksFrozen(pEntity.getTicksFrozen() + CONFIG.freezeDuration());
+        return super.doHurtTarget(pEntity);
     }
 
     @Override

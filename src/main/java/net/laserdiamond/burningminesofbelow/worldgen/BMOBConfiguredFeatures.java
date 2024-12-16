@@ -31,6 +31,8 @@ import java.util.List;
  * <li>Contains all the {@link ConfiguredFeature}s of this mod</li>
  * <li>Registers the {@link ConfiguredFeature}s of this mod</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBConfiguredFeatures {
 

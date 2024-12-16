@@ -19,6 +19,7 @@ import java.util.List;
  * <li>A {@link BMOBWallSkullBlock} is-a {@link WallSkullBlock}</li>
  * <li>A {@link BMOBWallSkullBlock} is-a {@link Taggable}</li>
  * @author Allen Malo
+ * @see WallSkullBlock
  */
 public class BMOBWallSkullBlock extends WallSkullBlock implements Taggable<Block> {
 

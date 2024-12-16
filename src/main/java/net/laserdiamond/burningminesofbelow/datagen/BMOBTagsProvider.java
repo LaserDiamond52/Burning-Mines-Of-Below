@@ -32,6 +32,8 @@ import java.util.concurrent.CompletableFuture;
  * <li>Contains the tag providers of this mod</li>
  * <li>Encompassing class of the tag provider classes of this mod</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBTagsProvider {
 
@@ -42,6 +44,8 @@ public class BMOBTagsProvider {
      * <li>A {@link net.laserdiamond.burningminesofbelow.util.BMOBTags.Items} is-a {@link ItemTagsProvider}</li>
      * @author Allen Malo
      * @see net.minecraft.data.tags.VanillaItemTagsProvider
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      */
     public static class Items extends ItemTagsProvider
     {
@@ -130,6 +134,8 @@ public class BMOBTagsProvider {
      * <li>A {@link BMOBTags.Blocks} is-a {@link BlockTagsProvider}</li>
      * @author Allen Malo
      * @see net.minecraft.data.tags.VanillaBlockTagsProvider
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      */
     public static class Blocks extends BlockTagsProvider
     {
@@ -172,6 +178,8 @@ public class BMOBTagsProvider {
      * <li>A {@link BMOBTags.Entities} is-a {@link EntityTypeTagsProvider}</li>
      * @author Allen Malo
      * @see EntityTypeTagsProvider
+     * @References:
+     * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
      */
     public static class Entities extends EntityTypeTagsProvider
     {

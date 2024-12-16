@@ -24,6 +24,8 @@ import java.util.Set;
  * <li>A {@link BMOBBlockLootTables} is-a {@link BlockLootSubProvider}</li>
  * @author Allen Malo
  * @see net.minecraft.data.loot.packs.VanillaBlockLoot
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBBlockLootTables extends BlockLootSubProvider {
 

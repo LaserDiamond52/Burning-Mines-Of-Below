@@ -18,6 +18,8 @@ import net.minecraft.world.entity.player.Player;
  * @author Allen Malo
  * @param <M> The {@link Mob} class
  * @see AbstractAnimatedAttackGoal
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> extends Goal implements DataAccessorAttack {
 

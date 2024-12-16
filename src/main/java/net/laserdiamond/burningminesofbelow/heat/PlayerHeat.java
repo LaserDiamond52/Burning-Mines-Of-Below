@@ -593,7 +593,15 @@ public class PlayerHeat {
         {
             if (player.hasEffect(BMOBEffects.HEAT_EXHAUSTION.get()))
             {
-                player.hurt(player.damageSources().dryOut(), (float) (player.getMaxHealth() * 0.3));
+                int pAmplifier = player.getEffect(BMOBEffects.HEAT_EXHAUSTION.get()).getAmplifier();
+                float damageAmount = player.getMaxHealth() * 0.3F;
+                player.setHealth(Math.max(0, player.getHealth() - damageAmount));
+
+                player.setSecondsOnFire(200 * (1 + pAmplifier));
+                player.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, pAmplifier));
+                player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, pAmplifier));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, pAmplifier));
+
             }
         }
     }
@@ -631,9 +639,16 @@ public class PlayerHeat {
         {
             if (player.hasEffect(BMOBEffects.HYPOTHERMIA.get()))
             {
-                player.hurt(player.damageSources().freeze(), (float) (player.getMaxHealth() * 0.3));
+                int pAmplifier = player.getEffect(BMOBEffects.HYPOTHERMIA.get()).getAmplifier();
+                float damageAmount = player.getMaxHealth() * 0.3F;
+                player.setHealth(Math.max(0, player.getHealth() - damageAmount));
+
+                player.setTicksFrozen(200);
+                player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, pAmplifier));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, pAmplifier));
+                player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 200, pAmplifier));
+
             }
         }
     }
-
 }

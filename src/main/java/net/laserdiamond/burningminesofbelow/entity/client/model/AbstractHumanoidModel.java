@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
  * <li>An {@link AbstractHumanoidModel} is-a {@link HumanoidModel}</li>
  * @author Allen Malo
  * @param <LE> The {@link LivingEntity} type
+ * @see HumanoidModel
  */
 public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends HumanoidModel<LE> {
 

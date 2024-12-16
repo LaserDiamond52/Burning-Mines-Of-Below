@@ -28,6 +28,7 @@ import java.util.List;
  * <li>A {@link BlazeSkullBlock} is-a {@link BMOBSkullBlock}</li>
  * <li>A {@link BlazeSkullBlock} is-a {@link SummoningBlock}</li>
  * @author Allen Malo
+ * @see net.minecraft.world.level.block.WitherSkullBlock
  */
 public class BlazeSkullBlock extends BMOBSkullBlock implements SummoningBlock<KingInferniusEntity, BMOBSkullBlockEntity> {
 

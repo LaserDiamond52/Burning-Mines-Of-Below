@@ -21,6 +21,8 @@ import java.util.List;
  * <li>A {@link BMOBShovelItem} is-a {@link HandheldItem}</li>
  * <li>A {@link BMOBShovelItem} is-a {@link ForgeCraftable}</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class BMOBShovelItem extends ShovelItem implements Taggable<Item>, HandheldItem, ForgeCraftable {
 

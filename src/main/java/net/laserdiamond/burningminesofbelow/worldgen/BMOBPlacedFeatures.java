@@ -22,6 +22,8 @@ import java.util.List;
  * <p>Responsibilities of class:</p>
  * <li>Creates the {@link PlacedFeature}s of this mod, which can be added to {@link net.minecraft.world.level.biome.Biome}s</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public class BMOBPlacedFeatures {
 

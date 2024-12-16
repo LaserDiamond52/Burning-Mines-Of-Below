@@ -28,6 +28,7 @@ import java.util.List;
  * <li>A {@link FrozenWitherSkullBlock} is-a {@link BMOBSkullBlock}</li>
  * <li>A {@link FrozenWitherSkullBlock} is-a {@link SummoningBlock}</li>
  * @author Allen Malo
+ * @see net.minecraft.world.level.block.WitherSkullBlock
  */
 public class FrozenWitherSkullBlock extends BMOBSkullBlock implements SummoningBlock<FreezingReaperEntity, BMOBSkullBlockEntity> {
 

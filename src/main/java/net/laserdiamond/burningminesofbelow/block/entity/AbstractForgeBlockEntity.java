@@ -42,6 +42,8 @@ import java.util.Optional;
  * <li>An {@link AbstractForgeBlockEntity} is-a {@link MenuProvider}</li>
  * <li>All Aggregation relationships carry over to the subclasses of this class</li>
  * @author Allen Malo
+ * @References:
+ * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
  */
 public abstract class AbstractForgeBlockEntity extends BlockEntity implements MenuProvider {
 

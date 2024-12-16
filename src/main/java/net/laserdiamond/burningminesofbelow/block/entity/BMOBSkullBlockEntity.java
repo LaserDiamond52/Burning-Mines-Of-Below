@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * <li>Acts as the base {@link SkullBlockEntity} of this mod</li>
  * <li>A {@link BMOBSkullBlockEntity} is-a {@link SkullBlockEntity}</li>
  * @author Allen Malo
+ * @see SkullBlockEntity
  */
 public class BMOBSkullBlockEntity extends SkullBlockEntity {
 
