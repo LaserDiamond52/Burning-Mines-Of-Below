@@ -5,7 +5,10 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.network.NetworkEvent;
 
 /**
- * Interface used to give items abilities that are activated by the ability key
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Gives items abilities that are activated by the {@link net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings#abilityKey}</li>
+ * @author Allen Malo
  */
 public interface AbilityItem {
 

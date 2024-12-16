@@ -1,7 +1,10 @@
 package net.laserdiamond.burningminesofbelow.item;
 
 /**
- * Interface used to create fuel items for the Forge for items of this mod
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to help create items that can add fuel to the Forge</li>
+ * @author Allen Malo
  */
 public interface ForgeFuelItem {
 

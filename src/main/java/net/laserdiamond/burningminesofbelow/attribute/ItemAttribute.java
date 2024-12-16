@@ -10,4 +10,4 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
  * @param value The value of the attribute modifier
  * @author Allen Malo
  */
-public record ItemAttribute(AttributeModifier.Operation operation, double value) {}
+public record ItemAttribute(AttributeModifier.Operation operation, double value) {} // An ItemAttribute has-a AttributeModifier.Operation

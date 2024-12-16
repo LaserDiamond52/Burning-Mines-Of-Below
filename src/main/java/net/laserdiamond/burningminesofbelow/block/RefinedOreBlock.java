@@ -10,14 +10,19 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 
 /**
- * Refined Ore Block of this mod. Drop chances for the refined drop are hard coded and tied to a player's Refined Mineral Chance attribute.
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create a {@link RefinedOreBlock} of this mod</li>
+ * <li>Note: Drop chances for the refined drop are hard coded and tied to a player's Refined Mineral Chance attribute</li>
+ * <li>A {@link RefinedOreBlock} is-a {@link BMOBOreBlock}</li>
+ * @author Allen Malo
  */
 public class RefinedOreBlock extends BMOBOreBlock {
 
     /**
      * The refined ore drop
      */
-    private final RegistryObject<Item> refinedDrop;
+    private final RegistryObject<Item> refinedDrop; // RefinedOreBlock has-a RegistryObject
 
     /**
      * Creates a new {@link RefinedOreBlock}

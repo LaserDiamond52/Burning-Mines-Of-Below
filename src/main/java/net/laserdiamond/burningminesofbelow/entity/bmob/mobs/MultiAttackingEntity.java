@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Used to help set up and manage entities with multiple attack animations. The entities for the mob must have an {@link Enum} that is a subclass of the {@link AttackSetUp} interface</li>
+ * <li>A {@link MultiAttackingEntity} is-a {@link AttackingEntity}</li>
  * @author Allen Malo
  * @param <AE> The {@link AttackSetUp} {@link Enum}.
  * @param <E> The {@link Entity} class of the mob.

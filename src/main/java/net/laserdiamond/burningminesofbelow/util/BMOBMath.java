@@ -4,6 +4,12 @@ import net.minecraft.world.entity.Entity;
 
 import java.util.Random;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains mathematical operations that may be needed for this mod</li>
+ * @author Allen Malo
+ */
 public class BMOBMath {
 
     /**

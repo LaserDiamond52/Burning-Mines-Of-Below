@@ -37,24 +37,46 @@ import java.util.Objects;
  * <p>Responsibilities of class:</p>
  * <li>Define the properties of a {@link MagniteBlazeEntity} in-game</li>
  * <li>Define how the {@link MagniteBlazeEntity} behaves in the environment it is in</li>
+ * <li>A {@link MagniteBlazeEntity} is-a {@link Blaze}</li>
+ * <li>A {@link MagniteBlazeEntity} is-a {@link AttackingEntity}</li>
  * @author Allen Malo
  */
 public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<MagniteBlazeEntity> {
 
+    /**
+     * The {@link MagniteBlazeConfig} for this mob. This is universal to all {@link MagniteBlazeEntity} mobs
+     */
     private static final MagniteBlazeConfig CONFIG = (MagniteBlazeConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.MAGNITE_BLAZE.getId());
 
+    /**
+     * The {@link EntityDataAccessor} for the Fire Wave attack
+     */
     public static final EntityDataAccessor<Boolean> FIRE_WAVE_ATTACKING = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> SUPPORTING_BLAZES = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);
-    private final AnimationState idleAnimationState;
-    public static final int SUPPORT_INTERVAL = 300;
-    public static final int SUPPORT_AMOUNT = 7;
-    public static final int FIRE_BALL_LAUNCH_INTERVAL = 100;
 
+    /**
+     * The {@link EntityDataAccessor} for when the {@link MagniteBlazeEntity} is supporting nearby blazes
+     */
+    public static final EntityDataAccessor<Boolean> SUPPORTING_BLAZES = SynchedEntityData.defineId(MagniteBlazeEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link AnimationState} for the idle animation
+     */
+    private final AnimationState idleAnimationState; // MagniteBlazeEntity has-a AnimationState
+
+    /**
+     * Creates a new {@link MagniteBlazeEntity}
+     * @param pEntityType the {@link EntityType} for the {@link MagniteBlazeEntity}
+     * @param pLevel the {@link Level} to spawn the {@link MagniteBlazeEntity}
+     */
     public MagniteBlazeEntity(EntityType<? extends Blaze> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.idleAnimationState = new AnimationState();
     }
 
+    /**
+     * Gets the idle animation state
+     * @return The {@link AnimationState} for the idle animation
+     */
     public AnimationState getIdleAnimationState() {
         return idleAnimationState;
     }
@@ -62,6 +84,7 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        // Define synced data for attacks
         this.entityData.define(FIRE_WAVE_ATTACKING, false);
         this.entityData.define(SUPPORTING_BLAZES, false);
     }
@@ -74,8 +97,8 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
     @Override
     protected void registerGoals()
     {
-        this.goalSelector.addGoal(1, new MagniteBlazeSupportGoal(this, SUPPORT_INTERVAL));
-        this.goalSelector.addGoal(1, new MagniteBlazeAttackGoal(this, FIRE_BALL_LAUNCH_INTERVAL));
+        this.goalSelector.addGoal(1, new MagniteBlazeSupportGoal(this, CONFIG.supportInterval()));
+        this.goalSelector.addGoal(1, new MagniteBlazeAttackGoal(this, CONFIG.fireballLaunchInterval()));
         this.goalSelector.addGoal(5, new MoveTowardsRestrictionGoal(this, 1.0));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0, 0.0F));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -113,10 +136,18 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
      * <li>Define how a {@link MagniteBlazeFireBall} should behave in-game</li>
      * <li>this fireball is only summoned by the {@link MagniteBlazeEntity}</li>
      * <li>Declared as a private static inner class because instances of this class are only ever used for the {@link MagniteBlazeEntity} and its related attack goals</li>
+     * <li>A {@link MagniteBlazeFireBall} is-a {@link BMOBSmallFireBall}</li>
      * @author Allen Malo
      */
-    private static class MagniteBlazeFireBall extends BMOBSmallFireBall {
+    private static class MagniteBlazeFireBall extends BMOBSmallFireBall
+    {
 
+        /**
+         * Creates a new {@link MagniteBlazeFireBall}
+         * @param pLevel The {@link Level} the {@link MagniteBlazeFireBall} is being created on
+         * @param pShooter The {@link LivingEntity} that will be shooting the projectile
+         * @param pos The position to summon the projectile at as a {@link Vec3}
+         */
         public MagniteBlazeFireBall(Level pLevel, LivingEntity pShooter, Vec3 pos) {
             super(pLevel, pShooter, pos);
         }
@@ -141,16 +172,21 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
      * <p>Responsibilities of class:</p>
      * <li>Allow a {@link MagniteBlazeEntity} to buff nearby blazes, as well as when and how</li>
      * <li>Declared as a private static inner class because this class is only every used for instances of the {@link MagniteBlazeEntity}</li>
+     * <li>A {@link MagniteBlazeSupportGoal} is-a {@link AbstractAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class MagniteBlazeSupportGoal extends AbstractAttackGoal<MagniteBlazeEntity> {
+    private static class MagniteBlazeSupportGoal extends AbstractAttackGoal<MagniteBlazeEntity>
+    {
 
+        /**
+         * Creates a new {@link MagniteBlazeSupportGoal}
+         * @param mob The {@link MagniteBlazeEntity} performing the goal
+         * @param interval The interval in ticks of how often the action is performed
+         */
         public MagniteBlazeSupportGoal(MagniteBlazeEntity mob, int interval)
         {
             super(mob, interval);
         }
-
-        // TODO: Change variables to be from Config
 
         @Override
         protected void attack(MagniteBlazeEntity mob, LivingEntity target, ServerLevel serverLevel, int timer)
@@ -158,18 +194,18 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
             int blazesBuffed = 0; // Keep count of how many blazes we buff
 
             // Get all blazes within a 30x30x30 block distance from the Magnite Blaze. Exclude Magnite Blazes
-            for (Blaze blaze : serverLevel.getEntitiesOfClass(Blaze.class, RayCast.createBBLivingEntity(mob, 15), (e -> !(e instanceof MagniteBlazeEntity))))
+            for (Blaze blaze : serverLevel.getEntitiesOfClass(Blaze.class, RayCast.createBBLivingEntity(mob, CONFIG.supportRange()), (e -> !(e instanceof MagniteBlazeEntity))))
             {
                 // Fire ray cast at the blaze. This is purely for cosmetic purposes, as the ray casts themselves do not have any effect on the Blazes themselves
                 RayCast.createRayCast(serverLevel, this.mob.position().add(0, this.mob.getBbHeight() / 2, 0), Entity::isAttackable, Blaze.class, List.of())
-                        .setCanPierceBlocks()
-                        .setCanPierceEntities()
-                        .addParticle(ParticleTypes.FLAME)
-                        .fireAtVec3D(blaze.position().add(0, blaze.getBbHeight() / 2, 0), 0);
+                       .setCanPierceBlocks()
+                       .setCanPierceEntities()
+                       .addParticle(ParticleTypes.FLAME)
+                       .fireAtVec3D(blaze.position().add(0, blaze.getBbHeight() / 2, 0), 0);
 
                 // Buff Blazes
                 blaze.setHealth(blaze.getMaxHealth()); // Heal blaze back to max health
-                blaze.setAbsorptionAmount(blaze.getAbsorptionAmount() + 10F); // Grant blaze absorption hearts. Stack on top of current ones
+                blaze.setAbsorptionAmount(blaze.getAbsorptionAmount() + CONFIG.supportAbsorption()); // Grant blaze absorption hearts. Stack on top of current ones
                 blaze.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 2)); // Grant blaze resistance effect
                 blaze.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60, 2)); // Grant blaze regeneration
 
@@ -183,7 +219,7 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
                     this.mob.level().playSound(null, this.mob.getOnPos(), SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 100, 1F); // Play sound to warn player
                 }
 
-                if (blazesBuffed == SUPPORT_AMOUNT)
+                if (blazesBuffed == CONFIG.supportAmount())
                 {
                     break; // Can only buff a set amount of blazes. This is done to prevent players from using this mob as a "lag machine"
                 }
@@ -204,10 +240,16 @@ public final class MagniteBlazeEntity extends Blaze implements AttackingEntity<M
      * <p>Responsibilities of class:</p>
      * <li>Allow a {@link MagniteBlazeEntity} to perform an attack, as well as when and how</li>
      * <li>Declared as a private static inner class because this class is only every used for instances of the {@link MagniteBlazeEntity}</li>
+     * <li>A {@link MagniteBlazeAttackGoal} is-a {@link AbstractAttackGoal}</li>
      * @author Allen Malo
      */
     private static class MagniteBlazeAttackGoal extends AbstractAttackGoal<MagniteBlazeEntity> {
 
+        /**
+         * Creates a new {@link MagniteBlazeAttackGoal}
+         * @param mob The {@link MagniteBlazeEntity} performing the goal
+         * @param interval The interval in ticks of how often the action is performed
+         */
         public MagniteBlazeAttackGoal(MagniteBlazeEntity mob, int interval) {
             super(mob, interval);
         }

@@ -20,8 +20,24 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the properties and abilities of a {@link CyroniteScytheItem}</li>
+ * <li>Defines the recipe of the {@link CyroniteScytheItem} from the Forge</li>
+ * <li>A {@link CyroniteScytheItem} is-a {@link BMOBSwordItem}</li>
+ * <li>A {@link CyroniteScytheItem} is-a {@link AbilityItem}</li>
+ * @author Allen Malo
+ */
 public final class CyroniteScytheItem extends BMOBSwordItem implements AbilityItem {
 
+    /**
+     * Creates a new {@link CyroniteScytheItem}
+     * @param pAttackDamageModifier Any additional attack damage to add to the scythe
+     * @param pAttackSpeedModifier The attack speed of the scythe
+     * @param pProperties the {@link Item.Properties} of the item
+     * @param tags A {@link List} of {@link TagKey}s to apply to the scythe
+     */
     public CyroniteScytheItem(int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties, List<TagKey<Item>> tags) {
         super(BMOBToolTiers.CYRONITE, pAttackDamageModifier, pAttackSpeedModifier, pProperties, tags);
     }

@@ -5,15 +5,18 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.HashMap;
 
 /**
- * Class used to help map names to new objects and features of this mod
- * @param <T> The object type that will have a name mapped to it
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to register names to new assets of this mod for use with the {@link LanguageRegistry}</li>
+ * @author Allen Malo
+ * @param <T> The object type that will be the key for the names
  */
 public class NameRegistry<T> {
 
     /**
      * The {@link HashMap} containing all the {@link RegistryObject}s and their names
      */
-    private final HashMap<T, String> registryMap; // There should be one instance of this map per object (not class)
+    private final HashMap<T, String> registryMap; // A NameRegistry has-a HashMap
 
     /**
      * Creates a new {@link NameRegistry}

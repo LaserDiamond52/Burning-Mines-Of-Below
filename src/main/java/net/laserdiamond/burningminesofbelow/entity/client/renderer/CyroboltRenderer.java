@@ -11,10 +11,15 @@ import net.minecraft.resources.ResourceLocation;
  * <p>Responsibilities of class:</p>
  * <li>Rendering the {@link Cyrobolt} projectile</li>
  * <li>Specifies the texture to render on the {@link Cyrobolt} projectile</li>
+ * <li>A {@link CyroboltRenderer} is-a {@link ArrowRenderer}</li>
  * @author Allen Malo
  */
 public final class CyroboltRenderer extends ArrowRenderer<Cyrobolt> {
 
+    /**
+     * Creates a new {@link CyroboltRenderer}
+     * @param pContext The {@link EntityRendererProvider.Context}
+     */
     public CyroboltRenderer(EntityRendererProvider.Context pContext) {
         super(pContext);
     }

@@ -25,8 +25,10 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Responsibilities:
- * <li>Create and register blocks to the block registry of this mod</li>
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and register {@link Block} to the block registry of this mod</li>
+ * @author Allen Malo
  */
 public class BMOBBlocks {
 
@@ -199,7 +201,7 @@ public class BMOBBlocks {
     }
 
     /**
-     * Registers all blocks under the block registry of this mod
+     * Registers all {@link Block}s under the {@link BMOBBlocks#BLOCKS} registry of this mod
      * @param eventBus The mod's {@link IEventBus}
      */
     public static void registerBlocks(IEventBus eventBus)

@@ -13,14 +13,21 @@ import java.util.function.Supplier;
  */
 public abstract class BMOBPacket {
 
+    /**
+     * Creates a new {@link BMOBPacket}
+     */
     public BMOBPacket()
     {}
 
+    /**
+     * Creates a new {@link BMOBPacket}
+     * @param buf The {@link FriendlyByteBuf} to read from
+     */
     public void toBytes(FriendlyByteBuf buf)
     {}
 
     /**
-     * Packet logic. This is run on the packet's receiving end
+     * The packet's logic. This is run on the packet's receiving end
      * <li>If the packet is traveling from client to server, this method runs on the server</li>
      * <li>If the packet is traveling from server to client, this method runs on the client</li>
      * @param context {@link NetworkEvent.Context}

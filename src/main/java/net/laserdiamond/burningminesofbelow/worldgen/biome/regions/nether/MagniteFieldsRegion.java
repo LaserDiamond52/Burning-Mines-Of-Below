@@ -10,8 +10,20 @@ import org.jetbrains.annotations.NotNull;
 import terrablender.api.ParameterUtils;
 import terrablender.api.RegionType;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Manages the {@link MagniteFieldsRegion}'s landscape parameters</li>
+ * <li>A {@link MagniteFieldsRegion} is-a {@link AbstractRegion}</li>
+ * @author Allen Malo
+ */
 public final class MagniteFieldsRegion extends AbstractRegion {
 
+    /**
+     * Creates a new {@link MagniteFieldsRegion}
+     * @param name The {@link ResourceLocation} for the region
+     * @param weight The weight of the region. Determines how often this region will spawn relative to other regions
+     */
     public MagniteFieldsRegion(ResourceLocation name, int weight) {
         super(name, RegionType.NETHER, weight);
     }

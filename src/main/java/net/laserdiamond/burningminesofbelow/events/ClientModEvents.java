@@ -30,11 +30,22 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers and listens for client events on the mod bus of this mod</li>
+ * <li>Methods with the {@link SubscribeEvent} annotation are listening for events</li>
+ * @author Allen Malo
+ */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientModEvents
 {
 
+    /**
+     * Called when the client is being set up by the mod loader
+     * @param event The {@link FMLClientSetupEvent} to listen for
+     */
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
@@ -50,7 +61,7 @@ public class ClientModEvents
 
     /**
      * Registers all the key mappings for this mod
-     * @param event {@link RegisterKeyMappingsEvent}
+     * @param event The {@link RegisterKeyMappingsEvent} to listen for
      */
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event)
@@ -93,6 +104,10 @@ public class ClientModEvents
 
     }
 
+    /**
+     * Adds any extra render layers to the entity renderers
+     * @param event The {@link EntityRenderersEvent.AddLayers} to listen for
+     */
     @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event)
     {
@@ -113,7 +128,10 @@ public class ClientModEvents
         event.registerAboveAll("heat", HeatHUDOverlay.HUD_HEAT);
     }
 
-
+    /**
+     * Called when common set up is being done by the mod loader
+     * @param event The {@link FMLCommonSetupEvent} event
+     */
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event)
     {

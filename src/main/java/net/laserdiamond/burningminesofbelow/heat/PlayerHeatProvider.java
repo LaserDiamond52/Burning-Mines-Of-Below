@@ -15,15 +15,32 @@ import org.jetbrains.annotations.Nullable;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Create and manage the capability for a {@link net.minecraft.world.entity.player.Player} to have heat saved to them</li>
+ * <li>A {@link PlayerHeatProvider} is-a {@link ICapabilityProvider}</li>
+ * <li>A {@link PlayerHeatProvider} is-a {@link INBTSerializable}</li>
  * @author Allen Malo
  */
 public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 
+    /**
+     * The {@link PlayerHeat} {@link Capability}
+     */
     public static Capability<PlayerHeat> PLAYER_HEAT = CapabilityManager.get(new CapabilityToken<>() {});
 
+    /**
+     * The {@link PlayerHeat} to create for the {@link net.minecraft.world.entity.player.Player}
+     */
     private PlayerHeat playerHeat = null;
+
+    /**
+     * The {@link PlayerHeat} {@link LazyOptional}
+     */
     private final LazyOptional<PlayerHeat> optional = LazyOptional.of(this::createPlayerHeat);
 
+    /**
+     * Creates the {@link PlayerHeat} for the {@link net.minecraft.world.entity.player.Player}, or returns an existing one if one already exists
+     * @return A new {@link PlayerHeat} for the {@link net.minecraft.world.entity.player.Player} if they didn't previously have one.
+     * Returns the existing one if one is already there.
+     */
     private PlayerHeat createPlayerHeat() {
         if (this.playerHeat == null)
         {
@@ -38,10 +55,13 @@ public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable
         {
             return this.optional.cast();
         }
-
         return LazyOptional.empty();
     }
 
+    /**
+     * Saves the {@link PlayerHeat} to a {@link CompoundTag}
+     * @return The {@link CompoundTag} containing data about the {@link PlayerHeat}
+     */
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
@@ -49,6 +69,10 @@ public class PlayerHeatProvider implements ICapabilityProvider, INBTSerializable
         return nbt;
     }
 
+    /**
+     * Loads the {@link PlayerHeat} from the {@link CompoundTag}
+     * @param compoundTag The {@link CompoundTag} to deserialize the {@link PlayerHeat} from
+     */
     @Override
     public void deserializeNBT(CompoundTag compoundTag) {
         this.createPlayerHeat().loadNBTData(compoundTag);

@@ -13,16 +13,33 @@ import net.minecraft.world.entity.player.Player;
  * <p>Responsibilities of class:</p>
  * <li>Acts as a base attack goal for mobs that performs an attack on a fixed interval</li>
  * <li>Also used as a base for other attack goal types</li>
+ * <li>A {@link AbstractAttackGoal} is-a {@link Goal}</li>
+ * <li>A {@link AbstractAttackGoal} is-a {@link DataAccessorAttack}</li>
  * @author Allen Malo
  * @param <M> The {@link Mob} class
  * @see AbstractAnimatedAttackGoal
  */
 public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> extends Goal implements DataAccessorAttack {
 
-    protected final M mob;
+    /**
+     * The {@link M} performing the attack goal
+     */
+    protected final M mob; // AbstractAttackGoal has-a M (M is an object that is-a Mob and AttackingEntity)
+
+    /**
+     * The current time in the attack
+     */
     protected int attackTimer;
+
+    /**
+     * The interval to perform the attack
+     */
     protected final int interval;
 
+    /**
+     * Creates a new {@link AbstractAttackGoal}
+     * @param mob The {@link M} that will perform the attack goal
+     */
     public AbstractAttackGoal(M mob)
     {
         this.mob = mob;
@@ -30,6 +47,11 @@ public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> ext
         this.interval = 0;
     }
 
+    /**
+     * Creates a new {@link AbstractAttackGoal} with a specified interval for attacking
+     * @param mob The {@link M} that will perform the attack goal
+     * @param interval The interval in ticks to perform the attack
+     */
     public AbstractAttackGoal(M mob, int interval)
     {
         this.mob = mob;
@@ -46,6 +68,10 @@ public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> ext
         return this.mob.isAlive(); // Goal should only be usable if the entity is alive
     }
 
+    /**
+     * Determines if the goal can continue to be used by the mob
+     * @return True if the goal can continue, false otherwise
+     */
     @Override
     public boolean canContinueToUse() {
         LivingEntity target = this.mob.getTarget();
@@ -61,6 +87,9 @@ public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> ext
         }
     }
 
+    /**
+     * Called when the {@link AbstractAttackGoal} starts
+     */
     @Override
     public void start() {
         super.start();
@@ -68,6 +97,9 @@ public abstract class AbstractAttackGoal<M extends Mob & AttackingEntity<M>> ext
         this.mob.setAttacking(this.attackDataAccessor(), false);
     }
 
+    /**
+     * Runs every tick the {@link AbstractAttackGoal} is active
+     */
     @Override
     public void tick()
     {

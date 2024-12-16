@@ -5,8 +5,10 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 
 /**
- * Responsibilities:
- * <li>Contains all the model layers for entities and any other assets that require model layers</li>
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains all the {@link ModelLayerLocation}s for entities and any other assets that require {@link ModelLayerLocation}s</li>
+ * @author Allen Malo
  */
 public class BMOBModelLayers {
 

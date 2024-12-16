@@ -13,24 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Refined Ore block of this mod. This differs from the {@link RefinedOreBlock}, in that this class is used for creating refined ore variants of Vanilla ores (pre-existing ores in the game)
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create a {@link VanillaRefinedOreBlock} of this mod</li>
+ * <li>Note: This differs from the {@link RefinedOreBlock}, in that this class is used for creating refined ore variants of Vanilla ores (pre-existing ores in the game)</li>
+ * <li>A {@link VanillaRefinedOreBlock} is-a {@link DropExperienceBlock}</li>
+ * <li>A {@link VanillaRefinedOreBlock} is-a {@link Taggable}</li>
+ * @author Allen Malo
+ * @see RefinedOreBlock
  */
 public class VanillaRefinedOreBlock extends DropExperienceBlock implements Taggable<Block> {
 
     /**
      * The default ore drop when successfully mined
      */
-    private final Item oreDrop;
+    private final Item oreDrop; // VanillaRefinedOreBlock has-a Item
 
     /**
      * The refined ore drop
      */
-    private final RegistryObject<Item> refinedDrop;
+    private final RegistryObject<Item> refinedDrop; // VanillaRefinedOreBlock has-a RegistryObject
 
     /**
      * {@link List} of tags that can be applied to the block
      */
-    private final List<TagKey<Block>> tags;
+    private final List<TagKey<Block>> tags; // VanillaRefinedOreBlock has-a List
 
     /**
      * Creates a new {@link VanillaRefinedOreBlock}

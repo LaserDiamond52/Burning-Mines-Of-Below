@@ -14,8 +14,20 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates the recipes of this mod</li>
+ * <li>A {@link BMOBRecipeProvider} is-a {@link RecipeProvider}</li>
+ * <li>A {@link BMOBRecipeProvider} is-a {@link IConditionBuilder}</li>
+ * @author Allen Malo
+ */
 public class BMOBRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
+    /**
+     * Creates a new {@link BMOBRecipeProvider}
+     * @param pOutput The {@link PackOutput} of this mod
+     */
     public BMOBRecipeProvider(PackOutput pOutput) {
         super(pOutput);
     }
@@ -29,8 +41,8 @@ public class BMOBRecipeProvider extends RecipeProvider implements IConditionBuil
 
         for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries()) // Loop through all items in the registry
         {
-            Item item = itemRegistryObject.get();
-            if (item instanceof ForgeCraftable forgeCraftable)
+            Item item = itemRegistryObject.get(); // Get the item from the registry object
+            if (item instanceof ForgeCraftable forgeCraftable) // Create a forge recipe for the item if it is-a ForgeCraftable
             {
                 this.forgeRecipe(forgeCraftable.mainItem(), forgeCraftable.miscItems(), item, forgeCraftable.resultCount(), forgeCraftable.heatFuelCost(), forgeCraftable.freezeFuelCost(), forgeCraftable.forgeCraftingLevel(), consumer);
             }
@@ -51,7 +63,6 @@ public class BMOBRecipeProvider extends RecipeProvider implements IConditionBuil
     private void forgeRecipe(Item mainItem, Ingredient miscItems, Item resultItem, int resultItemCount, int heatFuelCost, int freezeFuelCost, int forgeLevel, Consumer<FinishedRecipe> finishedRecipeConsumer)
     {
         resultItemCount = Math.max(1, Math.min(resultItemCount, resultItem.getMaxStackSize(resultItem.getDefaultInstance())));
-        ForgeRecipeBuilder.createRecipe(Ingredient.of(mainItem), miscItems, resultItem, resultItemCount, heatFuelCost, freezeFuelCost, forgeLevel)
-                .save(finishedRecipeConsumer, BurningMinesOfBelow.MODID + ":" + getItemName(resultItem) + "_from_forge_level_" + forgeLevel);
+        ForgeRecipeBuilder.createRecipe(Ingredient.of(mainItem), miscItems, resultItem, resultItemCount, heatFuelCost, freezeFuelCost, forgeLevel).save(finishedRecipeConsumer, BurningMinesOfBelow.MODID + ":" + getItemName(resultItem) + "_from_forge_level_" + forgeLevel);
     }
 }

@@ -3,7 +3,6 @@ package net.laserdiamond.burningminesofbelow.entity.client.model;// Made with Bl
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.laserdiamond.burningminesofbelow.entity.bmob.mobs.KingInferniusEntity;
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
@@ -21,9 +20,12 @@ import org.jetbrains.annotations.NotNull;
  * <p>Responsibilities of class:</p>
  * <li>Defines the shape and {@link LayerDefinition} of the {@link KingInferniusEntity}</li>
  * <li>Sets up the animations associated with the entity's model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
+ * <li>A {@link KingInferniusModel} is-a {@link AbstractHierarchicalArmedModel}</li>
  * @author Allen Malo
  */
 public final class KingInferniusModel extends AbstractHierarchicalArmedModel<KingInferniusEntity> {
+
+	// A KingInferniusModel has-a ModelPart (one-to-many)
 
 	private final ModelPart king_infernius;
 	private final ModelPart body;
@@ -43,6 +45,10 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 	private final ModelPart set_1;
 	private final ModelPart set_2;
 
+	/**
+	 * Creates a new {@link KingInferniusModel}
+	 * @param root The {@link ModelPart} that will be the root of the model
+	 */
 	public KingInferniusModel(ModelPart root) {
 		this.king_infernius = root.getChild("king_infernius");
 		this.body = this.king_infernius.getChild("body");
@@ -63,6 +69,10 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 		this.left_foot = this.left_knee.getChild("left_foot");
 	}
 
+	/**
+	 * Creates a new {@link LayerDefinition} for the model
+	 * @return The {@link LayerDefinition} for the model
+	 */
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -166,7 +176,7 @@ public final class KingInferniusModel extends AbstractHierarchicalArmedModel<Kin
 	 * <p>Version/date: 12/9/24</p>
 	 * <p>Responsibilities of class:</p>
 	 * <li>Contains all the animations for the {@link KingInferniusEntity}</li>
-	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link KingInferniusModel}. The animations are not needed outside the enclosing class</li>
+	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link KingInferniusModel}. The animations are not needed outside the encompassing class</li>
 	 * @author Allen Malo
 	 */
 	private static class Animations

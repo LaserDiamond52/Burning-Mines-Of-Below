@@ -11,6 +11,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates and registers {@link MenuType}s to this mod's {@link MenuType} registry</li>
+ * @author Allen Malo
+ */
 public class BMOBMenuTypes {
 
     /**
@@ -36,7 +42,7 @@ public class BMOBMenuTypes {
     }
 
     /**
-     * Registers all menus under the mod's Menu registry
+     * Registers all menus under the {@link BMOBMenuTypes#MENUS} registry
      * @param eventBus The {@link IEventBus} of this mod
      */
     public static void registerMenuTypes(IEventBus eventBus)

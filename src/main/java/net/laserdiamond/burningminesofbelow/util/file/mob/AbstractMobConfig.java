@@ -6,7 +6,11 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 /**
- * Config class for storing the stats of Mobs in a Json file
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Act as a base class for storing {@link Attribute} values for entities of this mod in a json file</li>
+ * <li>A {@link AbstractMobConfig} is-a {@link JsonConfig}</li>
+ * @author Allen Malo
  */
 public abstract class AbstractMobConfig extends JsonConfig {
 

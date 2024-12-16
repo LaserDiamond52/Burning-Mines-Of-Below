@@ -6,7 +6,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.List;
 
 /**
- * Interface for items that can be crafted in the Forge. The subclass of this interface is the crafting result
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defining the crafting ingredients for a Forge recipe to create a new item</li>
+ * <li>Said new item is the subclass of this interface</li>
+ * @author Allen Malo
  */
 public interface ForgeCraftable {
 

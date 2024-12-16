@@ -11,8 +11,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Create the Level 1 variant of the Forge Block</li>
+ * <li>A {@link ForgeBlockLevel1} is-a {@link AbstractForgeBlock}</li>
+ * @author Allen Malo
  */
 public class ForgeBlockLevel1 extends AbstractForgeBlock<ForgeBlockEntityLevel1> {
 

@@ -19,17 +19,36 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 /**
- * The Cyrobolt projectile. This projectile is only fired by Cyronite weapons, and breaks on impact with blocks or entities
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Determines the properties and characteristics of a {@link Cyrobolt} projectile</li>
+ * <li>A {@link Cyrobolt} is-a {@link AbstractArrow}</li>
+ * @author Allen Malo
  */
 public class Cyrobolt extends AbstractArrow {
 
+    /**
+     * The amount of time in ticks the hit {@link Entity} will be frozen for
+     */
     private final int frozenTicks;
 
+    /**
+     * Creates a new {@link Cyrobolt}
+     * @param pEntityType The {@link EntityType} of the {@link Cyrobolt}
+     * @param pLevel The {@link Level} to summon the projectile on
+     */
     public Cyrobolt(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.frozenTicks = 120;
     }
 
+    /**
+     * Summons a new {@link Cyrobolt}
+     * @param shooter The {@link LivingEntity} shooting the projectile
+     * @param level The {@link Level} to summon the projectile on
+     * @param damage The base damage the projectile inflicts on hit entities
+     * @param frozenTicks The amount of time in ticks the hit {@link Entity} will be frozen for
+     */
     public Cyrobolt(LivingEntity shooter, Level level, float damage, int frozenTicks)
     {
         super(BMOBEntities.CYROBOLT.get(), shooter, level);
@@ -48,7 +67,7 @@ public class Cyrobolt extends AbstractArrow {
 
         if (this.level().isClientSide)
         {
-            return;
+            return; // Don't run on client
         }
         final Entity hitEntity = pResult.getEntity();
         if (hitEntity instanceof LivingEntity livingEntity)

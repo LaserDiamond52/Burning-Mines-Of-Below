@@ -38,6 +38,9 @@ import java.util.Optional;
  * <p>Responsibilities of class:</p>
  * <li>Create and run major functionality of the Forge Block</li>
  * <li>Acts as a base class for creating Forge Blocks</li>
+ * <li>An {@link AbstractForgeBlockEntity} is-a {@link BlockEntity}</li>
+ * <li>An {@link AbstractForgeBlockEntity} is-a {@link MenuProvider}</li>
+ * <li>All Aggregation relationships carry over to the subclasses of this class</li>
  * @author Allen Malo
  */
 public abstract class AbstractForgeBlockEntity extends BlockEntity implements MenuProvider {
@@ -45,7 +48,7 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
     /**
      * The {@link ItemStackHandler} of the block entity. Helps handle items that can be stored in the block entity
      */
-    private final ItemStackHandler itemStackHandler = new ItemStackHandler(4);
+    protected final ItemStackHandler itemStackHandler = new ItemStackHandler(4); // AbstractForgeBlockEntity has-a ItemStackHandler
 
     /**
      * The inventory index for the main item input slot
@@ -67,36 +70,35 @@ public abstract class AbstractForgeBlockEntity extends BlockEntity implements Me
      */
     public static final int OUTPUT_SLOT = 3;
 
-    // TODO: Comment here
     /**
      * The {@link LazyOptional} {@link IItemHandler}.
      */
-    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    protected LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty(); // AbstractForgeBlockEntity has-a LazyOptional
 
     /**
      * The {@link ContainerData} for the block entity. Responsible for storing information about recipe progress and fuel
      */
-    private final ContainerData containerData;
+    protected final ContainerData containerData; // AbstractForgeBlockEntity ha-a ContainerData
 
     /**
      * The current level of the Forge
      */
-    private final int forgeLevel;
+    protected final int forgeLevel;
 
     /**
      * Contains the current progress towards completion of a recipe, and the amount of progress needed for recipe completion.
      */
-    private final int[] progress = new int[]{0, 100};
+    protected final int[] progress = new int[]{0, 100};
 
     /**
      * Contains the current heat fuel level and the maximum heat fuel that can be stored.
      */
-    private final int[] heatFuelLevel = new int[]{0, 100};
+    protected final int[] heatFuelLevel = new int[]{0, 100};
 
     /**
      * Contains the current freeze fuel level and the maximum freeze fuel that can be stored.
      */
-    private final int[] freezeFuelLevel = new int[]{0, 100};
+    protected final int[] freezeFuelLevel = new int[]{0, 100};
 
     /**
      * Creates a new {@link AbstractForgeBlockEntity}

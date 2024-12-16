@@ -10,8 +10,20 @@ import net.minecraft.world.level.biome.Climate;
 import org.jetbrains.annotations.NotNull;
 import terrablender.api.ParameterUtils;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Manages the {@link MagniteCavesRegion}'s landscape parameters</li>
+ * <li>A {@link MagniteCavesRegion} is-a {@link AbstractOverworldOverwriteRegion}</li>
+ * @author Allen Malo
+ */
 public final class MagniteCavesRegion extends AbstractOverworldOverwriteRegion {
 
+    /**
+     * Creates a new {@link MagniteCavesRegion}
+     * @param name The {@link ResourceLocation} for the region
+     * @param weight The weight of the region. Determines how often this region will spawn relative to other regions
+     */
     public MagniteCavesRegion(ResourceLocation name, int weight) {
         super(name, weight);
     }

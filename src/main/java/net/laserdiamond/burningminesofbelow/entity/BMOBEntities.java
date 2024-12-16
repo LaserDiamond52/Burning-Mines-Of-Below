@@ -22,7 +22,12 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.function.Supplier;
 
-
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers and stores all Entities of this mod</li>
+ * @author Allen Malo
+ */
 public class BMOBEntities {
 
     /**

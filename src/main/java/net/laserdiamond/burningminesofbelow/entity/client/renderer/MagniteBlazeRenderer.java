@@ -20,14 +20,24 @@ import net.minecraftforge.client.ForgeRenderTypes;
  * <p>Responsibilities of class:</p>
  * <li>Render the {@link MagniteBlazeModel} onto the {@link MagniteBlazeEntity}</li>
  * <li>Specifies the texture to render on the {@link MagniteBlazeModel}</li>
+ * <li>A {@link MagniteBlazeRenderer} is-a {@link MobRenderer}</li>
  * @author Allen Malo
  */
 public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, MagniteBlazeModel> {
 
+    /**
+     * Creates a new {@link MagniteBlazeRenderer}
+     * @param pContext The {@link EntityRendererProvider.Context}
+     */
     public MagniteBlazeRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new MagniteBlazeModel(pContext.bakeLayer(BMOBModelLayers.MAGNITE_BLAZE)), 0.75F);
     }
 
+    /**
+     * Gets the {@link ResourceLocation} for the texture to render on the model
+     * @param magniteBlazeEntity The {@link MagniteBlazeEntity} being rendered
+     * @return The {@link ResourceLocation} for the texture to render on the model
+     */
     @Override
     public ResourceLocation getTextureLocation(MagniteBlazeEntity magniteBlazeEntity) {
         return new ResourceLocation(BurningMinesOfBelow.MODID, "textures/entity/magnite_blaze.png");
@@ -41,10 +51,10 @@ public final class MagniteBlazeRenderer extends MobRenderer<MagniteBlazeEntity, 
     // 2/5 - 1/5 -> One shield (East)
     // 1/5 - 0/5 -> No shields
 
-    @Override
-    public void render(MagniteBlazeEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
-        super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
-        float maxHealth = pEntity.getMaxHealth();
-        float health = pEntity.getHealth();
-    }
+//    @Override
+//    public void render(MagniteBlazeEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
+//        super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
+//        float maxHealth = pEntity.getMaxHealth();
+//        float health = pEntity.getHealth();
+//    }
 }

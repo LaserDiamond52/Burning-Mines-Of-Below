@@ -34,24 +34,53 @@ import net.minecraft.world.level.Level;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Define how the Freezing Reaper of the Damned will behave in-game, and how the entity will respond to the environment around it</li>
+ * <li>A {@link FreezingReaperEntity} is-a {@link AbstractBossMob}</li>
+ * <li>A {@link FreezingReaperEntity} is-a {@link MultiAttackingEntity}</li>
  * @author Allen Malo
  */
 public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEntity> implements MultiAttackingEntity<FreezingReaperEntity.Attack, FreezingReaperEntity> {
 
+    /**
+     * The {@link FreezingReaperConfig} for this mob. This is universal to all {@link FreezingReaperEntity} mobs
+     */
     private static final FreezingReaperConfig CONFIG = (FreezingReaperConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FREEZING_REAPER.getId());
 
+    /**
+     * The {@link EntityDataAccessor} for the melee attack
+     */
     public static final EntityDataAccessor<Boolean> MELEE_ATTACKING = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link EntityDataAccessor} for the Cyrobolt Blast attack
+     */
     public static final EntityDataAccessor<Boolean> CYROBOLT_BLAST = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link EntityDataAccessor} for the Sudden Blizzard attack
+     */
     public static final EntityDataAccessor<Boolean> SUDDEN_BLIZZARD = SynchedEntityData.defineId(FreezingReaperEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public final int[] attackTimeouts;
+    /**
+     * The attack timeouts for the {@link FreezingReaperEntity}
+     */
+    private final int[] attackTimeouts;
 
+    /**
+     * Creates a new {@link FreezingReaperEntity}
+     * @param pEntityType The {@link EntityType} for the {@link FreezingReaperEntity}
+     * @param pLevel The {@link Level} to spawn the {@link FreezingReaperEntity}
+     */
     public FreezingReaperEntity(EntityType<? extends FreezingReaperEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.attackTimeouts = new int[4];
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.CYRONITE_SCYTHE.get()));
     }
 
+    /**
+     * Called when the {@link FreezingReaperEntity} hurts an {@link Entity}
+     * @param pEntity The {@link Entity} being hurt
+     * @return True if the {@link Entity} was hurt, false otherwise
+     */
     @Override
     public boolean doHurtTarget(Entity pEntity) {
         pEntity.setTicksFrozen(pEntity.getTicksFrozen() + CONFIG.attackFreezeDuration());
@@ -135,6 +164,7 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <li>Store variables needed for the attacks of the {@link FreezingReaperEntity}</li>
      * <li>Declared as an inner enum because this enum is only used for {@link FreezingReaperEntity}-related classes.</li>
      * <li>The only usage of this class outside the enclosing class is for the {@link net.laserdiamond.burningminesofbelow.entity.client.model.FreezingReaperModel} for setting up the animations</li>
+     * <li>An {@link Attack} is-a {@link AttackSetUp}</li>
      * @author Allen Malo
      */
     public enum Attack implements AttackSetUp
@@ -143,10 +173,16 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
         CYROBOLT_BLAST (new AnimationState(), 40, FreezingReaperEntity.CYROBOLT_BLAST),
         SUDDEN_BLIZZARD (new AnimationState(), 20, FreezingReaperEntity.SUDDEN_BLIZZARD);
 
-        private final AnimationState animationState;
+        private final AnimationState animationState; // Attack has-a AnimationState
         private final int animationDuration;
-        private final EntityDataAccessor<Boolean> entityDataAccessor;
+        private final EntityDataAccessor<Boolean> entityDataAccessor; // Attack has-a EntityDataAccessor
 
+        /**
+         * Creates a new {@link Attack}
+         * @param animationState The {@link AnimationState} for the attack
+         * @param animationDuration The duration of the animation
+         * @param entityDataAccessor The {@link EntityDataAccessor} of the attack
+         */
         Attack(AnimationState animationState, int animationDuration, EntityDataAccessor<Boolean> entityDataAccessor) {
             this.animationState = animationState;
             this.animationDuration = animationDuration;
@@ -174,10 +210,17 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <p>Responsibilities of class:</p>
      * <li>Defines how the {@link FreezingReaperEntity}'s melee attack should operate, as well as the animation associated with it</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity} </li>
+     * <li>A {@link FreezingReaperMeleeAttackGoal} is-a {@link AbstractMeleeAttackGoal}</li>
      * @author Allen Malo
      */
     private static class FreezingReaperMeleeAttackGoal extends AbstractMeleeAttackGoal<FreezingReaperEntity> {
 
+        /**
+         * Creates a new {@link FreezingReaperMeleeAttackGoal}
+         * @param pMob The {@link FreezingReaperEntity} performing the goal
+         * @param pSpeedModifier The speed modifier of the {@link FreezingReaperEntity} when the goal is active
+         * @param pFollowingTargetEvenIfNotSeen If the {@link FreezingReaperEntity} should continue following this goal even if the target is not seen
+         */
         public FreezingReaperMeleeAttackGoal(FreezingReaperEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
             super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
         }
@@ -215,10 +258,15 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <p>Responsibilities of class:</p>
      * <li>Defines how the {@link FreezingReaperEntity}'s Cyrobolt Blast attack goal should operate, as well as the animation associated with it</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity}</li>
+     * <li>A {@link FreezingReaperCyroboltBlastAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
      */
     private static class FreezingReaperCyroboltBlastAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity> {
 
+        /**
+         * Creates a new {@link FreezingReaperCyroboltBlastAttackGoal}
+         * @param mob the {@link FreezingReaperEntity} performing the attack goal
+         */
         public FreezingReaperCyroboltBlastAttackGoal(FreezingReaperEntity mob)
         {
             super(mob);
@@ -283,10 +331,16 @@ public final class FreezingReaperEntity extends AbstractBossMob<FreezingReaperEn
      * <p>Responsibilities of class:</p>
      * <li>Defines how the {@link FreezingReaperEntity}'s Sudden Blizzard attack should operate, as well as the animation associated with it</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link FreezingReaperEntity}</li>
+     * <li>A {@link FreezingReaperSuddenBlizzardAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class FreezingReaperSuddenBlizzardAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity> {
+    private static class FreezingReaperSuddenBlizzardAttackGoal extends AbstractAnimatedAttackGoal<FreezingReaperEntity>
+    {
 
+        /**
+         * Creates a new {@link FreezingReaperSuddenBlizzardAttackGoal}
+         * @param mob The {@link FreezingReaperEntity} performing the attack goal
+         */
         public FreezingReaperSuddenBlizzardAttackGoal(FreezingReaperEntity mob)
         {
             super(mob);

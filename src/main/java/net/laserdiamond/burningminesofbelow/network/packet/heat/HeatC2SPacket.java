@@ -13,15 +13,33 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.network.NetworkEvent;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>A packet sent from the client to the server for adding to the player</li>
+ * <li>A {@link HeatC2SPacket} is-a {@link BMOBPacket}</li>
+ * @author Allen Malo
+ */
 public class HeatC2SPacket extends BMOBPacket {
 
+    /**
+     * The amount of heat to add
+     */
     private int heat;
 
+    /**
+     * Creates a new {@link HeatC2SPacket}
+     * @param heat The amount of heat to add
+     */
     public HeatC2SPacket(int heat)
     {
         this.heat = heat;
     }
 
+    /**
+     * Creates a new {@link HeatC2SPacket}
+     * @param buf The {@link FriendlyByteBuf} to read from
+     */
     public HeatC2SPacket(FriendlyByteBuf buf)
     {}
 
@@ -35,11 +53,5 @@ public class HeatC2SPacket extends BMOBPacket {
         }
 
         PlayerHeat.addHeat(player, this.heat);
-
-//        player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(playerHeat -> {
-//
-//            playerHeat.addHeat(this.heat);
-//            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
-//        });
     }
 }

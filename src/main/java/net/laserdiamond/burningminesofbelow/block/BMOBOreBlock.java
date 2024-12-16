@@ -13,20 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Responsibilities:
- * <li>Create an ore block for use with this mod</li>
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates an ore block for use with this mod</li>
+ * <li>A {@link BMOBOreBlock} is-a {@link DropExperienceBlock}</li>
+ * <li>A {@link BMOBOreBlock} is-a {@link Taggable}</li>
+ * @author Allen Malo
  */
 public class BMOBOreBlock extends DropExperienceBlock implements Taggable<Block> {
 
     /**
      * The {@link List} of tags to apply to the block
      */
-    protected final List<TagKey<Block>> tags;
+    protected final List<TagKey<Block>> tags; // BMOBOreBlock has-a List
 
     /**
      * The item {@link RegistryObject} to drop when successfully mined
      */
-    protected final RegistryObject<Item> oreDrop;
+    protected final RegistryObject<Item> oreDrop; // BMOBOreBlock has-a RegistryObject
 
     /**
      * Creates a new {@link BMOBOreBlock}

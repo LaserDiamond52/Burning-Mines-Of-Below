@@ -25,6 +25,13 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains all the {@link ConfiguredFeature}s of this mod</li>
+ * <li>Registers the {@link ConfiguredFeature}s of this mod</li>
+ * @author Allen Malo
+ */
 public class BMOBConfiguredFeatures {
 
     /**
@@ -102,6 +109,10 @@ public class BMOBConfiguredFeatures {
      */
     public static final ResourceKey<ConfiguredFeature<?, ?>> COCYTUS_CEILING_ICE = registerKey("cocytus_ceiling_ice_cf");
 
+    /**
+     * Registers the {@link ConfiguredFeature}s of this mod
+     * @param context The {@link BootstapContext} for registering the {@link ConfiguredFeature}s
+     */
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context)
     {
         RuleTest stoneReplaceTest = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);

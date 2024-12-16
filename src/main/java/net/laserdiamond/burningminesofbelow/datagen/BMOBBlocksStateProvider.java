@@ -12,26 +12,42 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates the states and models of the blocks of this mod</li>
+ * <li>A {@link BMOBBlocksStateProvider} is-a {@link BlockStateProvider}</li>
+ * @author Allen Malo
+ */
 public class BMOBBlocksStateProvider extends BlockStateProvider {
 
+    /**
+     * Creates a new {@link BMOBBlocksStateProvider}
+     * @param output The {@link PackOutput} of this mod
+     * @param exFileHelper The {@link ExistingFileHelper} of this mod
+     */
     public BMOBBlocksStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, BurningMinesOfBelow.MODID, exFileHelper);
     }
 
+    /**
+     * Registers and creates the states and models of the blocks of this mod
+     */
     @Override
-    protected void registerStatesAndModels() {
-        for (RegistryObject<Block> blockRegistryObject : BMOBBlocks.BLOCKS.getEntries())
+    protected void registerStatesAndModels()
+    {
+        for (RegistryObject<Block> blockRegistryObject : BMOBBlocks.BLOCKS.getEntries()) // Loop through all blocks in the registry
         {
-            Block block = blockRegistryObject.get();
-            if (block instanceof AbstractForgeBlock forgeBlock)
+            Block block = blockRegistryObject.get(); // Get the registry object as a block
+            if (block instanceof AbstractForgeBlock<?> forgeBlock)
             {
-                this.simpleBlockWithItem(forgeBlock, new ModelFile.UncheckedModelFile(this.modLoc("block/forge")));
-            } else if (block instanceof BMOBOreBlock || block instanceof BMOBMultiOreBlock || block instanceof RefinedOreBlock || block instanceof VanillaRefinedOreBlock || block instanceof BMOBBlock)
-            {
-                this.blockWithItem(blockRegistryObject);
+                this.simpleBlockWithItem(forgeBlock, new ModelFile.UncheckedModelFile(this.modLoc("block/forge"))); // If the block is an AbstractForgeBlock, create a model for it using the Forge block model
             } else if (block instanceof SkullBlock || block instanceof WallSkullBlock)
             {
-                this.headBlock(blockRegistryObject);
+                this.headBlock(blockRegistryObject); // If the block is a SkullBlock or a WallSkullBlock, create a model for it using the skull block model
+            } else
+            {
+                this.blockWithItem(blockRegistryObject); // Any other block is just normal
             }
 
         }

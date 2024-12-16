@@ -1,7 +1,6 @@
 package net.laserdiamond.burningminesofbelow.worldgen;
 
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
-import net.laserdiamond.burningminesofbelow.util.BMOBTags;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -16,22 +15,83 @@ import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.registries.ForgeRegistries;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains the {@link ResourceKey}s of the {@link BiomeModifier}s for this mod</li>
+ * @author Allen Malo
+ */
 public class BMOBBiomeModifiers {
 
+    /**
+     * Biome Modifier for Garnet Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_GARNET_ORE = registerKey("overworld_garnet_ore_bm");
+
+    /**
+     * Biome Modifier for Deepslate Garnet Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_DEEPSLATE_GARNET_ORE = registerKey("overworld_deepslate_garnet_ore_bm");
+
+    /**
+     * Biome Modifier for Deep Garnet Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_DEEP_GARNET_ORE = registerKey("overworld_deep_garnet_ore_bm");
+
+    /**
+     * Biome Modifier for Peridot Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_PERIDOT_ORE = registerKey("overworld_peridot_ore_bm");
+
+    /**
+     * Biome Modifier for Deepslate Peridot Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_DEEPSLATE_PERIDOT_ORE = registerKey("overworld_deepslate_peridot_ore_bm");
+
+    /**
+     * Biome Modifier for Deep Peridot Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_DEEP_PERIDOT_ORE = registerKey("overworld_deep_peridot_ore_bm");
+
+    /**
+     * Biome Modifier for Deep Diamond Ore placement in the Overworld
+     */
     public static final ResourceKey<BiomeModifier> OVERWORLD_DEEP_DIAMOND_ORE = registerKey("overworld_deep_diamond_ore_bm");
+
+    /**
+     * Biome Modifier for Deep Garnet Ore placement in the Nether
+     */
     public static final ResourceKey<BiomeModifier> NETHER_DEEP_GARNET_ORE = registerKey("nether_deep_garnet_ore_bm");
+
+    /**
+     * Biome Modifier for Deep Peridot Ore placement in the Nether
+     */
     public static final ResourceKey<BiomeModifier> NETHER_DEEP_PERIDOT_ORE = registerKey("nether_deep_peridot_ore_bm");
+
+    /**
+     * Biome Modifier for Deep diamond Ore placement in the Nether
+     */
     public static final ResourceKey<BiomeModifier> NETHER_DEEP_DIAMOND_ORE = registerKey("nether_deep_diamond_ore_bm");
-    public static final ResourceKey<BiomeModifier> NETHER_CYRONITE_ORE = registerKey("nether_cyronite_ore_bm");
+
+    /**
+     * Biome Modifier for Cryonite Ore placement in the Nether
+     */
+    public static final ResourceKey<BiomeModifier> NETHER_CRYONITE_ORE = registerKey("nether_cryonite_ore_bm");
+
+    /**
+     * Biome Modifier for Cocytus Ice Spike placement in Cocytus-themed biomes
+     */
     public static final ResourceKey<BiomeModifier> COCYTUS_ICE_SPIKE = registerKey("cocytus_ice_spike_bm");
+
+    /**
+     * Biome Modifier for Cocytus Ceiling Ice placement in Cocytus-themed biomes
+     */
     public static final ResourceKey<BiomeModifier> COCYTUS_CEILING_ICE = registerKey("cocytus_ceiling_ice_bm");
 
+    /**
+     * Registers all the {@link BiomeModifier}s of this mod
+     * @param context The {@link BootstapContext} for registering the {@link BiomeModifier}s
+     */
     public static void bootstrap(BootstapContext<BiomeModifier> context)
     {
         createOreBiomeModifier(context, OVERWORLD_GARNET_ORE, BiomeTags.IS_OVERWORLD, BMOBPlacedFeatures.OVERWORLD_GARNET_ORE_PLACED_KEY);
@@ -45,7 +105,7 @@ public class BMOBBiomeModifiers {
         createOreBiomeModifier(context, NETHER_DEEP_PERIDOT_ORE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.NETHER_DEEP_PERIDOT_ORE_PLACED_KEY);
         createOreBiomeModifier(context, NETHER_DEEP_DIAMOND_ORE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.NETHER_DEEP_DIAMOND_ORE_PLACED_KEY);
 
-        createBiomeModifier(context, NETHER_CYRONITE_ORE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.NETHER_CYRONITE_ORE_PLACED_KEY, GenerationStep.Decoration.UNDERGROUND_DECORATION);
+        createBiomeModifier(context, NETHER_CRYONITE_ORE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.NETHER_CRYONITE_ORE_PLACED_KEY, GenerationStep.Decoration.UNDERGROUND_DECORATION);
 
         createBiomeModifier(context, COCYTUS_ICE_SPIKE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.COCYTUS_ICE_SPIKES_KEY, GenerationStep.Decoration.UNDERGROUND_DECORATION);
         createBiomeModifier(context, COCYTUS_CEILING_ICE, BiomeTags.IS_NETHER, BMOBPlacedFeatures.COCYTUS_CEILING_ICE, GenerationStep.Decoration.UNDERGROUND_DECORATION);

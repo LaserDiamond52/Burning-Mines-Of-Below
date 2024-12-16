@@ -13,12 +13,29 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates chunks of ice on the ceiling of Cocytus-themed biomes</li>
+ * <li>Generation of this is incredibly similar to how Glowstone generate on the ceiling of other Nether biomes</li>
+ * <li>Generation of these ice chunks can only start from a {@link net.minecraft.world.level.block.Block} that has the {@link BMOBTags.Blocks#COCYTUS_ICE_SPIKE_BASE_BLOCK}</li>
+ * @author Allen Malo
+ * @see net.minecraft.world.level.levelgen.feature.GlowstoneFeature
+ */
 public class CocytusCeilingIceFeature extends Feature<NoneFeatureConfiguration> {
 
+    /**
+     * Creates a new {@link CocytusCeilingIceFeature}
+     */
     public CocytusCeilingIceFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
 
+    /**
+     * Places the {@link CocytusCeilingIceFeature} in the world
+     * @param featurePlaceContext The {@link FeaturePlaceContext} for creating the feature
+     * @return True if the {@link CocytusCeilingIceFeature} was placed, false otherwise
+     */
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext) {
         WorldGenLevel worldGenLevel = featurePlaceContext.level();

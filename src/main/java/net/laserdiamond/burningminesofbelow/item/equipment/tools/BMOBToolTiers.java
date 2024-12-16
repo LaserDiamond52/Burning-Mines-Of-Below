@@ -14,7 +14,10 @@ import net.minecraftforge.common.TierSortingRegistry;
 import java.util.List;
 
 /**
- * The Tool tiers of this mod
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains all the Tool tiers of this mod</li>
+ * @author Allen Malo
  */
 public class BMOBToolTiers {
 

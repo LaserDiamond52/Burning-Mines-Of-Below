@@ -1,5 +1,12 @@
 package net.laserdiamond.burningminesofbelow.util;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Contains the different languages that the local names for assets of this mod can be translated to</li>
+ * <li>Currently, the only supported language is English</li>
+ * @author Allen Malo
+ */
 public enum Language {
 
     EN_US;

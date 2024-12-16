@@ -20,37 +20,61 @@ import javax.annotation.Nullable;
  * <li>Base class for any mob of this mod</li>
  * <li>Defines how the idle and walk animations play out in-game</li>
  * <li>Defines any other common properties that mobs of this mod may share</li>
+ * <li>An {@link AbstractMonster} is-a {@link Monster}</li>
  * @author Allen Malo
  */
 public abstract class AbstractMonster<M extends Monster> extends Monster {
 
-    protected final AnimationState idleAnimationState;
-    protected int idleTimeout;
+    /**
+     * The {@link AnimationState} for the idle animation
+     */
+    protected final AnimationState idleAnimationState; // AbstractMonster has-a AnimationState
 
+    /**
+     * Creates a new {@link AbstractMonster}
+     * @param pEntityType The {@link EntityType} for the {@link AbstractMonster}
+     * @param pLevel The {@link Level} to summon the {@link AbstractMonster}
+     */
     public AbstractMonster(EntityType<? extends M> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.idleAnimationState = new AnimationState();
-        this.idleTimeout = 0;
     }
 
+    /**
+     * Gets the idle animation state
+     * @return The {@link AnimationState} for the idle animation
+     */
     public AnimationState getIdleAnimationState() {
         return idleAnimationState;
     }
 
+    /**
+     * Sets up any animation states for the subclass of this entity.
+     * Runs every tick the entity exists
+     */
     public void setUpAnimationStates() {}
 
+    /**
+     * Registers any goals for the {@link AbstractMonster}
+     */
     @Override
     protected void registerGoals()
     {
         this.goalSelector.addGoal(0, new FloatGoal(this)); // This goal should be used by all mobs. We want them to be able to swim afloat
     }
 
+    /**
+     * Called when the {@link AbstractMonster} is added to the world
+     */
     @Override
     public void onAddedToWorld() {
         super.onAddedToWorld();
         this.idleAnimationState.start(this.tickCount);
     }
 
+    /**
+     * Called every tick the entity exists
+     */
     @Override
     public void tick() {
         super.tick();
@@ -61,6 +85,9 @@ public abstract class AbstractMonster<M extends Monster> extends Monster {
         }
     }
 
+    /**
+     * Called every tick the {@link AbstractMonster} is alive
+     */
     @Override
     public void aiStep() {
         if (this.isAlive())
@@ -103,6 +130,10 @@ public abstract class AbstractMonster<M extends Monster> extends Monster {
         return false;
     }
 
+    /**
+     * Updates the walk animation
+     * @param pPartialTick The partial tick of the animation
+     */
     @Override
     protected void updateWalkAnimation(float pPartialTick) {
         float f;
@@ -126,6 +157,11 @@ public abstract class AbstractMonster<M extends Monster> extends Monster {
         return null;
     }
 
+    /**
+     * Plays the {@link SoundEvent} for when this mob takes a step
+     * @param pPos The {@link BlockPos} of the step
+     * @param pState The {@link BlockState} of the block that was stepped on
+     */
     @Override
     protected void playStepSound(BlockPos pPos, BlockState pState) {
         if (this.getStepSound() != null)

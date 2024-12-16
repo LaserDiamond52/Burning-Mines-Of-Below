@@ -14,18 +14,59 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Consumer;
 
 /**
- * Recipe builder for a Forge crafting recipe
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Helps with creating a {@link ForgeRecipe} for the {@link net.laserdiamond.burningminesofbelow.datagen.BMOBRecipeProvider} to create in data generation</li>
+ * <li>A {@link ForgeRecipeBuilder} is-a {@link RecipeBuilder}</li>
+ * @author Allen Malo
  */
 public class ForgeRecipeBuilder implements RecipeBuilder {
 
+    /**
+     * The main {@link Ingredient} of the recipe
+     */
     private final Ingredient mainItem;
+
+    /**
+     * The miscellaneous {@link Ingredient} of the recipe
+     */
     private final Ingredient miscItem;
+
+    /**
+     * The result {@link Item} of the recipe
+     */
     private final Item resultItem;
+
+    /**
+     * The amount of the result item to create
+     */
     private final int resultItemCount;
+
+    /**
+     * The amount of heat fuel needed to complete the recipe
+     */
     private final int heatFuelCost;
+
+    /**
+     * The amount of freeze fuel needed to complete the recipe
+     */
     private final int freezeFuelCost;
+
+    /**
+     * The minimum Forge level required to complete the recipe
+     */
     private final int forgeLevel;
 
+    /**
+     * Creates a new {@link ForgeRecipeBuilder}
+     * @param mainItem The main item in the recipe
+     * @param miscItem the miscellaneous item in the recipe
+     * @param resultItem The result item in the recipe
+     * @param resultItemCount The amount of the result item to make in the recipe
+     * @param heatFuelCost The required amount of heat fuel to complete the recipe
+     * @param freezeFuelCost The required amount of freeze fuel to complete the recipe
+     * @param forgeLevel The Forge level required to complete the recipe
+     */
     private ForgeRecipeBuilder(Ingredient mainItem, Ingredient miscItem, Item resultItem, int resultItemCount, int heatFuelCost, int freezeFuelCost, int forgeLevel) {
         this.mainItem = mainItem;
         this.miscItem = miscItem;
@@ -72,19 +113,43 @@ public class ForgeRecipeBuilder implements RecipeBuilder {
         consumer.accept(new Result(resourceLocation, this));
     }
 
+
     /**
-     * Forge Recipe Builder Serializer
+     * <p>Version/date: 12/16/24</p>
+     * <p>Responsibilities of class:</p>
+     * <li>Serializer for the {@link ForgeRecipeBuilder}</li>
+     * <li>Saves the {@link ForgeRecipe} to a json file in the data folder</li>
+     * <li>This class is declared as a static inner class because it is only every used for the encompassing class</li>
+     * <li>A {@link Result} is-a {@link FinishedRecipe}</li>
+     * @author Allen Malo
      */
     static class Result implements FinishedRecipe
     {
+        /**
+         * The {@link ResourceLocation} ID of the recipe
+         */
         private final ResourceLocation id;
+
+        /**
+         * The {@link ForgeRecipeBuilder} of the recipe
+         */
         private final ForgeRecipeBuilder recipeBuilder;
 
+        /**
+         * Creates a new {@link Result}
+         * @param id The {@link ResourceLocation} ID for the recipe
+         * @param recipeBuilder The {@link ForgeRecipeBuilder} of the recipe
+         */
         private Result(ResourceLocation id, ForgeRecipeBuilder recipeBuilder) {
             this.id = id;
             this.recipeBuilder = recipeBuilder;
         }
 
+        /**
+         * Writes the recipe to the {@link JsonObject}.
+         * This {@link JsonObject} is saved to a json file in the data folder
+         * @param jsonObject The {@link JsonObject} being written to
+         */
         @Override
         public void serializeRecipeData(JsonObject jsonObject) {
             jsonObject.addProperty("type", ForgeRecipe.Serializer.ID.toString());
@@ -104,22 +169,38 @@ public class ForgeRecipeBuilder implements RecipeBuilder {
 
         }
 
+        /**
+         * Gets the {@link ResourceLocation} ID of the recipe
+         * @return The ID of the recipe as a {@link ResourceLocation}
+         */
         @Override
         public ResourceLocation getId() {
             return this.id;
         }
 
+        /**
+         * Gets the {@link RecipeSerializer} for the recipe
+         * @return The {@link RecipeSerializer} of the recipe
+         */
         @Override
         public RecipeSerializer<?> getType() {
             return BMOBRecipes.FORGE_RECIPE.get();
         }
 
+        /**
+         * Serializes the advancement for unlocking the recipe
+         * @return A {@link JsonObject} that contains the serialized advancement for the recipe
+         */
         @Nullable
         @Override
         public JsonObject serializeAdvancement() {
             return null;
         }
 
+        /**
+         * Gets the {@link ResourceLocation} of the advancement ID
+         * @return The ID of the advancement for the recipe
+         */
         @Nullable
         @Override
         public ResourceLocation getAdvancementId() {

@@ -20,23 +20,26 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Create and manage a Frozen Wither Skull block</li>
  * <li>Allow this block to summon a {@link FreezingReaperEntity} when placed on the appropriate block pattern</li>
+ * <li>A {@link FrozenWitherSkullBlock} is-a {@link BMOBSkullBlock}</li>
+ * <li>A {@link FrozenWitherSkullBlock} is-a {@link SummoningBlock}</li>
+ * @author Allen Malo
  */
 public class FrozenWitherSkullBlock extends BMOBSkullBlock implements SummoningBlock<FreezingReaperEntity, BMOBSkullBlockEntity> {
 
     /**
      * The {@link BlockPattern} to create to summon the {@link FreezingReaperEntity}
      */
-    private BlockPattern freezingReaperSummonPattern;
+    private BlockPattern freezingReaperSummonPattern; // FrozenWitherSkullBlock has-a BlockPattern (one-to-many)
 
     /**
      * The base {@link BlockPattern} for summoning the {@link FreezingReaperEntity}
      */
-    private BlockPattern freezingReaperBasePattern;
+    private BlockPattern freezingReaperBasePattern; // FrozenWitherSkullBlock has-a BlockPattern (one-to-many)
 
     /**
      * Creates a new {@link FrozenWitherSkullBlock}

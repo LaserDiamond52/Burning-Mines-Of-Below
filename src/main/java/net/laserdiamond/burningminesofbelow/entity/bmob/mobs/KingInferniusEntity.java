@@ -42,18 +42,41 @@ import java.util.List;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Defines how King Infernius will behave in-game, and how the entity will respond to the environment around it</li>
+ * <li>A {@link KingInferniusEntity} is-a {@link AbstractBossMob}</li>
+ * <li>A {@link KingInferniusEntity} is-a {@link MultiAttackingEntity}</li>
  * @author Allen Malo
  */
 public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEntity> implements MultiAttackingEntity<KingInferniusEntity.Attack, KingInferniusEntity> {
 
+    /**
+     * The {@link KingInferniusConfig} for this mob. This is universal to all {@link KingInferniusEntity} mobs.
+     */
     private static final KingInferniusConfig CONFIG = ((KingInferniusConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.KING_INFERNIUS.getId()));
 
+    /**
+     * The {@link EntityDataAccessor} for the melee attack
+     */
     public static final EntityDataAccessor<Boolean> MELEE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link EntityDataAccessor} for the Fire Breath attack
+     */
     public static final EntityDataAccessor<Boolean> FIRE_BREATH_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link EntityDataAccessor} for the Heat Wave attack
+     */
     public static final EntityDataAccessor<Boolean> HEAT_WAVE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
+
+    /**
+     * The {@link EntityDataAccessor} for the Solar Flare attack
+     */
     public static final EntityDataAccessor<Boolean> SOLAR_FLARE_ATTACKING = SynchedEntityData.defineId(KingInferniusEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public final int[] attackTimeouts;
+    /**
+     * The attack timeouts for the {@link KingInferniusEntity}
+     */
+    private final int[] attackTimeouts;
 
     public KingInferniusEntity(EntityType<? extends KingInferniusEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -62,16 +85,15 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
     }
 
+    /**
+     * Called when the {@link KingInferniusEntity} hurts and {@link Entity}
+     * @param pEntity The {@link Entity} being hurt
+     * @return True if the {@link Entity} was hurt, false otherwise
+     */
     @Override
     public boolean doHurtTarget(Entity pEntity) {
         pEntity.setSecondsOnFire((pEntity.getRemainingFireTicks() * 20) + CONFIG.attackFireDuration());
         return super.doHurtTarget(pEntity);
-    }
-
-    @Override
-    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(BMOBItems.BLAZIUM_SWORD.get()));
     }
 
     @Override
@@ -183,6 +205,7 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
      * <li>Store variables needed for the attacks of the {@link KingInferniusEntity}</li>
      * <li>Declared as an inner enum because this enum is only used for {@link KingInferniusEntity}-related classes.</li>
      * <li>The only usage of this class outside the enclosing class is for the {@link net.laserdiamond.burningminesofbelow.entity.client.model.KingInferniusModel} for setting up the animations</li>
+     * <li>An {@link Attack} is-a {@link AttackSetUp}</li>
      * @author Allen Malo
      */
     public enum Attack implements AttackSetUp
@@ -192,10 +215,16 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
         HEAT_WAVE (new AnimationState(), 20, HEAT_WAVE_ATTACKING),
         SOLAR_FLARE (new AnimationState(), 80, SOLAR_FLARE_ATTACKING);
 
-        private final AnimationState animationState;
+        private final AnimationState animationState; // Attack has-a AnimationState
         private final int animationDuration;
-        private final EntityDataAccessor<Boolean> entityDataAccessor;
+        private final EntityDataAccessor<Boolean> entityDataAccessor; // Attack has-a EntityDataAccessor
 
+        /**
+         * Creates a new {@link KingInferniusEntity.Attack}
+         * @param animationState The {@link AnimationState} for the attack
+         * @param animationDuration The duration of the animation
+         * @param entityDataAccessor the {@link EntityDataAccessor} of the attack
+         */
         Attack(AnimationState animationState, int animationDuration, EntityDataAccessor<Boolean> entityDataAccessor)
         {
             this.animationState = animationState;
@@ -224,10 +253,18 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
      * <p>Responsibilities of class:</p>
      * <li>Allow the {@link KingInferniusEntity} to perform a melee attack and damage its target based on the time in the melee attack animation</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link KingInferniusEntity}</li>
+     * <li>A {@link KingInferniusMeleeAttackGoal} is-a {@link AbstractMeleeAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class KingInferniusMeleeAttackGoal extends AbstractMeleeAttackGoal<KingInferniusEntity> {
+    private static class KingInferniusMeleeAttackGoal extends AbstractMeleeAttackGoal<KingInferniusEntity>
+    {
 
+        /**
+         * Creates a new {@link KingInferniusMeleeAttackGoal}
+         * @param pMob The {@link KingInferniusEntity} performing the goal
+         * @param pSpeedModifier The speed modifier of the {@link KingInferniusEntity} when the goal is active
+         * @param pFollowingTargetEvenIfNotSeen If the {@link KingInferniusEntity} should continue following this goal even if the target is not seen
+         */
         public KingInferniusMeleeAttackGoal(KingInferniusEntity pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
             super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
         }
@@ -267,10 +304,16 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
      * <p>Responsibilities of class:</p>
      * <li>Allow the {@link KingInferniusEntity} to perform a fire breath attack and start the attack towards the target based on the relative time in the attack animation</li>
      * <li>Declared as a private static inner class because this class is only ever used for instances of the {@link KingInferniusEntity}</li>
+     * <li>A {@link KingInferniusFireBreathAttackGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class KingInferniusFireBreathAttackGoal extends AbstractAnimatedAttackGoal<KingInferniusEntity> {
+    private static class KingInferniusFireBreathAttackGoal extends AbstractAnimatedAttackGoal<KingInferniusEntity>
+    {
 
+        /**
+         * Creates a new {@link KingInferniusFireBreathAttackGoal}
+         * @param mob the {@link KingInferniusEntity} performing the goal
+         */
         public KingInferniusFireBreathAttackGoal(KingInferniusEntity mob) {
             super(mob);
         }
@@ -307,37 +350,37 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
             // Launch fire breath!
             RayCast<LivingEntity, LivingEntity, BlockState> fireBreath = RayCast.createRayCast(serverLevel, mob.getEyePosition(), (e -> !(e instanceof KingInferniusEntity)), LivingEntity.class, List.of());
             fireBreath.addParticle(ParticleTypes.FLAME).addParticle(ParticleTypes.LARGE_SMOKE) // Set the particles to display
-                    .setCanPierceEntities() // Allow the ray casts to pierce through entities
-                    .setStepIncrement(0.5) // Step increment of the Ray cast
-                    .onEntityHitFunction(livingEntity -> // Whenever we hit an entity, lets damage them and add to their fire ticks
-                    {
-                        livingEntity.hurt(livingEntity.damageSources().mobAttack(mob), damage); // damage entity
-                        livingEntity.setSecondsOnFire((livingEntity.getRemainingFireTicks() * 20) * KingInferniusEntity.CONFIG.attackFireDuration()); // set entity on fire
-                        return livingEntity;
-                    })
-                    .onBlockStateHitFunction(blockState ->
-                    {
-                        if (blockState.isSolid())
-                        {
-                            BlockPos blockPos = fireBreath.getCurrentBlockPos();
-                            for (Direction direction : Direction.values())
-                            {
-                                blockState.onCaughtFire(serverLevel, blockPos, direction, mob); // Set block hit on fire!
-                            }
-                            BlockState aboveState = serverLevel.getBlockState(blockPos.above()); // Get block state for the block above the hit block state
-                            if (aboveState.isAir() && aboveState.getBlock() != Blocks.FIRE) // Is the above block state air and not already fire?
-                            {
-                                // Set on fire!
-                                serverLevel.setBlock(blockPos.above(), Blocks.FIRE.defaultBlockState(), 2);
-                                serverLevel.blockUpdated(blockPos.above(), Blocks.FIRE);
-                            }
-                        }
-                        return blockState; // Return the block state
-                    })
-                    // Fire our ray casts
-                    .fireAtVec3D(target.position().add(0, target.getBbHeight() / 2, 0), 7)
-                    .fireAtVec3D(target.position().add(5, target.getBbHeight() / 2, 0), 7)
-                    .fireAtVec3D(target.position().add(-5, target.getBbHeight() / 2, 0), 7);
+                      .setCanPierceEntities() // Allow the ray casts to pierce through entities
+                      .setStepIncrement(0.5) // Step increment of the Ray cast
+                      .onEntityHitFunction(livingEntity -> // Whenever we hit an entity, lets damage them and add to their fire ticks
+                      {
+                          livingEntity.hurt(livingEntity.damageSources().mobAttack(mob), damage); // damage entity
+                          livingEntity.setSecondsOnFire((livingEntity.getRemainingFireTicks() * 20) * KingInferniusEntity.CONFIG.attackFireDuration()); // set entity on fire
+                          return livingEntity;
+                      })
+                      .onBlockStateHitFunction(blockState ->
+                      {
+                          if (blockState.isSolid())
+                          {
+                              BlockPos blockPos = fireBreath.getCurrentBlockPos();
+                              for (Direction direction : Direction.values())
+                              {
+                                  blockState.onCaughtFire(serverLevel, blockPos, direction, mob); // Set block hit on fire!
+                              }
+                              BlockState aboveState = serverLevel.getBlockState(blockPos.above()); // Get block state for the block above the hit block state
+                              if (aboveState.isAir() && aboveState.getBlock() != Blocks.FIRE) // Is the above block state air and not already fire?
+                              {
+                                  // Set on fire!
+                                  serverLevel.setBlock(blockPos.above(), Blocks.FIRE.defaultBlockState(), 2);
+                                  serverLevel.blockUpdated(blockPos.above(), Blocks.FIRE);
+                              }
+                          }
+                          return blockState; // Return the block state
+                      })
+                      // Fire our ray casts
+                      .fireAtVec3D(target.position().add(0, target.getBbHeight() / 2, 0), 7)
+                      .fireAtVec3D(target.position().add(5, target.getBbHeight() / 2, 0), 7)
+                      .fireAtVec3D(target.position().add(-5, target.getBbHeight() / 2, 0), 7);
         }
 
         @Override
@@ -365,10 +408,16 @@ public final class KingInferniusEntity extends AbstractBossMob<KingInferniusEnti
      * <p>Responsibilities of class:</p>
      * <li>Allow the {@link KingInferniusEntity} to perform a heat wave attack and damage its target based on the time in the heat wave attack animation</li>
      * <li>Declared as a private static class because this class is only ever used for instances of the {@link KingInferniusEntity}</li>
+     * <li>A {@link KingInferniusHeatWaveGoal} is-a {@link AbstractAnimatedAttackGoal}</li>
      * @author Allen Malo
      */
-    private static class KingInferniusHeatWaveGoal extends AbstractAnimatedAttackGoal<KingInferniusEntity> {
+    private static class KingInferniusHeatWaveGoal extends AbstractAnimatedAttackGoal<KingInferniusEntity>
+    {
 
+        /**
+         * Creates a new {@link KingInferniusHeatWaveGoal}
+         * @param mob The {@link KingInferniusEntity} performing the goal
+         */
         public KingInferniusHeatWaveGoal(KingInferniusEntity mob) {
             super(mob);
         }

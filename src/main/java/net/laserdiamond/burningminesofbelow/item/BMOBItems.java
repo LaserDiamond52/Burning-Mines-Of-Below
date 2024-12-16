@@ -24,6 +24,12 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and register new {@link Item}s to the mod's {@link Item} registry</li>
+ * @author Allen Malo
+ */
 public class BMOBItems {
 
     /**
@@ -731,7 +737,7 @@ public class BMOBItems {
     }
 
     /**
-     * Registers all items under the item registry of this mod
+     * Registers all {@link Item}s under the {@link BMOBItems#ITEMS} registry of this mod
      * @param eventBus The mod's {@link IEventBus}
      */
     public static void registerItems(IEventBus eventBus)

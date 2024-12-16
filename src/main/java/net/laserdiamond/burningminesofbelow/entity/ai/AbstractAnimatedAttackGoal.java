@@ -6,17 +6,46 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 
 /**
- * Abstract class used to help create attack goals for {@link Mob}s that perform an attack over a duration of time. This class can also be used to create delayed attacks by simply setting the start and end times to be equal.
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Abstract class used to help create attack goals for {@link Mob}s that perform an attack over a duration of time</li>
+ * <li>This class can also be used to create delayed attacks by simply setting the start and end times to be equal</li>
+ * <li>A {@link AbstractAnimatedAttackGoal} is-a {@link AbstractAttackGoal}</li>
+ * <li>A {@link AbstractAnimatedAttackGoal} is-a {@link DelayedAnimatedAttack}</li>
+ * @author Allen Malo
  * @param <M> The {@link Mob} class. Said class must also be an inheritor of the {@link AttackingEntity} interface.
  */
 public abstract class AbstractAnimatedAttackGoal<M extends Mob & AttackingEntity<M>> extends AbstractAttackGoal<M> implements DelayedAnimatedAttack {
 
+    /**
+     * The starting time of the attack.
+     */
     protected final int attackStartTime;
+
+    /**
+     * The ending time of the attack
+     */
     protected final int attackEndTime;
+
+    /**
+     * The duration of the attack animation
+     */
     protected final int animationDuration;
+
+    /**
+     * The ticks until the next attack is performed. Resets when the attack is completed
+     */
     protected int ticksUntilNextAttack;
+
+    /**
+     * Determines whether the attack is over
+     */
     protected boolean hasAttackEnded;
 
+    /**
+     * Creates a new {@link AbstractAnimatedAttackGoal}
+     * @param mob The {@link M} to make the attack goal for
+     */
     public AbstractAnimatedAttackGoal(M mob)
     {
         super(mob);
@@ -49,6 +78,9 @@ public abstract class AbstractAnimatedAttackGoal<M extends Mob & AttackingEntity
 
     /**
      * Method called when it is time to end the attack.
+     * @param target The {@link LivingEntity} target of the mob performing this attack goal
+     * @param serverLevel The {@link ServerLevel} of the mob performing this attack goal
+     * @param attackTimer The current time of the attack
      */
     protected void endAttack(LivingEntity target, ServerLevel serverLevel, int attackTimer)
     {
@@ -66,6 +98,9 @@ public abstract class AbstractAnimatedAttackGoal<M extends Mob & AttackingEntity
         this.hasAttackEnded = false;
     }
 
+    /**
+     * Runs every tick the attack goal is active
+     */
     @Override
     public void tick()
     {

@@ -4,7 +4,6 @@ import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.attribute.BMOBAttributes;
 import net.laserdiamond.burningminesofbelow.block.RefinedOreBlock;
 import net.laserdiamond.burningminesofbelow.block.VanillaRefinedOreBlock;
-import net.laserdiamond.burningminesofbelow.effects.BMOBEffects;
 import net.laserdiamond.burningminesofbelow.entity.bmob.projectiles.BlaziumFireBall;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeat;
 import net.laserdiamond.burningminesofbelow.heat.PlayerHeatProvider;
@@ -12,24 +11,17 @@ import net.laserdiamond.burningminesofbelow.item.equipment.tools.BlaziumSwordIte
 import net.laserdiamond.burningminesofbelow.network.BMOBPackets;
 import net.laserdiamond.burningminesofbelow.network.packet.heat.HeatS2CPacket;
 import net.laserdiamond.burningminesofbelow.util.BMOBMath;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -41,11 +33,22 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers and listens for events on the Forge bus of this mod </li>
+ * <li>Methods with the {@link SubscribeEvent} annotation are listening for events</li>
+ * @author Allen Malo
+ */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID)
 public class ModEvents
 {
 
+    /**
+     * Called when it is time to attach new capabilities to the player
+     * @param event the {@link AttachCapabilitiesEvent} to listen for
+     */
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event)
     {
@@ -58,6 +61,10 @@ public class ModEvents
         }
     }
 
+    /**
+     * Called when a {@link Player} is cloned
+     * @param event The {@link PlayerEvent.Clone} to listen for
+     */
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event)
     {
@@ -73,12 +80,20 @@ public class ModEvents
         }
     }
 
+    /**
+     * Called when it is time to register capabilities
+     * @param event The {@link RegisterCapabilitiesEvent} to listen for
+     */
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event)
     {
         event.register(PlayerHeat.class);
     }
 
+    /**
+     * Called every tick for the {@link Player}. Heat functionality is managed here
+     * @param event The {@link TickEvent.PlayerTickEvent} to listen for
+     */
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event)
     {
@@ -183,7 +198,11 @@ public class ModEvents
 
         if (!event.getLevel().isClientSide())
         {
-            Item itemToDrop = getItem(event); // Get item to drop
+            if (!ForgeHooks.isCorrectToolForDrops(event.getState(), player)) // Check if player is using the correct tool for drops
+            {
+                return; // Don't continue if the correct tool is not being used
+            }
+            Item itemToDrop = getRefinedOreRefinedItemDrop(event); // Get item to drop
 
             if (itemToDrop != ItemStack.EMPTY.getItem())
             {
@@ -217,7 +236,12 @@ public class ModEvents
         }
     }
 
-    private static Item getItem(BlockEvent.BreakEvent event) {
+    /**
+     * Gets the refined item to drop if a refined ore is mined
+     * @param event The {@link BlockEvent.BreakEvent} being listened
+     * @return The {@link Item} to drop if the refined ore is mined
+     */
+    private static Item getRefinedOreRefinedItemDrop(BlockEvent.BreakEvent event) {
         Item itemToDrop = ItemStack.EMPTY.getItem();
 
         if (event.getState().getBlock() instanceof RefinedOreBlock refinedOreBlock) // Check if player is mining a refined ore block
@@ -228,38 +252,5 @@ public class ModEvents
             itemToDrop = vanillaRefinedOreBlock.getRefinedDrop().get();
         }
         return itemToDrop;
-    }
-
-    private static void dropRefinedDrop(BlockEvent.BreakEvent event, RefinedOreBlock refinedOreBlock, Player player)
-    {
-        if (ForgeHooks.isCorrectToolForDrops(event.getState(), player)) // Check if player is using the correct tool for drops
-        {
-            final AttributeInstance refinedOreDropChanceAttribute = player.getAttribute(BMOBAttributes.PLAYER_REFINED_MINERAL_CHANCE.get());
-            if (refinedOreDropChanceAttribute == null)
-            {
-                return; // Don't continue if attribute instance is null
-            }
-            final double attributeValue = refinedOreDropChanceAttribute.getValue(); // Attribute value
-
-            // Last two digits are the drop chance
-            // Every 100 guarantees +1 refined ore drop
-
-            final double dropChance = BMOBMath.getLastTwoDigitsFromChance(attributeValue); // Chance for +1
-            final double guaranteedChance = BMOBMath.getGuaranteedFromChance(attributeValue); // Guaranteed +1
-
-            int random = BMOBMath.getRandomInteger(100);
-            int itemsToDrop = 0;
-
-            if (random <= dropChance) // If we can drop
-            {
-                itemsToDrop++;
-            }
-
-            final ItemStack droppedItem = refinedOreBlock.getRefinedDrop().get().getDefaultInstance(); // Item Stack for refined ore drop
-            droppedItem.setCount((int) (itemsToDrop + guaranteedChance)); // Set amount
-
-            player.level().addFreshEntity(new ItemEntity(player.level(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), droppedItem)); // Add entity to world
-
-        }
     }
 }

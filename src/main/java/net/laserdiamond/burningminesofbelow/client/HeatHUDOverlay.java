@@ -10,10 +10,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Draws the Heat Bar on the client's screen</li>
+ * @author Allen Malo
+ */
 public class HeatHUDOverlay {
 
+    /**
+     * The {@link ResourceLocation} for the heat bars to be drawn on the client's screen
+     */
     private static final ResourceLocation HEAT_BAR = new ResourceLocation(BurningMinesOfBelow.MODID, "textures/heat/heat_bars.png");
 
+    /**
+     * Draws out the Heat bar on the client's screen
+     */
     public static final IGuiOverlay HUD_HEAT = ((forgeGui, guiGraphics, partialTick, width, height) ->
     {
         int x = width / 2;

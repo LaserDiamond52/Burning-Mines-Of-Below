@@ -15,15 +15,33 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Function;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>A packet sent from the client to the server for removing heat from the player</li>
+ * <li>A {@link FreezeC2SPacket} is-a {@link BMOBPacket}</li>
+ * @author Allen Malo
+ */
 public class FreezeC2SPacket extends BMOBPacket {
 
+    /**
+     * The amount of heat to remove
+     */
     private int heat;
 
+    /**
+     * Creates a new {@link FreezeC2SPacket}
+     * @param heat The amount of heat to remove
+     */
     public FreezeC2SPacket(int heat)
     {
         this.heat = heat;
     }
 
+    /**
+     * Creates a new {@link FreezeC2SPacket}
+     * @param buf The {@link FriendlyByteBuf} to read from
+     */
     public FreezeC2SPacket(FriendlyByteBuf buf)
     {}
 
@@ -37,12 +55,5 @@ public class FreezeC2SPacket extends BMOBPacket {
         }
 
         PlayerHeat.removeHeat(player, this.heat);
-
-//        player.getCapability(PlayerHeatProvider.PLAYER_HEAT).ifPresent(playerHeat -> {
-//
-//
-//            playerHeat.removeHeat(this.heat);
-//            BMOBPackets.sendToPlayer(new HeatS2CPacket(playerHeat.getHeat(), player), player);
-//        });
     }
 }

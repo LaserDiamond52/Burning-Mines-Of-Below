@@ -13,12 +13,19 @@ import net.minecraft.world.entity.Mob;
  * <p>Responsibilities of class:</p>
  * <li>Renderer used for rendering Humanoid mobs of this mod.</li>
  * <li>Includes a {@link HumanoidArmorLayer}, allowing armor to be rendered on the {@link Mob}</li>
+ * <li>A {@link AbstractHumanoidRenderer} is-a {@link HumanoidMobRenderer}</li>
  * @author Allen Malo
  * @param <M> The {@link Mob} class
  * @param <HM> The {@link HumanoidModel} of the {@link Mob}
  */
 public abstract class AbstractHumanoidRenderer<M extends Mob, HM extends HumanoidModel<M>> extends HumanoidMobRenderer<M, HM> {
 
+    /**
+     * Creates a new {@link AbstractHumanoidRenderer}
+     * @param pContext The {@link EntityRendererProvider.Context}
+     * @param pModel the {@link HM} to render
+     * @param pShadowRadius The shadow radius to render at the entity's feet
+     */
     public AbstractHumanoidRenderer(EntityRendererProvider.Context pContext, HM pModel, float pShadowRadius) {
         super(pContext, pModel, pShadowRadius);
         this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidArmorModel<>(pContext.bakeLayer(this.innerArmorModelLayer())), new HumanoidArmorModel<>(pContext.bakeLayer(this.outerArmorModelLayer())), pContext.getModelManager()));

@@ -16,8 +16,17 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and register new {@link CreativeModeTab}s to the mod's {@link CreativeModeTab} registry</li>
+ * @author Allen Malo
+ */
 public class BMOBCreativeTabs {
 
+    /**
+     * The {@link String} ID for creative tabs
+     */
     private static final String CREATIVE_TAB_ID = "creative_tab.";
 
     /**
@@ -30,8 +39,6 @@ public class BMOBCreativeTabs {
      */
     public static final RegistryObject<CreativeModeTab> MAIN_TAB = registerCreativeTab("Burning Mines of Below", "burning_mines_of_below_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(BMOBItems.BLAZIUM_INGOT.get())).title(Component.translatable(CREATIVE_TAB_ID + BurningMinesOfBelow.MODID + ".burning_mines_of_below_tab")).build());
-
-
 
 
     /**

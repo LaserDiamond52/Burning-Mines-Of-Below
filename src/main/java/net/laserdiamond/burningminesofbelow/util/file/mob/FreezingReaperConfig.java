@@ -2,6 +2,13 @@ package net.laserdiamond.burningminesofbelow.util.file.mob;
 
 import com.google.gson.JsonObject;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates, stores, and reads from a json file files that are relevant to the {@link net.laserdiamond.burningminesofbelow.entity.bmob.mobs.FreezingReaperEntity}</li>
+ * <li>A {@link FreezingReaperConfig} is-a {@link AbstractMobConfig}</li>
+ * @author Allen Malo
+ */
 public class FreezingReaperConfig extends AbstractMobConfig {
 
     /**

@@ -22,19 +22,24 @@ import net.minecraftforge.fluids.FluidType;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Defines how the Frozen Soul will behave in-game, and how the entity will respond to the environment around it</li>
+ * <li>A {@link FrozenSoulEntity} is-a {@link AbstractMonster}</li>
+ * <li>A {@link FrozenSoulEntity} is-a {@link AttackingEntity}</li>
  * @author Allen Malo
  */
 public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> implements AttackingEntity<FrozenSoulEntity> {
 
+    /**
+     * The {@link FrozenSoulConfig} for this mob. This is univeral to all {@link FrozenSoulEntity} mobs
+     */
     private static final FrozenSoulConfig CONFIG = (FrozenSoulConfig) MobConfigRegistry.getRegistryMap().get(BMOBEntities.FROZEN_SOUL.getId());
 
+    /**
+     * Creates a new {@link FrozenSoulEntity}
+     * @param pEntityType The {@link EntityType} for the {@link FrozenSoulEntity}
+     * @param pLevel the {@link Level} to spawn the {@link FrozenSoulEntity}
+     */
     public FrozenSoulEntity(EntityType<? extends FrozenSoulEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
     }
 
     @Override
@@ -85,27 +90,39 @@ public final class FrozenSoulEntity extends AbstractMonster<FrozenSoulEntity> im
         return SoundEvents.ZOMBIE_DEATH;
     }
 
+    /**
+     * Determines if the mob can freeze. A {@link FrozenSoulEntity} should not be able to freeze
+     * @return False, since a {@link FrozenSoulEntity} cannot freeze
+     */
     @Override
     public boolean canFreeze() {
         return false;
     }
 
+    /**
+     * Determines if the mob can drown. {@link FrozenSoulEntity} cannot drown
+     * @param type The {@link FluidType} the mob is submerged in
+     * @return False, since a {@link FrozenSoulEntity} cannot drown
+     */
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
     }
 
+    /**
+     * Determines if the mob is sensitive to the sun.
+     * @return True, since a {@link FrozenSoulEntity} is sensitive to the sun
+     */
     @Override
     protected boolean isSunSensitive()
     {
         return true;
     }
 
-    @Override
-    public boolean isAlliedTo(Entity pEntity) {
-        return super.isAlliedTo(pEntity);
-    }
-
+    /**
+     * Gets the mob type of the mob. This can affect what enchantments deal more damage to this mob
+     * @return {@link MobType#UNDEAD}. The {@link FreezingReaperEntity} takes more damage from the Smite enchantment
+     */
     @Override
     public MobType getMobType()
     {

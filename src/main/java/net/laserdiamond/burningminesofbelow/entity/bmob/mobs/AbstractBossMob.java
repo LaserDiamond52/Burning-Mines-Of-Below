@@ -18,12 +18,21 @@ import org.jetbrains.annotations.Nullable;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Base class for any mobs that should have a boss bar displayed on the player's screen, or be a boss mob</li>
+ * <li>An {@link AbstractBossMob} is-a {@link AbstractMonster}</li>
  * @author Allen Malo
  */
 public abstract class AbstractBossMob<M extends Monster> extends AbstractMonster<M> {
 
-    protected final ServerBossEvent bossEvent;
+    /**
+     * The {@link ServerBossEvent} of the {@link AbstractBossMob}
+     */
+    protected final ServerBossEvent bossEvent; // AbstractBossMob has-a ServerBossEvent
 
+    /**
+     * Creates a new {@link AbstractBossMob}
+     * @param pEntityType The {@link EntityType} for the {@link AbstractBossMob} to be
+     * @param pLevel The {@link Level} to summon the {@link AbstractBossMob} on
+     */
     public AbstractBossMob(EntityType<? extends M> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.bossEvent = (ServerBossEvent) new ServerBossEvent(this.getDisplayName(), this.barColor(), this.barOverlay()).setDarkenScreen(darkenScreen());
@@ -51,6 +60,10 @@ public abstract class AbstractBossMob<M extends Monster> extends AbstractMonster
         return true;
     }
 
+    /**
+     * Reads any additional save data from a {@link CompoundTag}
+     * @param pCompound The {@link CompoundTag} to read data from
+     */
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
@@ -60,24 +73,39 @@ public abstract class AbstractBossMob<M extends Monster> extends AbstractMonster
         }
     }
 
+    /**
+     * Called when a custom name is set on the {@link AbstractBossMob}
+     * @param pName The {@link Component} that contains the name being set to the {@link AbstractBossMob}
+     */
     @Override
     public void setCustomName(@Nullable Component pName) {
         super.setCustomName(pName);
         this.bossEvent.setName(this.getDisplayName()); // Set boss bar name to the custom name if one was given to the mob
     }
 
+    /**
+     * Called every tick the {@link AbstractBossMob} is alive
+     */
     @Override
     public void aiStep() {
         super.aiStep();
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
+    /**
+     * Called when the {@link AbstractBossMob} is seen by a {@link ServerPlayer}
+     * @param pServerPlayer The {@link ServerPlayer} that now sees the {@link AbstractBossMob}
+     */
     @Override
     public void startSeenByPlayer(ServerPlayer pServerPlayer) {
         super.startSeenByPlayer(pServerPlayer);
         this.bossEvent.addPlayer(pServerPlayer); // Add boss bar to player's screen when the mob is seen by the player
     }
 
+    /**
+     * Called when the {@link AbstractBossMob} is no longer seen by a {@link ServerPlayer}
+     * @param pServerPlayer The {@link ServerPlayer} that now sees the {@link AbstractBossMob}
+     */
     @Override
     public void stopSeenByPlayer(ServerPlayer pServerPlayer) {
         super.stopSeenByPlayer(pServerPlayer);

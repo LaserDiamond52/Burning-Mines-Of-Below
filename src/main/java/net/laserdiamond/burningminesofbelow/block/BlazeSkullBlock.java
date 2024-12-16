@@ -21,21 +21,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Create and manage a Blaze Skull block</li>
  * <li>Allow this block to summon a {@link KingInferniusEntity} when placed on the appropriate block pattern</li>
+ * <li>A {@link BlazeSkullBlock} is-a {@link BMOBSkullBlock}</li>
+ * <li>A {@link BlazeSkullBlock} is-a {@link SummoningBlock}</li>
+ * @author Allen Malo
  */
 public class BlazeSkullBlock extends BMOBSkullBlock implements SummoningBlock<KingInferniusEntity, BMOBSkullBlockEntity> {
 
     /**
      * The {@link BlockPattern} to create to summon the {@link KingInferniusEntity}
      */
-    private static BlockPattern kingInferniusSummonPattern;
+    private BlockPattern kingInferniusSummonPattern; // BlazeSkullBlock has-a BlockPattern (one-to-many)
 
     /**
      * The base {@link BlockPattern} for summoning the {@link KingInferniusEntity}
      */
-    private static BlockPattern kingInferniusBasePattern;
+    private BlockPattern kingInferniusBasePattern; // BlazeSkullBlock has-a BlockPattern (one-to-many)
 
     /**
      * Creates a new {@link BlazeSkullBlock}
@@ -78,6 +82,7 @@ public class BlazeSkullBlock extends BMOBSkullBlock implements SummoningBlock<Ki
 
     @Override
     public BlockPattern getOrCreateEntityFull() {
+
         if (kingInferniusSummonPattern == null)
         {
             kingInferniusSummonPattern = BlockPatternBuilder.start().aisle("AHA", "BBB", "ABA")

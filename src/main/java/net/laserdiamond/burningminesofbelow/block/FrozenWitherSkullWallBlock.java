@@ -11,8 +11,20 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Create and manage the wall block variant of the {@link FrozenWitherSkullBlock}</li>
+ * <li>A {@link FrozenWitherSkullWallBlock} is-a {@link BMOBWallSkullBlock}</li>
+ * @author Allen Malo
+ */
 public class FrozenWitherSkullWallBlock extends BMOBWallSkullBlock {
 
+    /**
+     * Creates a new {@link FrozenWitherSkullWallBlock}
+     * @param pProperties The {@link net.minecraft.world.level.block.state.BlockBehaviour.Properties} to give the block
+     * @param tags A {@link List} of {@link TagKey}s to apply to the block
+     */
     public FrozenWitherSkullWallBlock(Properties pProperties, List<TagKey<Block>> tags) {
         super(BMOBSkullBlock.Types.FROZEN_WITHER_SKULL, pProperties, tags);
     }

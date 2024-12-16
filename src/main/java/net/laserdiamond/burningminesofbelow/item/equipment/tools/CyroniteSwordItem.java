@@ -19,6 +19,15 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the properties and abilities of a {@link CyroniteSwordItem}</li>
+ * <li>Defines the recipe ingredients for a {@link CyroniteSwordItem} from the Forge</li>
+ * <li>A {@link CyroniteSwordItem} is-a {@link BMOBSwordItem}</li>
+ * <li>A {@link CyroniteSwordItem} is-a {@link AbilityItem}</li>
+ * @author Allen Malo
+ */
 public final class CyroniteSwordItem extends BMOBSwordItem implements AbilityItem, HandheldItem {
 
     public CyroniteSwordItem(int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties, List<TagKey<Item>> tags) {

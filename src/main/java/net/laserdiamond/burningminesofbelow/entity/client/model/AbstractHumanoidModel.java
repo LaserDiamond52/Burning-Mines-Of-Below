@@ -15,17 +15,41 @@ import net.minecraft.world.entity.LivingEntity;
  * <p>Responsibilities of class:</p>
  * <li>Defines the shape and {@link LayerDefinition} of a humanoid mob with this mod</li>
  * <li>Sets up the animations associated with the model</li>
+ * <li>An {@link AbstractHumanoidModel} is-a {@link HumanoidModel}</li>
  * @author Allen Malo
  * @param <LE> The {@link LivingEntity} type
  */
 public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends HumanoidModel<LE> {
 
-    protected final ModelPart leftSleeve;
-    protected final ModelPart rightSleeve;
-    protected final ModelPart leftPants;
-    protected final ModelPart rightPants;
-    protected final ModelPart jacket;
+    /**
+     * The left sleeve
+     */
+    protected final ModelPart leftSleeve; // AbstractHumanoidModel has-a ModelPart (one-to-many)
 
+    /**
+     * The right sleeve
+     */
+    protected final ModelPart rightSleeve; // AbstractHumanoidModel has-a ModelPart (one-to-many)
+
+    /**
+     * The left pants
+     */
+    protected final ModelPart leftPants; // AbstractHumanoidModel has-a ModelPart (one-to-many)
+
+    /**
+     * The right pants
+     */
+    protected final ModelPart rightPants; // AbstractHumanoidModel has-a ModelPart (one-to-many)
+
+    /**
+     * The jacket
+     */
+    protected final ModelPart jacket; // AbstractHumanoidModel has-a ModelPart (one-to-many)
+
+    /**
+     * Creates a new {@link AbstractHumanoidModel}
+     * @param pRoot the {@link ModelPart} that will be the root of the model
+     */
     public AbstractHumanoidModel(ModelPart pRoot) {
         super(pRoot);
         this.leftSleeve = pRoot.getChild("left_sleeve");
@@ -35,6 +59,10 @@ public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends Hum
         this.jacket = pRoot.getChild("jacket");
     }
 
+    /**
+     * Creates the {@link LayerDefinition} for the model
+     * @return The {@link LayerDefinition} for the model
+     */
     public static LayerDefinition createBodyLayer()
     {
         MeshDefinition humanoidModel = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
@@ -61,6 +89,10 @@ public abstract class AbstractHumanoidModel<LE extends LivingEntity> extends Hum
 
     }
 
+    /**
+     * Defines the body parts of the model
+     * @return An {@link Iterable} that contains all the {@link ModelPart}s that are body parts in the model
+     */
     @Override
     protected Iterable<ModelPart> bodyParts() {
         return Iterables.concat(super.bodyParts(), ImmutableList.of(this.leftPants, this.rightPants, this.leftSleeve, this.rightSleeve, this.jacket));

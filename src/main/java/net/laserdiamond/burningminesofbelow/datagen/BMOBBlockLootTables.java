@@ -18,8 +18,11 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Set;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Generates all loot tables for the blocks of this mod</li>
+ * <li>A {@link BMOBBlockLootTables} is-a {@link BlockLootSubProvider}</li>
+ * @author Allen Malo
  */
 public class BMOBBlockLootTables extends BlockLootSubProvider {
 
@@ -82,7 +85,6 @@ public class BMOBBlockLootTables extends BlockLootSubProvider {
     protected LootTable.Builder createMultiOreDrops(Block pBlock, Item oreDrop, int min, int max) {
         return createSilkTouchDispatchTable(pBlock, this.applyExplosionDecay(pBlock, LootItem.lootTableItem(oreDrop).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
-
 
     /**
      * Supply all registered blocks to the {@link BlockLootSubProvider} in order to make sure all blocks have a loot table associated with them

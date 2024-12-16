@@ -8,9 +8,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Contains the {@link SurfaceRules.RuleSource}s for creating the block make-up of the biomes</li>
  * <li>Applies the {@link SurfaceRules.RuleSource}s for the respective biomes</li>
+ * @author Allen Malo
  */
 public class BMOBSurfaceRules {
 

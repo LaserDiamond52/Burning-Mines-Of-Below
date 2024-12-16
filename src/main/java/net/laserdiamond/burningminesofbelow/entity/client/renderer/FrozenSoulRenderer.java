@@ -16,24 +16,42 @@ import net.minecraft.resources.ResourceLocation;
  * <p>Responsibilities of class:</p>
  * <li>Rendering the {@link FrozenSoulModel} onto the {@link FrozenSoulEntity}</li>
  * <li>Specifies the texture to render on the {@link FrozenSoulModel}</li>
+ * <li>A {@link FrozenSoulRenderer} is-a {@link AbstractHumanoidRenderer}</li>
  * @author Allen Malo
  */
 public final class FrozenSoulRenderer extends AbstractHumanoidRenderer<FrozenSoulEntity, FrozenSoulModel> {
 
+    /**
+     * Creates a new {@link FrozenSoulRenderer}
+     * @param pContext The {@link EntityRendererProvider.Context}
+     */
     public FrozenSoulRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new FrozenSoulModel(pContext.bakeLayer(BMOBModelLayers.FROZEN_SOUL)), 0.5F);
     }
 
+    /**
+     * Gets the {@link ResourceLocation} for the texture to render on the model
+     * @param frozenSoulEntity The {@link FrozenSoulEntity} being rendered
+     * @return The {@link ResourceLocation} for the texture to render on the model
+     */
     @Override
     public ResourceLocation getTextureLocation(FrozenSoulEntity frozenSoulEntity) {
         return new ResourceLocation(BurningMinesOfBelow.MODID, "textures/entity/frozen_soul.png");
     }
 
+    /**
+     * The inner armor model layer
+     * @return The {@link ModelLayerLocation} for inner armor
+     */
     @Override
     protected ModelLayerLocation innerArmorModelLayer() {
         return BMOBModelLayers.FROZEN_SOUL_INNER_ARMOR;
     }
 
+    /**
+     * The outer armor model layer
+     * @return The {@link ModelLayerLocation} for the outer armor
+     */
     @Override
     protected ModelLayerLocation outerArmorModelLayer() {
         return BMOBModelLayers.FROZEN_SOUL_OUTER_ARMOR;

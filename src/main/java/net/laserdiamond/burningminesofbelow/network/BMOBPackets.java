@@ -14,10 +14,23 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.function.Function;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates and registers all the packets of this mod</li>
+ * <li>Helps with sending and receiving packets on both ends of the network</li>
+ * @author Allen Malo
+ */
 public class BMOBPackets {
 
+    /**
+     * The {@link SimpleChannel} instance
+     */
     private static SimpleChannel INSTANCE;
 
+    /**
+     * The packet ID. This should be incremented for each new packet that is sent
+     */
     private static int packetId = 0;
 
     /**

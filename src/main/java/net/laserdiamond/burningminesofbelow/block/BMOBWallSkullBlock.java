@@ -13,15 +13,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.List;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Create and manage the wall block variant of the {@link BMOBSkullBlock}</li>
+ * <li>A {@link BMOBWallSkullBlock} is-a {@link WallSkullBlock}</li>
+ * <li>A {@link BMOBWallSkullBlock} is-a {@link Taggable}</li>
+ * @author Allen Malo
  */
 public class BMOBWallSkullBlock extends WallSkullBlock implements Taggable<Block> {
 
     /**
      * The {@link List} of tags to apply to the block
      */
-    protected final List<TagKey<Block>> tags;
+    protected final List<TagKey<Block>> tags; // BMOBWallSkullBlock has-a List
 
     /**
      * Creates a new {@link BMOBSkullBlock}

@@ -15,10 +15,21 @@ import terrablender.api.VanillaParameterOverlayBuilder;
 import java.util.function.Consumer;
 
 /**
- * An abstract region, which is used to set and manage the biome placement in the world
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Used to set and manage the biome placement in the world</li>
+ * <li>Manages the terrain generation/landscape the biome</li>
+ * <li>An {@link AbstractRegion} is-a {@link Region}</li>
+ * @author Allen Malo
  */
 public abstract class AbstractRegion extends Region {
 
+    /**
+     * Creates a new {@link AbstractRegion}
+     * @param name The {@link ResourceLocation} for the region
+     * @param type The {@link RegionType}. Determines if the region spawns in the {@link RegionType#OVERWORLD} or {@link RegionType#NETHER}
+     * @param weight The weight of the region. Determines how often this region will spawn relative to other regions
+     */
     public AbstractRegion(ResourceLocation name, RegionType type, int weight) {
         super(name, type, weight);
     }
@@ -78,6 +89,10 @@ public abstract class AbstractRegion extends Region {
     @NotNull
     protected abstract Climate.Parameter weirdness();
 
+    /**
+     * The offset parameter of the biome
+     * @return The offset for the biome
+     */
     protected abstract float offset();
 
 }

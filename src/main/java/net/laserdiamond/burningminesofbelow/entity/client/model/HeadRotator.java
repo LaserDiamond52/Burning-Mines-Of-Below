@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Used to help create head rotation for the entity</li>
+ * <li>A {@link HeadRotator} is-a {@link HeadedModel}</li>
  * @author Allen Malo
  * @param <E> The {@link Entity} type
  */

@@ -20,15 +20,34 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Provides the Translation Files for assets of this mod</li>
+ * <li>Translates the local names of items to their assigned names in the {@link LanguageRegistry}</li>
+ * <li>A {@link BMOBLanguageProvider} is-a {@link LanguageProvider}</li>
+ * @author Allen Malo
+ */
 public class BMOBLanguageProvider extends LanguageProvider {
 
-    private final LanguageRegistry languageRegistry;
+    /**
+     * The {@link LanguageRegistry} the {@link BMOBLanguageProvider} will be translating to
+     */
+    private final LanguageRegistry languageRegistry; // BMOBLanguageProvider has-a LanguageRegistry
 
+    /**
+     * Creates a new {@link BMOBLanguageProvider}
+     * @param output The {@link PackOutput}
+     * @param lang The {@link Language} to translate to
+     */
     public BMOBLanguageProvider(PackOutput output, Language lang) {
         super(output, BurningMinesOfBelow.MODID, lang.getName());
         this.languageRegistry = LanguageRegistry.instance(lang); // Get the language registry of the language passed through
     }
 
+    /**
+     * Creates all the translations
+     */
     @Override
     protected void addTranslations()
     {
@@ -113,6 +132,9 @@ public class BMOBLanguageProvider extends LanguageProvider {
         }
     }
 
+    /**
+     * Creates the {@link KeyMapping} translations
+     */
     private void addKeyMappingTranslations()
     {
         this.add(BMOBKeyBindings.BURNING_MINES_OF_BELOW_CATEGORY, "Burning Mines Of Below Keybindings");
@@ -123,6 +145,11 @@ public class BMOBLanguageProvider extends LanguageProvider {
         }
     }
 
+    /**
+     * Replaces the ":" with a "." in the {@link ResourceLocation} and returns it as a {@link String}
+     * @param id The {@link ResourceLocation}
+     * @return The {@link ResourceLocation} as a {@link String}, with the ":" being replaced with a "."
+     */
     private String idToTranslation(ResourceLocation id)
     {
         return id.toString().replace(":", ".");

@@ -65,7 +65,7 @@ public class BMOBAttributes {
     }
 
     /**
-     * Registers all the {@link Attribute}s under this mod's attribute registry
+     * Registers all the {@link Attribute}s under the {@link BMOBAttributes#ATTRIBUTES} registry
      * @param eventBus The mod's {@link IEventBus}
      */
     public static void registerAttributes(IEventBus eventBus)

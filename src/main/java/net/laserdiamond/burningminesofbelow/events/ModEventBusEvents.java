@@ -16,17 +16,25 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers and listens for server events on the mod bus of this mod</li>
+ * <li>Methods with the {@link SubscribeEvent} annotation are listening for events</li>
+ * @author Allen Malo
+ */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents
 {
 
+    /**
+     * Called when it is time to create attributes for entities
+     * @param event The {@link EntityAttributeCreationEvent} to listen for
+     */
     @SubscribeEvent
     public static void registerEntityAttributes(EntityAttributeCreationEvent event)
     {
-        // TODO: Creation of Attributes for entities go here
-        // Entities must have a config class associated with them!
-
         registerEntityAttribute(event, BMOBEntities.MAGNITE_BLAZE);
         registerEntityAttribute(event, BMOBEntities.KING_INFERNIUS);
         registerEntityAttribute(event, BMOBEntities.FROZEN_SOUL);
@@ -62,6 +70,10 @@ public class ModEventBusEvents
                 .add(Attributes.ARMOR, config.getAttributeValue(Attributes.ARMOR));
     }
 
+    /**
+     * Called when it is time to modify the attributes of an entity
+     * @param event The {@link EntityAttributeModificationEvent} to listen for
+     */
     @SubscribeEvent
     public static void entityAttributeModification(EntityAttributeModificationEvent event)
     {

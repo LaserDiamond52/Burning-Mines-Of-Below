@@ -19,12 +19,35 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.*;
 
-public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem, HandheldItem {
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Defines the properties of a {@link BlaziumSwordItem}</li>
+ * <li>Defines the recipe ingredients for a {@link BlaziumSwordItem} from the Forge</li>
+ * <li>A {@link BlaziumSwordItem} is-a {@link BMOBSwordItem}</li>
+ * <li>A {@link BlaziumSwordItem} is-a {@link AbilityItem}</li>
+ * @author Allen Malo
+ */
+public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem {
 
+    /**
+     * Creates a new {@link BlaziumSwordItem}
+     * @param pAttackDamageModifier Any additional attack damage to add to the sword
+     * @param pAttackSpeedModifier The attack speed of the sword
+     * @param pProperties The {@link Item.Properties} of the item
+     * @param tags A {@link List} of {@link TagKey}s to apply to the sword
+     */
     public BlaziumSwordItem(int pAttackDamageModifier, float pAttackSpeedModifier, Properties pProperties, List<TagKey<Item>> tags) {
         super(BMOBToolTiers.BLAZIUM, pAttackDamageModifier, pAttackSpeedModifier, pProperties, tags);
     }
 
+    /**
+     * Called when a {@link Player} left clicks an {@link Entity} with this item
+     * @param stack The {@link ItemStack} of this item
+     * @param player The {@link Player} left-clicking
+     * @param entity The {@link Entity} that was left-clicked
+     * @return False
+     */
     @Override
     public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
 
@@ -73,7 +96,6 @@ public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem
         }
 
         BlaziumFireBallAbility.INSTANCE.setAbilityActive(player, true); // Ability is now active
-
     }
 
     @Override
@@ -89,17 +111,20 @@ public final class BlaziumSwordItem extends BMOBSwordItem implements AbilityItem
         return Component.literal("Blaze Barrage").withStyle(ChatFormatting.GOLD);
     }
 
+
     /**
-     * Responsibilities:
+     * <p>Version/date: 12/16/24</p>
+     * <p>Responsibilities of class:</p>
      * <li>Manage the Blazium Sword's fireball ability</li>
      * <li>Help determine when the ability is active</li>
      * <li>Keep count of the amount of fireballs launched</li>
+     * @author Allen Malo
      */
     public static class BlaziumFireBallAbility
     {
-        private final HashMap<UUID, Boolean> abilityActiveMap;
-        private final HashMap<UUID, Integer> abilityFireBallLaunchedMap;
-        private final HashMap<UUID, Integer> abilityIntervalMap;
+        private final HashMap<UUID, Boolean> abilityActiveMap; // A BlaziumFireBallAbility has-a HashMap (one-to-many)
+        private final HashMap<UUID, Integer> abilityFireBallLaunchedMap; // A BlaziumFireBallAbility has-a HashMap (one-to-many)
+        private final HashMap<UUID, Integer> abilityIntervalMap; // A BlaziumFireBallAbility has-a HashMap (one-to-many)
 
         /**
          * The maximum amount of fireballs to launch

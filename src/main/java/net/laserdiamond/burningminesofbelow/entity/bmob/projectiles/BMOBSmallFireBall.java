@@ -13,26 +13,45 @@ import net.minecraft.world.phys.Vec3;
  * <p>Responsibilities of class:</p>
  * <li>Defines the basic characteristics and functionality for Small Fireballs of this mod</li>
  * <li>Act as a base class for Small Fireballs of this mod</li>
+ * <li>A {@link BMOBSmallFireBall} is-a {@link SmallFireball}</li>
  * @author Allen Malo
  */
 public class BMOBSmallFireBall extends SmallFireball {
 
+    /**
+     * Creates a new {@link BMOBSmallFireBall}
+     * @param pLevel The {@link Level} to summon the projectile on
+     * @param pShooter The {@link LivingEntity} shooting the projectile
+     * @param pOffsetX The x position in the {@link Level} to summon the projectile
+     * @param pOffsetY The y position in the {@link Level} to summon the projectile
+     * @param pOffsetZ The z position in the {@link Level} to summon the projectile
+     */
     public BMOBSmallFireBall(Level pLevel, LivingEntity pShooter, double pOffsetX, double pOffsetY, double pOffsetZ) {
         super(pLevel, pShooter, pOffsetX, pOffsetY, pOffsetZ);
     }
 
+    /**
+     * Creates a new {@link BMOBSmallFireBall}
+     * @param pLevel The {@link Level} to summon the projectile on
+     * @param pShooter The {@link LivingEntity} shooting the projectile
+     * @param pos The position of the projectile when summoned as a {@link Vec3}
+     */
     public BMOBSmallFireBall(Level pLevel, LivingEntity pShooter, Vec3 pos)
     {
         this(pLevel, pShooter, pos.x, pos.y, pos.z);
     }
 
+    /**
+     * Called when the {@link BMOBSmallFireBall} hits an entity
+     * @param pResult The {@link EntityHitResult} of this projectile
+     */
     @Override
     protected void onHitEntity(EntityHitResult pResult) {
         super.onHitEntity(pResult);
 
         if (this.level().isClientSide)
         {
-            return;
+            return; // Do not run on client
         }
         final Entity hitEntity = pResult.getEntity();
         DamageSource damageSource = this.damageSources().mobAttack((LivingEntity) this.getOwner());

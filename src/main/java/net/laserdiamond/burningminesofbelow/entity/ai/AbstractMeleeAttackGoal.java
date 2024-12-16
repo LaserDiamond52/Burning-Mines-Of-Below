@@ -11,20 +11,46 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
  * <p>Responsibilities of class:</p>
  * <li>Used as a base for mobs that require melee attack goals</li>
  * <li>Allows the subclass to define how, when, and why a melee attack should happen</li>
+ * <li>An {@link AbstractMeleeAttackGoal} is-a {@link MeleeAttackGoal}</li>
+ * <li>An {@link AbstractMeleeAttackGoal} is-a {@link DelayedAnimatedAttack}</li>
  * @author Allen Malo
  */
 public abstract class AbstractMeleeAttackGoal<PM extends PathfinderMob & AttackingEntity<PM>> extends MeleeAttackGoal implements DelayedAnimatedAttack {
 
-    protected final PM mob;
+    /**
+     * the {@link PM} performing the attack goal
+     */
+    protected final PM mob; // AbstractMeleeAttackGoal has-a PM (PM is an object that is-a PathfinderMob and AttackingEntity)
+
+    /**
+     * The delay of the attack in ticks relative to the start of the animation
+     */
     protected int attackDelay;
+
+    /**
+     * The ticks remaining until the next attack is performed
+     */
     protected int ticksUntilNextAttack;
+
+    /**
+     * Determines if the attack goal is ready to start counting down to the next attack
+     */
     protected boolean shouldCountTillNextAttack = false;
 
+    /**
+     * Creates a new {@link AbstractMeleeAttackGoal}
+     * @param pMob The {@link PM} that will perform the attack goal
+     * @param pSpeedModifier The speed modifier of the {@link PM} when the goal is active
+     * @param pFollowingTargetEvenIfNotSeen Determines if the {@link PM} should continue chasing its target if it is not in direct sight
+     */
     public AbstractMeleeAttackGoal(PM pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
         super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
         this.mob = pMob;
     }
 
+    /**
+     * Called when the {@link AbstractMeleeAttackGoal} starts
+     */
     @Override
     public void start() {
         super.start();
@@ -32,6 +58,9 @@ public abstract class AbstractMeleeAttackGoal<PM extends PathfinderMob & Attacki
         this.ticksUntilNextAttack = this.ticksUntilNextAttack(); // Set the ticks until the next attack
     }
 
+    /**
+     * Runs every tick the {@link AbstractMeleeAttackGoal} is active
+     */
     @Override
     public void tick() {
         super.tick();
@@ -41,12 +70,20 @@ public abstract class AbstractMeleeAttackGoal<PM extends PathfinderMob & Attacki
         }
     }
 
+    /**
+     * Called when the {@link AbstractMeleeAttackGoal} stops
+     */
     @Override
     public void stop() {
         this.mob.setAttacking(this.attackDataAccessor(), false);
         super.stop();
     }
 
+    /**
+     * Determines if the {@link PM} is ready to perform the attack on its target
+     * @param pEnemy The target of the {@link PM}
+     * @param pDistToEnemySqr The distance between the {@link PM} and target, squared
+     */
     @Override
     protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
 

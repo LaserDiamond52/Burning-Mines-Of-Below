@@ -28,8 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Abstract class for creating Forge blocks
- * @param <F> The Forge block entity
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Act as the root class for creating Forge blocks</li>
+ * <li>Contains the bounding box of the Forge block</li>
+ * <li>Connects functionality of the {@link AbstractForgeBlockEntity} to this block</li>
+ * <li>An {@link AbstractForgeBlock} is-a {@link BaseEntityBlock}</li>
+ * <li>An {@link AbstractForgeBlock} is-a {@link Taggable}</li>
+ * @author Allen Malo
  * @see AbstractForgeBlockEntity
  */
 public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> extends BaseEntityBlock implements Taggable<Block> {
@@ -42,7 +48,7 @@ public abstract class AbstractForgeBlock<F extends AbstractForgeBlockEntity> ext
     /**
      * {@link List} of tags that can be applied to the block
      */
-    private final List<TagKey<Block>> tags;
+    private final List<TagKey<Block>> tags; // AbstractForgeBlock has-a List
 
     /**
      * Creates a new {@link AbstractForgeBlock}

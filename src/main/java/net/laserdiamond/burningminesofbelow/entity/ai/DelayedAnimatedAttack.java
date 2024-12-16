@@ -4,6 +4,7 @@ package net.laserdiamond.burningminesofbelow.entity.ai;
  * <p>Version/date: 12/9/24</p>
  * <p>Responsibilities of class:</p>
  * <li>Used by attack goal classes to determine when an attack should start/stop, and when an animation should start/stop</li>
+ * <li>A {@link DelayedAnimatedAttack} is-a {@link DataAccessorAttack}</li>
  * @author Allen Malo
  */
 public interface DelayedAnimatedAttack extends DataAccessorAttack {

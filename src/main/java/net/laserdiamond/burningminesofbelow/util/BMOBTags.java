@@ -16,8 +16,10 @@ import net.minecraftforge.common.Tags;
 import java.util.List;
 
 /**
- * Responsibilities:
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
  * <li>Contains inner classes for tags that can be applied to different assets of this mod</li>
+ * @author Allen Malo
  */
 public class BMOBTags {
 

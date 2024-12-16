@@ -21,13 +21,28 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedHashMap;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates all the models of the items of this mod</li>
+ * <li>A {@link BMOBItemModelProvider} is-a {@link ItemModelProvider}</li>
+ * @author Allen Malo
+ */
 public class BMOBItemModelProvider extends ItemModelProvider {
 
-
+    /**
+     * Creates a new {@link BMOBItemModelProvider}
+     * @param output The {@link PackOutput} of this mod
+     * @param existingFileHelper The {@link ExistingFileHelper} of this mod
+     */
     public BMOBItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, BurningMinesOfBelow.MODID, existingFileHelper);
     }
 
+    /**
+     * A {@link LinkedHashMap} that maps the {@link ResourceKey} of {@link TrimMaterials} to their {@link Float} value.
+     * Used for when trimmable armor models are made.
+     */
     private static final LinkedHashMap<ResourceKey<TrimMaterial>, Float> TRIM_MATERIALS = new LinkedHashMap<>();
     static
     {
@@ -43,25 +58,28 @@ public class BMOBItemModelProvider extends ItemModelProvider {
         TRIM_MATERIALS.put(TrimMaterials.AMETHYST, 1.0F);
     }
 
+    /**
+     * Registers and creates the models of the items of this mod
+     */
     @Override
     protected void registerModels() {
 
-        for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries())
+        for (RegistryObject<Item> itemRegistryObject : BMOBItems.ITEMS.getEntries()) // Loop through all items in the item registry
         {
-            Item item = itemRegistryObject.get();
+            Item item = itemRegistryObject.get(); // Get the registry object as an item
             if (item instanceof ArmorItem)
             {
-                this.trimmedArmorItem(itemRegistryObject);
+                this.trimmedArmorItem(itemRegistryObject); // ArmorItems get the trimmedArmorItem model
 
-            } else if (item instanceof BMOBItem)
-            {
-                this.basicItem(itemRegistryObject.get());
             } else if (item instanceof HandheldItem)
             {
-                this.handheldItem(itemRegistryObject);
+                this.handheldItem(itemRegistryObject); // HandheldItems get the handheldItem model
             } else if (item instanceof StandingAndWallBlockItem)
             {
-                this.skullBlockItem(itemRegistryObject);
+                this.skullBlockItem(itemRegistryObject); // Skull block items get the mob head model
+            } else
+            {
+                this.basicItem(itemRegistryObject.get()); // Every other item is just a basic item
             }
         }
     }
@@ -72,9 +90,7 @@ public class BMOBItemModelProvider extends ItemModelProvider {
      */
     private void handheldItem(RegistryObject<Item> itemRegistryObject)
     {
-        this.withExistingParent(itemRegistryObject.getId().getPath(),
-                new ResourceLocation("item/handheld")).texture("layer0",
-                new ResourceLocation(BurningMinesOfBelow.MODID, "item/" + itemRegistryObject.getId().getPath()));
+        this.withExistingParent(itemRegistryObject.getId().getPath(), new ResourceLocation("item/handheld")).texture("layer0", new ResourceLocation(BurningMinesOfBelow.MODID, "item/" + itemRegistryObject.getId().getPath()));
     }
 
     /**
@@ -83,9 +99,7 @@ public class BMOBItemModelProvider extends ItemModelProvider {
      */
     private void skullBlockItem(RegistryObject<Item> itemRegistryObject)
     {
-        this.withExistingParent(itemRegistryObject.getId().getPath(),
-                new ResourceLocation(BurningMinesOfBelow.MODID, "item/mob_head")).texture("0",
-                new ResourceLocation(BurningMinesOfBelow.MODID, "block/" + itemRegistryObject.getId().getPath()));
+        this.withExistingParent(itemRegistryObject.getId().getPath(), new ResourceLocation(BurningMinesOfBelow.MODID, "item/mob_head")).texture("0", new ResourceLocation(BurningMinesOfBelow.MODID, "block/" + itemRegistryObject.getId().getPath()));
     }
 
     /**

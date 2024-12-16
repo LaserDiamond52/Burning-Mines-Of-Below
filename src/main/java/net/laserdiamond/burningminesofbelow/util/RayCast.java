@@ -18,32 +18,108 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 // TODO: Create a method that fires a ray cast in a circle?
+
 /**
- * Class used for creating ray casts/lasers. Any methods that affect the functionality of the {@link RayCast} should be called before a firing method is invoked.
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Class used for creating ray casts/lasers</li>
+ * <li>Any methods that affect the functionality of the {@link RayCast} should be called before invoking {@link RayCast#fireAtVec3D(Vec3, double)} or {@link RayCast#fireInDirection(Vec3, double)}</li>
+ * @author Allen Malo
  * @param <E> {@link Entity} class to target
  * @param <ER> The {@link Object} type to return when an entity is hit
  * @param <BSR> The {@link Object} type to return when a block state is hit
  */
 public class RayCast<E extends Entity, ER, BSR> {
 
-    private final ServerLevel serverLevel;
-    private final Vec3 startPos;
+    /**
+     * The {@link ServerLevel} to perform the {@link RayCast} on
+     */
+    private final ServerLevel serverLevel; // A RayCast has-a ServerLevel
+
+    /**
+     * The starting position of the {@link RayCast} as a {@link Vec3}
+     */
+    private final Vec3 startPos; // A RayCast has-a Vec3
+
+    /**
+     * The step increment of the {@link RayCast}
+     */
     private double stepIncrement;
-    private final Predicate<E> entityFilter;
-    private final Class<E> entityClazz;
-    private final List<Class<? extends Block>> blockClazzes;
-    private final List<SimpleParticleType> particles;
+
+    /**
+     * The entity filter {@link Predicate}
+     */
+    private final Predicate<E> entityFilter; // A RayCast has-a Predicate
+
+    /**
+     * The {@link Entity} clazz to target
+     */
+    private final Class<E> entityClazz; // A RayCast has-a Class
+
+    /**
+     * The {@link Block} classes to blacklist from the results of the {@link RayCast}
+     */
+    private final List<Class<? extends Block>> blockClazzes; // A RayCast has-a List (one-to-many)
+
+    /**
+     * The {@link SimpleParticleType}s to display at each step of the {@link RayCast}
+     */
+    private final List<SimpleParticleType> particles; // A RayCast has-a List (one-to-many)
+
+    /**
+     * Determines if the {@link RayCast} pierces blocks
+     */
     private boolean pierceBlocks;
+
+    /**
+     * Determines if the {@link RayCast} pierces entities
+     */
     private boolean pierceEntities;
-    private final List<E> hitEntities;
-    private final List<BlockState> hitBlockStates;
+
+    /**
+     * The {@link List} of hit entities after a {@link RayCast} has been fired
+     */
+    private final List<E> hitEntities; // A RayCast has-a List (one-to-many)
+
+    /**
+     * The {@link List} of hit {@link BlockState}s after a {@link RayCast} has been fired
+     */
+    private final List<BlockState> hitBlockStates; // A RayCast has-a List (one-to-many)
+
+    /**
+     * Determines if the {@link List} of hit entities is cleared before firing again
+     */
     private boolean hitEntitiesPersistence;
+
+    /**
+     * Determines if the {@link List} of hit {@link BlockState}s is cleared before firing again
+     */
     private boolean hitBlockStatesPersistence;
-    private Function<E, ER> entityHitFunction;
-    private Function<BlockState, BSR> blockStateHitFunction;
-    private ER entityHitReturnObj;
-    private BSR blockStateHitReturnObj;
-    private BlockPos currentBlockPos;
+
+    /**
+     * A {@link Function} to run when an {@link Entity} is hit.
+     */
+    private Function<E, ER> entityHitFunction; // A RayCast has-a Function (one-to-many)
+
+    /**
+     * A {@link Function} to run when a {@link BlockState} is hit
+     */
+    private Function<BlockState, BSR> blockStateHitFunction; // A RayCast has-a Function (one-to-many)
+
+    /**
+     * The {@link ER} to return when an {@link Entity} is hit
+     */
+    private ER entityHitReturnObj; // A RayCast has-a ER (Generic Type)
+
+    /**
+     * The {@link BSR} to return when a {@link BlockState} is hit
+     */
+    private BSR blockStateHitReturnObj; // A RayCast has-a BSR (Generic Type)
+
+    /**
+     * The current {@link BlockPos} in the {@link RayCast}
+     */
+    private BlockPos currentBlockPos; // A RayCast has-a BlockPos
 
     /**
      * Creates an Axis Aligned Bounding Box centered at the position of the {@link LivingEntity} in the shape of a cube
@@ -57,6 +133,14 @@ public class RayCast<E extends Entity, ER, BSR> {
         return new AABB(new BlockPos(center.getBlockX() - range, center.getBlockY() - range, center.getBlockZ() - range), new BlockPos(center.getBlockX() + range, center.getBlockY() + range, center.getBlockZ() + range));
     }
 
+    /**
+     * Creates a new {@link RayCast}
+     * @param serverLevel The {@link ServerLevel} to perform the {@link RayCast} on
+     * @param startPos The {@link Vec3} starting position of the {@link RayCast}
+     * @param entityFilter The {@link Entity} filter {@link Predicate}
+     * @param entityClazz The {@link Entity} clazz to target
+     * @param blockClazzes The {@link Block} clazz to blacklist
+     */
     private RayCast(ServerLevel serverLevel, Vec3 startPos, Predicate<E> entityFilter, Class<E> entityClazz, List<Class<? extends Block>> blockClazzes)
     {
         this.serverLevel = serverLevel;
@@ -79,6 +163,14 @@ public class RayCast<E extends Entity, ER, BSR> {
         this.currentBlockPos = null;
     }
 
+    /**
+     * Creates a new {@link RayCast}
+     * @param serverLevel The {@link ServerLevel} to perform the {@link RayCast} on
+     * @param startPos The {@link Vec3} starting position of the {@link RayCast}
+     * @param entityFilter The {@link Entity} filter {@link Predicate}
+     * @param entityClazz The {@link Entity} clazz to target
+     * @param blockClazzes The {@link Block} clazz to blacklist
+     */
     public static <EN extends Entity, EHR, BHR> RayCast<EN, EHR, BHR> createRayCast(ServerLevel serverLevel, Vec3 startPos, Predicate<EN> entityFilter, Class<EN> entityClazz, List<Class<? extends Block>> blockClazzes)
     {
         return new RayCast<>(serverLevel, startPos, entityFilter, entityClazz, blockClazzes);

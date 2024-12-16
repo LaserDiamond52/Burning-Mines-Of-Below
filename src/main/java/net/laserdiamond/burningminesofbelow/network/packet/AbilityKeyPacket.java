@@ -11,10 +11,24 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.text.DecimalFormat;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>A packet send from the client to the server when the {@link net.laserdiamond.burningminesofbelow.client.BMOBKeyBindings#abilityKey} is pressed</li>
+ * <li>A {@link AbilityKeyPacket} is-a {@link BMOBPacket}</li>
+ * @author Allen Malo
+ */
 public class AbilityKeyPacket extends BMOBPacket {
 
+    /**
+     * Creates a new {@link AbilityKeyPacket}
+     */
     public AbilityKeyPacket(){}
 
+    /**
+     * Creates a new {@link AbilityKeyPacket}
+     * @param buf The {@link FriendlyByteBuf} to read from
+     */
     public AbilityKeyPacket(FriendlyByteBuf buf)
     {}
 
@@ -27,7 +41,7 @@ public class AbilityKeyPacket extends BMOBPacket {
         {
             if (player.getMainHandItem().getItem() instanceof AbilityItem abilityItem) // Check if player is holding ability item
             {
-                final AbilityCooldown abilityItemCooldown = CooldownRegistry.instance(abilityItem);
+                final AbilityCooldown abilityItemCooldown = CooldownRegistry.getAbilityCooldown(abilityItem);
 
                 if (abilityItemCooldown.checkCooldown(player)) // Check if cooldown is up
                 {

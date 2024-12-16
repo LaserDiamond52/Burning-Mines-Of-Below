@@ -13,11 +13,22 @@ import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Registers and listens for client events on the Forge bus of this mod</li>
+ * <li>Methods with the {@link SubscribeEvent} annotation are listening for events</li>
+ * @author Allen Malo
+ */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ClientForgeEvents
 {
 
+    /**
+     * Called when a key input is detected on the client
+     * @param event The {@link InputEvent.Key} to listen for
+     */
     @SubscribeEvent
     public static void onKeyInput(InputEvent.Key event)
     {
@@ -35,39 +46,5 @@ public class ClientForgeEvents
                 }
             }
         }
-    }
-
-    @SubscribeEvent
-    public static void registerUIOverlays(RenderGuiEvent event)
-    {
-//        final GuiGraphics guiGraphics = event.getGuiGraphics();
-//        float partialTick = event.getPartialTick();
-//        final Window window = event.getWindow();
-//
-//        final Minecraft minecraft = Minecraft.getInstance();
-//        final GameRenderer gameRenderer = minecraft.gameRenderer;
-//        final LocalPlayer player = minecraft.player;
-//
-//        if (player == null)
-//        {
-//            return;
-//        }
-//        if (player.hasEffect(BMOBEffects.HEAT_EXHAUSTION.get()))
-//        {
-//            float scalar = Mth.lerp(partialTick, player.oSpinningEffectIntensity, player.spinningEffectIntensity);
-//            float scalar2 = minecraft.options.screenEffectScale().get().floatValue();
-//
-//            if (scalar > 0.0F && scalar2 < 1.0F)
-//            {
-//                gameRenderer.renderConfusionOverlay(guiGraphics, scalar * (1.0F - scalar2));
-//            }
-//            gameRenderer.renderConfusionOverlay(guiGraphics, 0.5F);
-//
-//        }
-//
-//        if (player.hasEffect(BMOBEffects.HYPOTHERMIA.get())) // Player has Hypothermia
-//        {
-//            minecraft.gui.renderTextureOverlay(guiGraphics, Gui.POWDER_SNOW_OUTLINE_LOCATION, player.getPercentFrozen());
-//        }
     }
 }

@@ -12,12 +12,29 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates ice spikes in Cocytus-themed biomes</li>
+ * <li>Generation of this is incredibly similar to how Ice Spikes generate in the {@link net.minecraft.world.level.biome.Biomes#ICE_SPIKES}</li>
+ * <li>Generation of these ice chunks can only start from a {@link net.minecraft.world.level.block.Block} that has the {@link BMOBTags.Blocks#COCYTUS_ICE_SPIKE_BASE_BLOCK}</li>
+ * @see net.minecraft.world.level.levelgen.feature.IceSpikeFeature
+ * @author Allen Malo
+ */
 public class CocytusIceSpikeFeature extends Feature<NoneFeatureConfiguration> {
 
+    /**
+     * Creates a new {@link CocytusIceSpikeFeature}
+     */
     public CocytusIceSpikeFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
 
+    /**
+     * Places the {@link CocytusIceSpikeFeature} in the world
+     * @param featurePlaceContext The {@link FeaturePlaceContext} for creating the feature
+     * @return True if the {@link CocytusIceSpikeFeature} was placed, false otherwise
+     */
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> featurePlaceContext)
     {

@@ -15,7 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
 /**
- * Interface used for blocks that trigger an entity to spawn
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Interface used for blocks that trigger an entity to spawn</li>
+ * @author Allen Malo
  * @param <LE> The {@link LivingEntity} type that will be spawned
  * @param <BE> The {@link BlockEntity} type of the block being used to summon the entity
  */
@@ -40,7 +43,7 @@ public interface SummoningBlock<LE extends LivingEntity, BE extends BlockEntity>
     TagKey<Block> baseBlocks();
 
     /**
-     * The entity to spawn. {@link net.minecraft.world.entity.EntityType}#create needs to be invoked
+     * The entity to spawn. {@link net.minecraft.world.entity.EntityType#create(Level)} needs to be invoked here
      * @param level The {@link Level} to spawn the entity in
      * @return The entity to spawn when all the blocks are placed
      */

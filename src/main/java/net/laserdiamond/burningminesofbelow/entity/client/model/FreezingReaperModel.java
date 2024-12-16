@@ -19,9 +19,12 @@ import net.minecraft.world.entity.HumanoidArm;
  * <p>Responsibilities of class:</p>
  * <li>Defines the shape and {@link LayerDefinition} of the {@link FreezingReaperEntity}</li>
  * <li>Sets up the animations associated with the model, assigning them to the {@link net.minecraft.world.entity.AnimationState}s associated with them</li>
+ * <li>A {@link FreezingReaperModel} is-a {@link AbstractHierarchicalArmedModel}</li>
  * @author Allen Malo
  */
-public class FreezingReaperModel extends AbstractHierarchicalArmedModel<FreezingReaperEntity> {
+public final class FreezingReaperModel extends AbstractHierarchicalArmedModel<FreezingReaperEntity> {
+
+	// FreezingReaperModel has-a ModelPart (one-to-many)
 
 	private final ModelPart freezing_reaper;
 	private final ModelPart body;
@@ -47,6 +50,10 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 	private final ModelPart right_leg;
 	private final ModelPart left_leg;
 
+	/**
+	 * Creates a new {@link FreezingReaperModel}
+	 * @param root The {@link ModelPart} that will be the root of the model
+	 */
 	public FreezingReaperModel(ModelPart root) {
 		this.freezing_reaper = root.getChild("freezing_reaper");
 		this.body = this.freezing_reaper.getChild("body");
@@ -73,6 +80,10 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 		this.left_leg = this.body.getChild("left_leg");
 	}
 
+	/**
+	 * Creates the {@link LayerDefinition} of the model
+	 * @return The {@link LayerDefinition} of the model
+	 */
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -170,7 +181,7 @@ public class FreezingReaperModel extends AbstractHierarchicalArmedModel<Freezing
 	 * <p>Version/date: 12/9/24</p>
 	 * <p>Responsibilities of class:</p>
 	 * <li>Contains all animations for the {@link FreezingReaperEntity}</li>
-	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link FreezingReaperModel}. The animations are not needed outside the enclosing class</li>
+	 * <li>Declared as a private static inner class because the declared {@link AnimationDefinition}s only function properly with the {@link FreezingReaperModel}. The animations are not needed outside the encompassing class</li>
 	 * @author Allen Malo
 	 */
 	private static class Animations

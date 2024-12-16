@@ -6,25 +6,29 @@ import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import java.io.*;
 
 /**
- * Json config file class for storing information about assets of this mod.
- * Acts as the superclass of all Config classes for this program
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Json config file class for storing information about assets of this mod</li>
+ * <li>Acts as the superclass of all Config classes for this program/mod</li>
+ * <li>Because the fields for the aggregated objects are protected, all inherited classes will contain the same aggregation relationships</li>
+ * @author Allen Malo
  */
 public abstract class JsonConfig {
 
     /**
      * The name of the file
      */
-    protected final String fileName;
+    protected final String fileName; // JsonConfig has-a String
 
     /**
      * The file that will be written to
      */
-    protected final File file;
+    protected final File file; // JsonConfig has-a File
 
     /**
-     * The {@link JsonObject} that will be written to and read from in the file
+     * The root {@link JsonObject} that will be written to and read from in the file.
      */
-    protected JsonObject jsonObject;
+    protected JsonObject jsonObject; // JsonConfig has-a JsonObject
 
     /**
      * Creates a new Json config file

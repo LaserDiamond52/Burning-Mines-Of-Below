@@ -6,12 +6,22 @@ import java.util.HashMap;
 import java.util.UUID;
 
 /**
- * Class used to create and manage cooldowns for item abilities
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Represents a cooldown for an item ability</li>
+ * <li>Maps the player's UUID to the time an ability was last used</li>
+ * @author Allen Malo
  */
 public final class AbilityCooldown {
 
-    private final HashMap<UUID, Double> cooldown;
+    /**
+     * The {@link AbilityCooldown} {@link HashMap}
+     */
+    private final HashMap<UUID, Double> cooldown; // An AbilityCooldown has-a HashMap
 
+    /**
+     * Creates a new {@link AbilityCooldown}
+     */
     AbilityCooldown()
     {
         this.cooldown = new HashMap<>();

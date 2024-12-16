@@ -23,12 +23,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Creates a {@link BMOBArmorItem} and applies all the necessary attributes for the item</li>
+ * <li>Defines any basic behaviors for an armor piece of this mod</li>
+ * <li>A {@link BMOBArmorItem} is-a {@link ArmorItem}</li>
+ * <li>A {@link BMOBArmorItem} is-a {@link Taggable}</li>
+ * @author Allen Malo
+ */
 public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 {
-    private final List<TagKey<Item>> tags;
-    protected List<MobEffectInstance> effectInstances;
 
-    public BMOBArmorItem(BMOBArmorMaterials pMaterial, Type pType, Properties pProperties, List<TagKey<Item>> tags) {
+    /**
+     * Creates an array of the Attribute Modifier operations and values to add to an armor set across all armor pieces.
+     * The Attribute Modifier values here will be applied across all pieces of the armor set.
+     * @param operation The operation of the Attribute Modifier
+     * @param value The value of the Attribute Modifier
+     * @return An {@link ItemAttribute} array containing the Attribute Modifier values to apply to Attributes on an armor set.
+     */
+    public static ItemAttribute[] createConsistentAttributes(AttributeModifier.Operation operation, double value)
+    {
+        return new ItemAttribute[]{new ItemAttribute(operation, value), new ItemAttribute(operation, value), new ItemAttribute(operation, value), new ItemAttribute(operation, value)};
+    }
+
+    /**
+     * Creates an array of Attribute Modifier operations and values to add to an armor set across all armor pieces.
+     * The Attribute Modifier values here are 0.
+     * @return An {@link ItemAttribute} array containing the Attribute Modifier values to apply to Attributes on an armor set.
+     */
+    public static ItemAttribute[] createEmptyAttributes()
+    {
+        return createConsistentAttributes(AttributeModifier.Operation.ADDITION, 0);
+    }
+
+    /**
+     * A {@link List} of {@link TagKey}s to apply to the item
+     */
+    protected final List<TagKey<Item>> tags; // A BMOBArmorItem has-a List (one-to-many)
+
+    /**
+     * A {@link List} of {@link MobEffectInstance}s that the player can gain when wearing the full set of a specific {@link BMOBArmorMaterial}
+     */
+    protected List<MobEffectInstance> effectInstances; // A BMOBArmorItem has-a List (one-to-many)
+
+    /**
+     * Creates a new {@link BMOBArmorItem}
+     * @param pMaterial The {@link BMOBArmorMaterial} of the armor piece
+     * @param pType The armor piece type to create
+     * @param pProperties The {@link Item.Properties} to give the item
+     * @param tags A {@link List} of {@link TagKey}s to apply to the item
+     */
+    public BMOBArmorItem(BMOBArmorMaterial pMaterial, Type pType, Properties pProperties, List<TagKey<Item>> tags) {
         super(pMaterial, pType, pProperties);
         this.tags = new ArrayList<>(tags);
         this.effectInstances = new ArrayList<>();
@@ -38,9 +84,9 @@ public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
         ArmorConfig armorConfig = new ArmorConfig(pMaterial);
 
         UUID uuid = BMOBArmorItem.ARMOR_MODIFIER_UUID_PER_TYPE.get(pType);
-        int armor = armorConfig.getArmor(pType);
-        float toughness = armorConfig.getToughness();
-        float knockbackResistance = armorConfig.getKnockbackResistance();
+        final int armor = armorConfig.getArmor(pType);
+        final float toughness = armorConfig.getToughness();
+        final float knockbackResistance = armorConfig.getKnockbackResistance();
 
         final ItemAttribute damageAttribute = armorConfig.getDamageIncrease(pType);
         final ItemAttribute speedAttribute = armorConfig.getSpeedIncrease(pType);
@@ -80,81 +126,6 @@ public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
         }
 
         this.defaultModifiers = modifiers.build();
-    }
-
-    /**
-     * The attack damage modifiers for the armor piece
-     * @return An array of {@link ItemAttribute}s that contain the operation and value of the damage modifiers for the armor set
-     */
-    protected ItemAttribute[] damageOutputAmounts()
-    {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0)
-                };
-    }
-
-    /**
-     * The movement speed modifiers for the armor piece
-     * @return An array of {@link ItemAttribute}s that contain the operation and value of the movement speed modifiers for the armor set
-     */
-    protected ItemAttribute[] speedAmount()
-    {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0)
-                };
-    }
-
-    /**
-     * The heat interval modifiers for the armor piece
-     * @return An array of {@link ItemAttribute}s that contain the operation and value of the heat interval modifiers for the armor set
-     */
-    protected ItemAttribute[] heatIntervalAmount()
-    {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0)
-                };
-    }
-
-    /**
-     * The freeze interval modifiers for the armor piece
-     * @return An array of {@link ItemAttribute}s that contain the operation and value of the freeze interval modifiers for the armor set
-     */
-    protected ItemAttribute[] freezeIntervalAmount()
-    {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0)
-                };
-    }
-
-    /**
-     * The refined mineral chance modifiers for the armor piece
-     * @return An array of {@link ItemAttribute}s that contain the operation and value of the refined mineral chance modifiers for the armor set
-     */
-    protected ItemAttribute[] refinedMineralChanceAmount()
-    {
-        return new ItemAttribute[]
-                {
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0),
-                        new ItemAttribute(AttributeModifier.Operation.ADDITION, 0.0)
-                };
     }
 
     /**
@@ -206,27 +177,35 @@ public abstract class BMOBArmorItem extends ArmorItem implements Taggable<Item>
 
     }
 
+    /**
+     * Tick method called for a {@link Player}'s inventory
+     * @param pStack The {@link ItemStack} of the item
+     * @param pLevel The {@link Level} the {@link Player} is on
+     * @param pEntity The {@link Entity} of the {@link Player}
+     * @param pSlotId The id of the slot this item is in
+     * @param pIsSelected If this item is selected
+     */
     @Override
     public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
 
-        if (!pLevel.isClientSide)
+        if (!pLevel.isClientSide) // Do not run on client
         {
             if (pEntity instanceof Player player)
             {
-                if (!hasFullArmorOn(player))
+                if (!hasFullArmorOn(player)) // Check if the player has all armor slots occupied
                 {
-                    return;
+                    return; // An armor slot is empty. End method
                 }
 
-                if (hasFullSetOn(player, this.getMaterial()))
+                if (hasFullSetOn(player, this.getMaterial())) // Does the player have a full set on of the same material?
                 {
-                    for (MobEffectInstance effectInstance : this.armorEffects())
+                    for (MobEffectInstance effectInstance : this.armorEffects()) // Loop through all effects to be applied
                     {
-                        boolean hasPlayerEffect = player.hasEffect(effectInstance.getEffect());
+                        boolean hasPlayerEffect = player.hasEffect(effectInstance.getEffect()); // Does the player already have the effect?
 
-                        if (!hasPlayerEffect)
+                        if (!hasPlayerEffect) // Does the player have the effect?
                         {
-                            player.addEffect(effectInstance);
+                            player.addEffect(effectInstance); // Doesn't have it. Add effect
                         }
                     }
                 }

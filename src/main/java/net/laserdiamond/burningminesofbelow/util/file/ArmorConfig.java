@@ -3,25 +3,29 @@ package net.laserdiamond.burningminesofbelow.util.file;
 import com.google.gson.JsonObject;
 import net.laserdiamond.burningminesofbelow.BurningMinesOfBelow;
 import net.laserdiamond.burningminesofbelow.attribute.ItemAttribute;
-import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterials;
+import net.laserdiamond.burningminesofbelow.item.equipment.armor.BMOBArmorMaterial;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorItem;
 
 /**
- * Config class for storing the stats of armor sets in a Json file
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Config class for storing the stats of {@link BMOBArmorMaterial}s in a json file</li>
+ * <li>A {@link ArmorConfig} is-a {@link JsonConfig}</li>
+ * @author Allen Malo
  */
 public final class ArmorConfig extends JsonConfig {
 
     /**
-     * The {@link BMOBArmorMaterials} that will have a config file made for it
+     * The {@link BMOBArmorMaterial} that will have a config file made for it
      */
-    private final BMOBArmorMaterials armorMaterial;
+    private final BMOBArmorMaterial armorMaterial; // An ArmorConfig has-a BMOBArmorMaterial
 
     /**
      * Creates a Json file to store the armor set values
      * @param armorMaterial The armor material of this mod
      */
-    public ArmorConfig(BMOBArmorMaterials armorMaterial)
+    public ArmorConfig(BMOBArmorMaterial armorMaterial)
     {
         super(armorMaterial.getName().replace(BurningMinesOfBelow.MODID + ":", ""));
         this.armorMaterial = armorMaterial;

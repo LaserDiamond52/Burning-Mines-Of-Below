@@ -12,10 +12,19 @@ import terrablender.api.VanillaParameterOverlayBuilder;
 import java.util.function.Consumer;
 
 /**
- * An abstract class for creating a biome in the Overworld that will replace some chunks of an existing biome
+ * <p>Version/date: 12/16/24</p>
+ * <p>Responsibilities of class:</p>
+ * <li>Abstract class for creating a {@link Biome} in the Overworld that will replace some chunks of an existing {@link Biome}</li>
+ * <li>An {@link AbstractOverworldOverwriteRegion} is-a {@link AbstractRegion}</li>
+ * @author Allen Malo
  */
 public abstract class AbstractOverworldOverwriteRegion extends AbstractRegion {
 
+    /**
+     * Creates a new {@link AbstractOverworldOverwriteRegion}
+     * @param name The {@link ResourceLocation} for the region
+     * @param weight The weight of the region. Determines how often this region will spawn relative to other regions
+     */
     public AbstractOverworldOverwriteRegion(ResourceLocation name, int weight)
     {
         super(name, RegionType.OVERWORLD, weight);
