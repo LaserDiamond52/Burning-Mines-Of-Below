@@ -52,6 +52,10 @@ public class BurningMinesOfBelow {
      */
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    /**
+     * Main method of this mod.
+     * Fires all the registries and allows our mod to run
+     */
     public BurningMinesOfBelow() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

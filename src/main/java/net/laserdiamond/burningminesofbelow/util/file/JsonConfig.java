@@ -41,9 +41,9 @@ public abstract class JsonConfig {
 
         this.createFile(); // Create the file
 
-        try (BufferedReader br = new BufferedReader(new FileReader(this.file))) // Try-with-resources to close BufferedReader regardless of exceptions being thrown
+        try (FileReader fileReader = new FileReader(this.file)) // Try-with-resources to close BufferedReader regardless of exceptions being thrown
         {
-            this.jsonObject = this.createJsonNotNull(new Gson().fromJson(br, JsonObject.class)); // Get existing json object from file
+            this.jsonObject = this.createJsonNotNull(new Gson().fromJson(fileReader, JsonObject.class)); // Get existing json object from file
 
         } catch (IOException e)
         {
@@ -105,9 +105,9 @@ public abstract class JsonConfig {
      */
     public boolean writeJsonToFile()
     {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.file))) // Use try-with-resources to make sure Buffered Writer closes
+        try (FileWriter fileWriter = new FileWriter(this.file)) // Use try-with-resources to make sure Buffered Writer closes
         {
-            bw.write(this.jsonObjectPrettyPrint(this.jsonObject)); // Write the json object to the file in pretty print
+            fileWriter.write(this.jsonObjectPrettyPrint(this.jsonObject)); // Write the json object to the file in pretty print
             return true; // Success! Return true
         } catch (IOException e) // Catch IOException
         {
