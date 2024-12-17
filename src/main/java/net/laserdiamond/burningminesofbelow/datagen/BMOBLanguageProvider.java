@@ -27,6 +27,7 @@ import net.minecraftforge.registries.RegistryObject;
  * <li>Translates the local names of items to their assigned names in the {@link LanguageRegistry}</li>
  * <li>A {@link BMOBLanguageProvider} is-a {@link LanguageProvider}</li>
  * @author Allen Malo
+ * <p>Forge Documentation:<a href="https://docs.minecraftforge.net/en/1.20.x/">...</a></p>
  */
 public class BMOBLanguageProvider extends LanguageProvider {
 

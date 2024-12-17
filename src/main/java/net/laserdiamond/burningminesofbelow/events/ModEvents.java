@@ -41,6 +41,7 @@ import net.minecraftforge.fml.common.Mod;
  * @author Allen Malo
  * @References:
  * <p>KaupenJoe; Custom Thirst System in Forge Minecraft 1.19.1 Modding<a href="https://www.youtube.com/watch?v=NN-k74NMKRc&list=PLKGarocXCE1EquNdk4WsX-VZTmbeOZ7MS">...</a></p>
+ * <p>Forge Documentation:<a href="https://docs.minecraftforge.net/en/1.20.x/">...</a></p>
  */
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BurningMinesOfBelow.MODID)

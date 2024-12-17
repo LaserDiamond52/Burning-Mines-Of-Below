@@ -34,6 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Allen Malo
  * @References:
  * <p>KaupenJoe; Forge Modding Tutorials 1.20.X<a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-">...</a></p>
+ * <p>Forge Documentation:<a href="https://docs.minecraftforge.net/en/1.20.x/">...</a></p>
  */
 public class BMOBTagsProvider {
 
@@ -214,23 +215,6 @@ public class BMOBTagsProvider {
             this.tag(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES).add(BMOBEntities.MAGNITE_BLAZE.get());
 
             this.tag(EntityTypeTags.IMPACT_PROJECTILES).add(BMOBEntities.CYROBOLT.get());
-        }
-    }
-
-    @Deprecated
-    public static class Biomes extends BiomeTagsProvider
-    {
-
-        public Biomes(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper)
-        {
-            super(packOutput, provider, BurningMinesOfBelow.MODID, existingFileHelper);
-        }
-
-        @Override
-        protected void addTags(HolderLookup.Provider pProvider)
-        {
-//            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_TUNDRA);
-//            this.tag(BMOBTags.Biomes.COCYTUS).add(BMOBBiomes.COCYTUS_WASTELAND);
         }
     }
 
